@@ -184,9 +184,7 @@ public class CreateMenu {
                         double startHour = sd[0];
                         double duration = sd[1];
                         tb = new TimeBlock(
-                                d.getYear(),
-                                d.getMonth(),
-                                d.getDay(),
+                                d,
                                 startHour,
                                 duration);
                     }

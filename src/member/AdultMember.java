@@ -132,6 +132,17 @@ public class AdultMember extends Member {
     }
 
     /**
+     * Returns the membership details string with personal info attached
+     *
+     * @return the toString representation
+     */
+    public String toStringDetailed() {
+        return "Adult Member " + super.toStringDetailed() +
+                " | Contact Phone: " + getContactPhone() +
+                " | Address: " + getAddress();
+    }
+
+    /**
      * Returns a string representation of this member's details.
      *
      * @return membership details string

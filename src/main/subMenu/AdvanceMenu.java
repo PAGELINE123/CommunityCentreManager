@@ -42,7 +42,7 @@ public class AdvanceMenu {
             case 3 -> {
                 TimeBlock dateInput = ValidateInput.date();
                 System.out.println(); // blank line
-                timeManager.advanceToTimeBlock(dateInput);
+                timeManager.advanceToTimeBlock(dateInput.getStartBlock());
                 TimeBlock currentTime = timeManager.getCurrentTime();
                 System.out.println("Time set to " + currentTime + ".");
             }

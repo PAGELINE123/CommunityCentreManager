@@ -297,7 +297,7 @@ public class MemberManager {
     }
 
     /**
-     * Prints all member names in alphabetical order.
+     * Prints all members in ID order.
      * 
      * @return whether anything was printed
      */
@@ -308,6 +308,23 @@ public class MemberManager {
 
         for (Member member : members) {
             System.out.println(member);
+        }
+
+        return true;
+    }
+
+    /**
+     * Prints all member names in ID order with personal info attached.
+     * 
+     * @return whether anything was printed
+     */
+    public boolean printAllMembersDetailed() {
+        if (members.isEmpty()) {
+            return false;
+        }
+
+        for (Member member : members) {
+            System.out.println(member.toStringDetailed());
         }
 
         return true;

@@ -65,6 +65,17 @@ public class YouthMember extends Member {
     }
 
     /**
+     * Returns the membership details string with personal info attached
+     *
+     * @return the toString representation
+     */
+    public String toStringDetailed() {
+        return "Youth Member " + super.toStringDetailed() +
+                " | Contact Phone: " + guardian.getContactPhone() +
+                " | Address: " + guardian.getAddress();
+    }
+
+    /**
      * `
      * Returns a string representation of this youth member's billing details.
      *

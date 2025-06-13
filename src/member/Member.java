@@ -67,8 +67,20 @@ public abstract class Member {
     public abstract double calculateBill();
 
     /**
-     * Returns the membership details string.
+     * Returns the membership details string with personal info attached
      *
+     * @return the toString representation
+     */
+    public String toStringDetailed() {
+
+        return "#" + id
+                + " | Age: " + age
+                + " | Name: " + name;
+    }
+
+    /**
+     * Returns the membership details string
+     * 
      * @return the toString representation
      */
     @Override

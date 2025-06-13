@@ -222,7 +222,7 @@ public class ValidateInput {
             }
         }
 
-        TimeBlock date = new TimeBlock(year, month, day, 0);
+        TimeBlock date = new TimeBlock(year, month, day);
         if (!date.isValid()) {
             System.out.println("Invalid date. Please try again.");
             System.out.println(); // blank line
