@@ -82,6 +82,7 @@ public class AdultMember extends Member {
      */
     @Override
     public double calculateBill() {
+        totalBillAmount = calculateTotalBill();
         double bill = totalBillAmount - paidBillAmount;
         if (bill < 0) bill = 0;
         return bill;
@@ -99,20 +100,26 @@ public class AdultMember extends Member {
             case ANNUAL -> ANNUAL_BASE;
         };
 
+        System.out.println("ADULTMEMBER BASE COST: "+base);
+
         for (Event event : registrations.getEventSchedule()) {
             if (event instanceof Competition c) {
                 base += c.getParticipationCost();
-                if (c.getWinner().getId() == this.getId()) {
+                if (this.equals(c.getWinner())) {
                     base -= c.getPrize();
                 }
             }
         }
+
+        System.out.println("ADULTMEMBER participation/win new base: "+base);
 
         if (!children.isEmpty()) {
             for (YouthMember child : children) {
                 base += child.calculateBill();
             }
         }
+
+        System.out.println("ADULTMEMBER children additional: "+base);
 
         return base;
     }
@@ -130,7 +137,7 @@ public class AdultMember extends Member {
      * Prints this member's billing details to standard output.
      */
     public void printBill() {
-        System.out.println(this + " | Total bill: " + totalBillAmount + " | Paid off: " + paidBillAmount);
+        System.out.println(this + " | Total bill: " + calculateTotalBill() + " | Paid off: " + paidBillAmount);
     }
 
     /**

@@ -144,7 +144,6 @@ public abstract class Member {
     public boolean equals(Member m) {
         if (m == null)
             return false;
-        return m.getId() == this.getId()
-                && m.getName().equals(this.getName());
+        return m.getId() == this.getId();
     }
 }
