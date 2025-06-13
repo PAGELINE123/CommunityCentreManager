@@ -297,7 +297,7 @@ public class MemberManager {
     }
 
     /**
-     * Prints all member names in alphabetical order.
+     * Prints all members in ID order.
      * 
      * @return whether anything was printed
      */

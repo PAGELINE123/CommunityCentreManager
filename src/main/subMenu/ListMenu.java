@@ -51,6 +51,7 @@ public class ListMenu {
         System.out.println("-");
 
         // back
+        System.out.println("(12) Members by ");
         System.out.println("<0> Back");
 
         int viewChoice = ValidateInput.menu(14);

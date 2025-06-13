@@ -71,7 +71,7 @@ public class StaffManager {
                     staffs.add(full);
 
                 } else if (type.equals("parttime")) {
-                    int hoursWorked = Integer.parseInt(br.readLine().trim());
+                    double hoursWorked = Double.parseDouble(br.readLine().trim());
                     double hourlyRate = Double.parseDouble(br.readLine().trim());
                     int maxWeeklyHours = Integer.parseInt(br.readLine().trim());
                     PartTimeStaff part = new PartTimeStaff(name, hoursWorked, hourlyRate, maxWeeklyHours);

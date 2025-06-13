@@ -18,9 +18,8 @@ import staff.Staff;
 public class EventMenu {
     public static MenuStatus show() {
         System.out.println("What would you like to do?");
-        System.out.println("(1) Book a facility for a new event");
-        System.out.println("(2) Register member to an existing event");
-        System.out.println("(3) Assign staff to an existing event");
+        System.out.println("(1) Register member to an existing event");
+        System.out.println("(2) Assign staff to an existing event");
         System.out.println("<0> Back");
 
         int choice = ValidateInput.menu(3);
@@ -28,9 +27,6 @@ public class EventMenu {
 
         switch (choice) {
             case 1 -> {
-
-            }
-            case 2 -> {
                 System.out.println("Enter event ID");
                 int eventId = ValidateInput.posInt();
                 Event event = CommunityCentreRunner.getEventManager().searchById(eventId);
@@ -50,7 +46,7 @@ public class EventMenu {
                 event.registerParticipant(member);
                 System.out.println("Member " + memberId + " signed up for event " + eventId + ".");
             }
-            case 3 -> {
+            case 2 -> {
                 System.out.println("Enter event ID");
                 int eventId2 = ValidateInput.posInt();
                 Event event2 = CommunityCentreRunner.getEventManager().searchById(eventId2);

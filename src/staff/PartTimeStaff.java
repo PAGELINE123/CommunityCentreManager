@@ -16,7 +16,7 @@ public class PartTimeStaff extends Staff {
     /**
      * The number of hours this staff has worked in the month.
      */
-    private int hoursWorked;
+    private double hoursWorked;
 
     /**
      * The hourly wage for this staff.
@@ -36,7 +36,7 @@ public class PartTimeStaff extends Staff {
      * @param hourlySalary    the wage per hour
      * @param maxMonthlyHours the cap on hours per month
      */
-    public PartTimeStaff(String name, int hoursWorked, double hourlySalary, int maxMonthlyHours) {
+    public PartTimeStaff(String name, double hoursWorked, double hourlySalary, int maxMonthlyHours) {
         super(name);
         this.hoursWorked = hoursWorked;
         this.hourlySalary = hourlySalary;
@@ -84,7 +84,7 @@ public class PartTimeStaff extends Staff {
      *
      * @return hours worked this month
      */
-    public int getHoursWorked() {
+    public double getHoursWorked() {
         return hoursWorked;
     }
 
@@ -93,7 +93,7 @@ public class PartTimeStaff extends Staff {
      *
      * @param hoursWorked the new hours worked value
      */
-    public void setHoursWorked(int hoursWorked) {
+    public void setHoursWorked(double hoursWorked) {
         this.hoursWorked = hoursWorked;
     }
 

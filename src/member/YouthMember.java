@@ -74,6 +74,17 @@ public class YouthMember extends Member {
     }
 
     /**
+     * Returns the personal info attached
+     *
+     * @return the string representation
+     */
+    public String personalInfo() {
+        return "Personal Info (of guardian)" +
+                " | Contact Phone: " + guardian.getContactPhone() +
+                " | Address: " + guardian.getAddress();
+    }
+
+    /**
      * `
      * Returns a string representation of this youth member's billing details.
      *

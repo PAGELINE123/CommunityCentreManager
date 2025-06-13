@@ -84,7 +84,8 @@ public class AdultMember extends Member {
     public double calculateBill() {
         totalBillAmount = calculateTotalBill();
         double bill = totalBillAmount - paidBillAmount;
-        if (bill < 0) bill = 0;
+        if (bill < 0)
+            bill = 0;
         return bill;
     }
 
@@ -138,6 +139,17 @@ public class AdultMember extends Member {
      */
     public void printBill() {
         System.out.println(this + " | Total bill: " + calculateTotalBill() + " | Paid off: " + paidBillAmount);
+    }
+
+    /**
+     * Returns the membership details string with personal info
+     *
+     * @return the toString representation
+     */
+    public String personalInfo() {
+        return "Personal Info" +
+                " | Contact Phone: " + getContactPhone() +
+                " | Address: " + getAddress();
     }
 
     /**

@@ -12,6 +12,8 @@ package event;
 import facility.Facility;
 import main.ValidateInput;
 import member.Member;
+import staff.PartTimeStaff;
+import staff.Staff;
 import time.TimeBlock;
 
 public class Competition extends Event {
@@ -84,7 +86,20 @@ public class Competition extends Event {
         System.out.println(winner);
         System.out.println(); // blank line
 
-        
+        boolean partTimeStaffFound = false;
+
+        for (Staff staff : staffSupervising) {
+            if (staff instanceof PartTimeStaff pts) {
+                double duration = timeBlock.duration();
+                pts.setHoursWorked(pts.getHoursWorked() + duration);
+                System.out.println("Added " + duration + " to " + staff.getName() + "'s payroll.");
+                partTimeStaffFound = true;
+            }
+        }
+
+        if (partTimeStaffFound) {
+            System.out.println();
+        }
     }
 
     /*
