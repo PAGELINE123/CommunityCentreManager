@@ -81,6 +81,8 @@ public class Competition extends Event {
         System.out.println("Member has been set as the winner:");
         System.out.println(winner);
         System.out.println(); // blank line
+
+        
     }
 
     /*

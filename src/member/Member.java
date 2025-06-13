@@ -85,7 +85,6 @@ public abstract class Member {
      */
     @Override
     public String toString() {
-
         return "#" + id
                 + " | Age: " + age
                 + " | Name: " + name

@@ -82,7 +82,9 @@ public class AdultMember extends Member {
      */
     @Override
     public double calculateBill() {
-        return totalBillAmount - paidBillAmount;
+        double bill = totalBillAmount - paidBillAmount;
+        if (bill < 0) bill = 0;
+        return bill;
     }
 
     /**
@@ -100,7 +102,7 @@ public class AdultMember extends Member {
         for (Event event : registrations.getEventSchedule()) {
             if (event instanceof Competition c) {
                 base += c.getParticipationCost();
-                if (c.getWinner().equals(this)) {
+                if (c.getWinner().getId() == this.getId()) {
                     base -= c.getPrize();
                 }
             }
@@ -275,9 +277,9 @@ public class AdultMember extends Member {
     }
 
     /**
-     * Sets the additional bill amount.
+     * Sets the total bill amount.
      *
-     * @param totalBillAmount the new extra amount
+     * @param totalBillAmount the new amount
      */
     public void setTotalBillAmount(double totalBillAmount) {
         this.totalBillAmount = totalBillAmount;
