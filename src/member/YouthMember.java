@@ -56,7 +56,7 @@ public class YouthMember extends Member {
             case MONTHLY -> MONTHLY_BASE;
             case ANNUAL -> ANNUAL_BASE;
         };
-        
+
         for (Event event : registrations.getEventSchedule()) {
             if (event instanceof Competition c) {
                 base += c.getParticipationCost();
@@ -66,8 +66,8 @@ public class YouthMember extends Member {
             }
         }
 
-        if (base>0) {
-            base = base*(1-DISCOUNT_RATE);
+        if (base > 0) {
+            base = base * (1 - DISCOUNT_RATE);
         }
 
         return base;

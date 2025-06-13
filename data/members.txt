@@ -4,8 +4,8 @@
 ERIC ZHONG
 MONTHLY
 416-123-4567
-123 Apple St.
-0
+123 Apple St
+-747.0
 0.0
 1
 1

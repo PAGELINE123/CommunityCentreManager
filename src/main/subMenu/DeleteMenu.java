@@ -43,7 +43,7 @@ public class DeleteMenu {
         switch (deleteChoice) {
             case 1 -> {
                 System.out.println("Member ID or name to delete");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String memberIdOrName = scan.nextLine().trim().toUpperCase();
                 Member member = memberManager.searchByIdOrName(memberIdOrName);
 
@@ -60,7 +60,7 @@ public class DeleteMenu {
             }
             case 2 -> {
                 System.out.println("Staff ID or name to delete");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String staffIdOrName = scan.nextLine().trim().toUpperCase();
                 Staff staff = staffManager.searchByIdOrName(staffIdOrName);
 

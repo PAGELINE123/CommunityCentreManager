@@ -136,7 +136,7 @@ public class SearchMenu {
             }
             case 8 -> {
                 System.out.println("Member ID or name");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String memberIdOrName = scan.nextLine().trim().toUpperCase();
                 Member member = memberManager.searchByIdOrName(memberIdOrName);
 
@@ -148,7 +148,7 @@ public class SearchMenu {
             }
             case 9 -> {
                 System.out.println("Staff ID or name");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String staffIdOrName = scan.nextLine().trim().toUpperCase();
                 Staff staff = staffManager.searchByIdOrName(staffIdOrName);
 

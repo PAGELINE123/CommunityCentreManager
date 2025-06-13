@@ -54,17 +54,17 @@ public class CreateMenu {
                 System.out.println("Age");
                 int age = ValidateInput.posInt();
                 System.out.println("Full name");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String name = scan.nextLine().trim().toUpperCase();
                 PlanType planType = ValidateInput.planType();
 
                 Member newMember;
                 if (age >= Member.ADULT_AGE) {
                     System.out.println("Contact phone ###-###-####");
-                    System.out.print(" > ");
+                    System.out.print(" >  ");
                     String contactPhone = scan.nextLine().trim();
                     System.out.println("Address");
-                    System.out.print(" > ");
+                    System.out.print(" >  ");
                     String address = scan.nextLine().trim();
 
                     newMember = new AdultMember(age, name, planType, contactPhone, address);
@@ -74,7 +74,7 @@ public class CreateMenu {
                     System.out.println("Adult member created successfully.");
                 } else {
                     System.out.println("Guardian ID or name");
-                    System.out.print(" > ");
+                    System.out.print(" >  ");
                     String guardianIdOrName = scan.nextLine().trim().toUpperCase();
                     Member guardian;
                     try {
@@ -101,7 +101,7 @@ public class CreateMenu {
                 int staffType = ValidateInput.menu(1);
 
                 System.out.println("Full name");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String staffName = scan.nextLine().trim().toUpperCase();
 
                 Staff newStaff;
