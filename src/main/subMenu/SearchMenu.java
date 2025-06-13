@@ -116,9 +116,13 @@ public class SearchMenu {
                 System.out.println("Event ID");
                 int eid = ValidateInput.posInt();
                 Event ev = eventManager.searchById(eid);
-                if (ev != null)
+                if (ev != null) {
                     System.out.println(ev);
-                else
+                    String details = ev.supervisingAndParticipating();
+                    if (!details.isBlank()) {
+                        System.out.println(details);
+                    }
+                } else
                     System.out.println("Event with ID #" + eid + " not found.");
             }
             case 7 -> {
@@ -136,9 +140,10 @@ public class SearchMenu {
                 String memberIdOrName = scan.nextLine().trim().toUpperCase();
                 Member member = memberManager.searchByIdOrName(memberIdOrName);
 
-                if (member != null)
+                if (member != null) {
                     System.out.println(member);
-                else
+                    System.out.println(member.personalInfo());
+                } else
                     System.out.println("Member not found.");
             }
             case 9 -> {

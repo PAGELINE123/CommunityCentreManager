@@ -188,9 +188,28 @@ public abstract class Event {
             s += " | Host: " + host.getName();
         }
         if (isCompleted) {
-            s += " | Completed ";
+            s += " | Completed";
         }
 
+        return s;
+    }
+
+    public String supervisingAndParticipating() {
+        String s = "";
+        if (!staffSupervising.isEmpty()) {
+            s += "\nStaff Supervising:";
+
+            for (Staff staff : staffSupervising) {
+                s += "\n - " + staff.getName();
+            }
+        }
+        if (!participants.isEmpty()) {
+            s += "\nRegistered Participants:";
+
+            for (Member member : participants) {
+                s += "\n - " + member.getName();
+            }
+        }
         return s;
     }
 

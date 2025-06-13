@@ -9,8 +9,10 @@ JUL
 8.0
 4.0
 -1
-0
-0
+1
+Staff #0 | Name: BRIAN CAI | Years worked: 2
+1
+Youth Member #1 | Age: 17 | Name: SEAN YANG | Plan: ANNUAL | Gross bill: $210.00 | Guardian: ERIC ZHONG
 competition
 4000.0
 10.0
@@ -19,7 +21,7 @@ JUL
 2
 2025
 0.0
-0.0
+24.0
 0
 0
 0

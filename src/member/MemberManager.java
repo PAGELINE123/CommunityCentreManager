@@ -314,23 +314,6 @@ public class MemberManager {
     }
 
     /**
-     * Prints all member names in ID order with personal info attached.
-     * 
-     * @return whether anything was printed
-     */
-    public boolean printAllMembersDetailed() {
-        if (members.isEmpty()) {
-            return false;
-        }
-
-        for (Member member : members) {
-            System.out.println(member.toStringDetailed());
-        }
-
-        return true;
-    }
-
-    /**
      * Searches for all members whose name matches the given string
      * (case-insensitive).
      *

@@ -34,7 +34,7 @@ public class AdvanceMenu {
                 System.out.println("Time advanced by one hour.");
             }
             case 2 -> {
-                System.out.print("Enter the number of hours to advance: ");
+                System.out.println("Enter the number of hours to advance");
                 double hours = ValidateInput.posDouble();
                 timeManager.advanceHours(hours);
                 System.out.println("Time advanced by " + hours + " hours.");

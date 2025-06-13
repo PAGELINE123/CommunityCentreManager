@@ -40,21 +40,21 @@ public class ListMenu {
 
         // list members
         System.out.println("(9) Members by ID");
-        System.out.println("(10) Members by ID (personal info)");
-        System.out.println("(11) Members by Alphabet");
-        System.out.println("(12) Members by Bill");
+        System.out.println("(10) Members by Alphabet");
+        System.out.println("(11) Members by Bill");
         System.out.println("-");
 
         // list staff
-        System.out.println("(13) Staff by ID");
-        System.out.println("(14) Staff by Alphabet");
-        System.out.println("(15) Full-Time Staff by Pay");
+        System.out.println("(12) Staff by ID");
+        System.out.println("(13) Staff by Alphabet");
+        System.out.println("(14) Full-Time Staff by Pay");
         System.out.println("-");
 
         // back
+        System.out.println("(12) Members by ");
         System.out.println("<0> Back");
 
-        int viewChoice = ValidateInput.menu(15);
+        int viewChoice = ValidateInput.menu(14);
         main.CommunityCentreRunner.separate();
 
         switch (viewChoice) {
@@ -100,35 +100,30 @@ public class ListMenu {
             }
             case 9 -> {
                 if (!memberManager.printAllMembers()) {
-                    System.out.println("No members found.");
+                    System.out.println("No members found");
                 }
             }
             case 10 -> {
-                if (!memberManager.printAllMembersDetailed()) {
-                    System.out.println("No members found.");
-                }
-            }
-            case 11 -> {
                 if (!memberManager.printAlphabetical()) {
                     System.out.println("No members found.");
                 }
             }
-            case 12 -> {
+            case 11 -> {
                 if (!memberManager.printAllBills()) {
                     System.out.println("No member bills found.");
                 }
             }
-            case 13 -> {
+            case 12 -> {
                 if (!staffManager.printAllStaff()) {
                     System.out.println("No members found.");
                 }
             }
-            case 14 -> {
+            case 13 -> {
                 if (!staffManager.printAlphabetical()) {
-                    System.out.println("No staff found.");
+                    System.out.println("No staff found");
                 }
             }
-            case 15 -> {
+            case 14 -> {
                 if (!staffManager.printAllPayrolls()) {
                     System.out.println("No payrolls found.");
 

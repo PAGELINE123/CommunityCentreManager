@@ -65,12 +65,12 @@ public class YouthMember extends Member {
     }
 
     /**
-     * Returns the membership details string with personal info attached
+     * Returns the personal info attached
      *
-     * @return the toString representation
+     * @return the string representation
      */
-    public String toStringDetailed() {
-        return "Youth Member " + super.toStringDetailed() +
+    public String personalInfo() {
+        return "Personal Info (of guardian)" +
                 " | Contact Phone: " + guardian.getContactPhone() +
                 " | Address: " + guardian.getAddress();
     }

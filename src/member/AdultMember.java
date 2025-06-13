@@ -83,7 +83,8 @@ public class AdultMember extends Member {
     @Override
     public double calculateBill() {
         double bill = totalBillAmount - paidBillAmount;
-        if (bill < 0) bill = 0;
+        if (bill < 0)
+            bill = 0;
         return bill;
     }
 
@@ -134,12 +135,12 @@ public class AdultMember extends Member {
     }
 
     /**
-     * Returns the membership details string with personal info attached
+     * Returns the membership details string with personal info
      *
      * @return the toString representation
      */
-    public String toStringDetailed() {
-        return "Adult Member " + super.toStringDetailed() +
+    public String personalInfo() {
+        return "Personal Info" +
                 " | Contact Phone: " + getContactPhone() +
                 " | Address: " + getAddress();
     }

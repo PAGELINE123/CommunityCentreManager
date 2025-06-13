@@ -111,7 +111,7 @@ public class CreateMenu {
                     newStaff = new FullTimeStaff(staffName, years);
                 } else {
                     System.out.println("Hours worked");
-                    int hours = ValidateInput.posInt();
+                    double hours = ValidateInput.posDouble();
                     System.out.println("Hourly rate");
                     double rate = ValidateInput.posDouble();
                     System.out.println("Max weekly hours");
