@@ -58,4 +58,9 @@ public class SportsFacility extends Facility {
     public double getRating() {
         return rating;
     }
+
+    // accessor for rating
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
 }

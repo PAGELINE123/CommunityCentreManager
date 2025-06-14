@@ -58,4 +58,9 @@ public class MeetingFacility extends Facility {
     public double getSize() {
         return size;
     }
+
+    // mutator for size
+    public void setSize(double size) {
+        this.size = size;
+    }
 }

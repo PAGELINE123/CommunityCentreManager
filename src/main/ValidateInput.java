@@ -155,6 +155,31 @@ public class ValidateInput {
         return choice;
     }
 
+    // validates input for a rating /10
+    public static double rating() {
+        double choice = -1;
+
+        while (choice < 0 || choice > 10) {
+            // input
+            System.out.println("Enter a rating /10");
+            System.out.print(" >  ");
+            String userInput = scan.nextLine().trim();
+            // validate the input to a choice
+            try {
+                choice = Double.parseDouble(userInput);
+                if (choice < 0) {
+                    System.out.println("Must be at least 0/10.");
+                } else if (choice > 10) {
+                    System.out.println("Must be at most 10/10.");
+                }
+            } catch (NumberFormatException nfe) {
+                System.out.println("Must enter a number.");
+            }
+        }
+
+        return choice;
+    }
+
     // validates input for plan types
     public static PlanType planType() {
         PlanType planType = null;

@@ -133,20 +133,11 @@ public class CreateMenu {
 
                 Facility newFacility;
                 if (type == 0) {
-                    System.out.println("Enter room size");
+                    System.out.println("Enter room size (sqft)");
                     double size = ValidateInput.posDouble();
                     newFacility = new MeetingFacility(room, cap, size);
                 } else {
-                    double rating = -1;
-                    while (rating > 10 || rating < 0) {
-                        System.out.println("Enter facility rating");
-                        rating = ValidateInput.posDouble();
-
-                        if (rating > 10 || rating < 0) {
-                            System.out.println("Rating must be between 0 and 10.");
-                        }
-                    }
-
+                    double rating = ValidateInput.rating();
                     newFacility = new SportsFacility(room, cap, rating);
                 }
 

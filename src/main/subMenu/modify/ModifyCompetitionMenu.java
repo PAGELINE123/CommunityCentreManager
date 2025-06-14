@@ -45,7 +45,7 @@ public class ModifyCompetitionMenu {
 
         switch (competitionChoice) {
             case 1 -> {
-                System.out.println("Enter facility room num");
+                System.out.println("Enter new facility room num.");
                 int facilityId = ValidateInput.posInt();
                 Facility facility = facilityManager.searchByRoomNum(facilityId);
                 if (facility == null || !(facility instanceof SportsFacility)) {
@@ -65,7 +65,7 @@ public class ModifyCompetitionMenu {
                 System.out.println("Time block successfully updated.");
             }
             case 3 -> {
-                System.out.println("Enter member host ID or name");
+                System.out.println("Enter new member host ID or name");
                 System.out.print(" >  ");
                 String hostIdOrName = scan.nextLine();
                 Member host = memberManager.searchByIdOrName(hostIdOrName);
@@ -79,7 +79,7 @@ public class ModifyCompetitionMenu {
                 System.out.println("Host successfully updated.");
             }
             case 4 -> {
-                System.out.println("Enter member ID or name");
+                System.out.println("Enter new participant ID or name");
                 System.out.print(" >  ");
                 String memberNameOrId = scan.nextLine();
                 Member member = memberManager.searchByIdOrName(memberNameOrId);
@@ -88,12 +88,16 @@ public class ModifyCompetitionMenu {
                     break;
                 }
 
-                event.registerParticipant(member);
-                System.out.println("Member " + member.getName() +
-                        " signed up for event #" + event.getId() + ".");
+                if (event.registerParticipant(member)) {
+                    System.out.println("Member " + member.getName() +
+                            " signed up for event #" + event.getId() + ".");
+                } else {
+                    System.out.println("Unable to register " +
+                            member.getName() + " for event #" + event.getId() + ".");
+                }
             }
             case 5 -> {
-                System.out.println("Enter staff ID or name");
+                System.out.println("Enter new staff ID or name");
                 System.out.print(" >  ");
                 String staffIdOrName = scan.nextLine();
                 Staff staff = staffManager.searchByIdOrName(staffIdOrName);

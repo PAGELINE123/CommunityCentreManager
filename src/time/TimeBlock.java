@@ -59,24 +59,6 @@ public class TimeBlock {
 
         DAYS_IN_MONTH = Collections.unmodifiableMap(bar);
     }
-    public static final Map<String, Month> ABBR_TO_MONTH;
-    static {
-        Map<String, Month> baz = new HashMap<>();
-        baz.put("JAN", Month.JAN);
-        baz.put("FEB", Month.FEB);
-        baz.put("MAR", Month.MAR);
-        baz.put("APR", Month.APR);
-        baz.put("MAY", Month.MAY);
-        baz.put("JUN", Month.JUN);
-        baz.put("JUL", Month.JUL);
-        baz.put("AUG", Month.AUG);
-        baz.put("SEP", Month.SEP);
-        baz.put("OCT", Month.OCT);
-        baz.put("NOV", Month.NOV);
-        baz.put("DEC", Month.DEC);
-
-        ABBR_TO_MONTH = Collections.unmodifiableMap(baz);
-    }
     public static final int HOURS_IN_DAY = 24;
 
     /**

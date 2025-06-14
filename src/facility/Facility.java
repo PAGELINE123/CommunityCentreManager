@@ -87,6 +87,36 @@ public abstract class Facility {
         this.id = id;
     }
 
+    // mutator for room num
+    public void setRoomNum(int roomNum) {
+        this.roomNum = roomNum;
+    }
+
+    /**
+     * calculates the minimum which this facility's maximum capacity can be
+     * 
+     * @return the minimum
+     */
+    public int minMaxCapacity() {
+        int max = 0;
+
+        for (Event event : bookings.getEventSchedule()) {
+            max = Math.max(max, event.getParticipants().size());
+        }
+
+        return max;
+    }
+
+    // mutator for max capacity
+    public boolean setMaxCapacity(int maxCapacity) {
+        if (maxCapacity >= minMaxCapacity()) {
+            this.maxCapacity = maxCapacity;
+            return true;
+        }
+
+        return false;
+    }
+
     // #<id>, rm<rm#>, capacity: <capacity>
     public String toString() {
         return String.format(" #%d | Room number: %d | Capacity: %d", id, roomNum, maxCapacity);
