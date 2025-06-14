@@ -317,9 +317,9 @@ public class StaffManager {
         for (Staff s : staffs) {
             if (s instanceof PartTimeStaff ps) {
                 ps.setHoursWorked(0);
-                System.out.println("Hours reset for part-time staff.");
             }
         }
+        System.out.println("Hours reset for part-time staff.");
     }
 
     /**

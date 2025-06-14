@@ -354,7 +354,9 @@ public class MemberManager {
             if (m.getPlanType() == Member.PlanType.MONTHLY && m instanceof AdultMember am) {
                 System.out.printf("Member #" + am.getId() + " " + am.getName() + " was billed %.2f\n",
                         am.calculateBill());
-                am.payBill(m.calculateBill()); // they pay off their bill
+                if (am.getPaidBillAmount()<am.calculateBill()) {
+                    am.payBill(m.calculateBill()); // they pay off their bill
+                }
                 am.addBillBase();
             }
         }
@@ -370,7 +372,9 @@ public class MemberManager {
             if (m.getPlanType() == Member.PlanType.ANNUAL && m instanceof AdultMember am) {
                 System.out.printf("Member #" + am.getId() + " " + am.getName() + " was billed %.2f\n",
                         am.calculateBill());
-                am.payBill(m.calculateBill()); // they pay off their bill
+                if (am.getPaidBillAmount()<am.calculateBill()) {
+                    am.payBill(m.calculateBill()); // they pay off their bill
+                }
                 am.addBillBase();
             }
         }

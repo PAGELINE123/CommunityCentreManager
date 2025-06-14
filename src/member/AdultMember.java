@@ -116,6 +116,9 @@ public class AdultMember extends Member {
             }
         }
 
+        System.out.println("ADULTMEMBER "+getName()+" BILL: "+base);
+        System.out.println("TOTAL BILL: "+totalBillAmount);
+
         return base;
     }
 

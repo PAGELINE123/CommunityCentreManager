@@ -92,12 +92,12 @@ public class TimeManager {
             newHour -= 24;
 
             if (prev_month != time.getMonth()) {
-                System.out.println("NEW MONTH: " + time.getMonth());
+                System.out.println("-------- NEW MONTH: " + time.getMonth()+" --------");
                 // bill monthly members
                 main.CommunityCentreRunner.getMemberManager().billMonthlyMembers();
                 // pay part-time staff
                 main.CommunityCentreRunner.getStaffManager().payPartTimeStaff();
-                // reset part-time staff huors
+                // reset part-time staff hours
                 main.CommunityCentreRunner.getStaffManager().resetPartTimeStaffHours();
                 System.out.println(); // blank line
             }
