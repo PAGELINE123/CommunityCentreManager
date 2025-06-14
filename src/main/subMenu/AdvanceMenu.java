@@ -6,7 +6,7 @@
  * @since June 12, 2025
  */
 
-package main.subMenu;
+package main.submenu;
 
 import main.CommunityCentreRunner.MenuStatus;
 import main.ValidateInput;

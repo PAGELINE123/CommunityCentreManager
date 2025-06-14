@@ -15,12 +15,12 @@ import java.util.Scanner;
 
 import event.EventManager;
 import facility.FacilityManager;
-import main.subMenu.AdvanceMenu;
-import main.subMenu.CreateMenu;
-import main.subMenu.DeleteMenu;
-import main.subMenu.EventMenu;
-import main.subMenu.ListMenu;
-import main.subMenu.SearchMenu;
+import main.submenu.AdvanceMenu;
+import main.submenu.CreateMenu;
+import main.submenu.DeleteMenu;
+import main.submenu.EventMenu;
+import main.submenu.ListMenu;
+import main.submenu.SearchMenu;
 import member.MemberManager;
 import staff.StaffManager;
 import time.TimeBlock;
