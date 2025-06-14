@@ -1,6 +1,6 @@
 /**
- * StaffMenu
- * contains the menu to modify a staff member object
+ * ModifyPartTimeStaffMenu
+ * contains the menu to modify a part time staff member object
  *
  * @author
  * @since
@@ -14,12 +14,12 @@ import event.EventManager;
 import facility.FacilityManager;
 import main.CommunityCentreRunner.MenuStatus;
 import member.MemberManager;
-import staff.Staff;
+import staff.PartTimeStaff;
 import staff.StaffManager;
 
-public class ModifyStaffMenu {
+public class ModifyPartTimeStaffMenu {
     // show the menu
-    public static MenuStatus show(Staff staff) {
+    public static MenuStatus show(PartTimeStaff staff) {
         Scanner scan = main.CommunityCentreRunner.scan;
         MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
         StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();

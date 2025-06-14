@@ -1,6 +1,6 @@
 /**
- * AdultMenu
- * contains the menu to modify a facility object
+ * ModifyMeetingFacilityMenu
+ * contains the menu to modify a meeting room object
  *
  * @author
  * @since
@@ -11,15 +11,15 @@ package main.submenu.modify;
 import java.util.Scanner;
 
 import event.EventManager;
-import facility.Facility;
 import facility.FacilityManager;
+import facility.MeetingFacility;
 import main.CommunityCentreRunner.MenuStatus;
 import member.MemberManager;
 import staff.StaffManager;
 
-public class ModifyFacilityMenu {
+public class ModifyMeetingFacilityMenu {
     // show the menu
-    public static MenuStatus show(Facility facility) {
+    public static MenuStatus show(MeetingFacility facility) {
         Scanner scan = main.CommunityCentreRunner.scan;
         MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
         StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();

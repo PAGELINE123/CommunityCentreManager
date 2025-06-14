@@ -42,21 +42,21 @@ public class ModifyAdultMenu {
                 System.out.println("Enter new age");
                 int age = ValidateInput.adultAge();
                 adult.setAge(age);
-                System.out.println("Age successfully update.");
+                System.out.println("Age successfully updated.");
             }
             case 2 -> {
                 System.out.println("Enter new name");
                 System.out.print(" > ");
                 String name = scan.nextLine().trim().toUpperCase();
                 adult.setName(name);
-                System.out.println("Name successfully update.");
+                System.out.println("Name successfully updated.");
 
             }
             case 3 -> {
                 System.out.println("Enter new plan type");
                 PlanType planType = ValidateInput.planType();
                 adult.setPlanType(planType);
-                System.out.println("Plan type successfully update.");
+                System.out.println("Plan type successfully updated.");
 
             }
             case 4 -> {
@@ -64,7 +64,7 @@ public class ModifyAdultMenu {
                 System.out.print(" > ");
                 String contactPhone = scan.nextLine().trim();
                 adult.setContactPhone(contactPhone);
-                System.out.println("Contact phone successfully update.");
+                System.out.println("Contact phone successfully updated.");
 
             }
             case 5 -> {
@@ -72,7 +72,7 @@ public class ModifyAdultMenu {
                 System.out.print(" > ");
                 String address = scan.nextLine().trim();
                 adult.setAddress(address);
-                System.out.println("Address successfully update.");
+                System.out.println("Address successfully updated.");
             }
             case 6 -> {
                 System.out.println("Enter child name or ID to add");

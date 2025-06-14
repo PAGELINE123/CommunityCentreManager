@@ -39,21 +39,21 @@ public class ModifyYouthMenu {
                 System.out.println("Enter new age");
                 int age = ValidateInput.adultAge();
                 youth.setAge(age);
-                System.out.println("Age successfully update.");
+                System.out.println("Age successfully updated.");
             }
             case 2 -> {
                 System.out.println("Enter new name");
                 System.out.print(" > ");
                 String name = scan.nextLine().trim().toUpperCase();
                 youth.setName(name);
-                System.out.println("Name successfully update.");
+                System.out.println("Name successfully updated.");
 
             }
             case 3 -> {
                 System.out.println("Enter new plan type");
                 PlanType planType = ValidateInput.planType();
                 youth.setPlanType(planType);
-                System.out.println("Plan type successfully update.");
+                System.out.println("Plan type successfully updated.");
 
             }
             case 7 -> {

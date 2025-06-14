@@ -93,4 +93,9 @@ public class Fundraiser extends Event {
 
         return s;
     }
+
+    // mutator for goal amount
+    public void setGoal(double goal) {
+        this.goal = goal;
+    }
 }

@@ -85,20 +85,7 @@ public class SearchMenu {
                 }
             }
             case 4, 5 -> {
-                // build a TimeBlock
-                TimeBlock date = ValidateInput.date();
-                double[] startDur;
-
-                if (searchChoice == 4) {
-                    startDur = ValidateInput.startDuration();
-                } else {
-                    startDur = ValidateInput.startDuration();
-                }
-
-                double start = startDur[0];
-                double dur = startDur[1];
-
-                TimeBlock tb = new TimeBlock(date, start, dur);
+                TimeBlock tb = ValidateInput.timeBlock();
 
                 if (searchChoice == 4) {
                     if (!facilityManager.printAvailableFacilities(tb)) {
@@ -127,11 +114,7 @@ public class SearchMenu {
             }
             case 7 -> {
                 // build a TimeBlock
-                TimeBlock date = ValidateInput.date();
-                double[] startDur = ValidateInput.startDuration();
-                double start = startDur[0];
-                double dur = startDur[1];
-                TimeBlock tb = new TimeBlock(date, start, dur);
+                TimeBlock tb = ValidateInput.timeBlock();
                 eventManager.printEventsWithin(tb);
             }
             case 8 -> {

@@ -125,6 +125,14 @@ public class ValidateInput {
         return new double[] { startHour, duration };
     }
 
+    // validates input for a time block
+    public static TimeBlock timeBlock() {
+        TimeBlock date = date();
+        double[] sd = startDuration();
+
+        return new TimeBlock(date, sd[0], sd[1]);
+    }
+
     // validates input for positive doubles
     public static double posDouble() {
         double choice = -1;

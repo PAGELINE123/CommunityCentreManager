@@ -18,8 +18,8 @@ import facility.FacilityManager;
 import main.submenu.AdvanceMenu;
 import main.submenu.CreateMenu;
 import main.submenu.DeleteMenu;
-import main.submenu.EventMenu;
 import main.submenu.ListMenu;
+import main.submenu.ModifyMenu;
 import main.submenu.SearchMenu;
 import member.MemberManager;
 import staff.StaffManager;
@@ -119,7 +119,7 @@ public class CommunityCentreRunner {
         System.out.println("(2) Search");
         System.out.println("(3) Create");
         System.out.println("(4) Delete");
-        System.out.println("(5) Manage Event");
+        System.out.println("(5) Modify");
         System.out.println("(6) Advance Time");
         System.out.println("<0> Quit");
 
@@ -141,7 +141,7 @@ public class CommunityCentreRunner {
                 return DeleteMenu.show();
             }
             case 5 -> {
-                return EventMenu.show();
+                return ModifyMenu.show();
             }
             case 6 -> {
                 return AdvanceMenu.show();

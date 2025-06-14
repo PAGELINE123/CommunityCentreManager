@@ -110,7 +110,7 @@ public class CreateMenu {
                 } else {
                     System.out.println("Hours worked");
                     double hours = ValidateInput.posDouble();
-                    System.out.println("Hourly rate");
+                    System.out.println("Hourly rate ($)");
                     double rate = ValidateInput.posDouble();
                     System.out.println("Max weekly hours");
                     int maxH = ValidateInput.posInt();
@@ -158,13 +158,17 @@ public class CreateMenu {
                 System.out.println("Event type   (0) Competition   (1) Fundraiser");
                 int eventType = ValidateInput.menu(1);
 
-                System.out.println("Enter prize (or goal) amount");
-                double prizeOrGoal = ValidateInput.posDouble();
-
+                double prize = 0;
+                double goal = 0;
                 double participationCost = 0;
                 if (eventType == 0) {
-                    System.out.println("Enter participation cost");
+                    System.out.println("Enter prize amount ($)");
+                    prize = ValidateInput.posDouble();
+                    System.out.println("Enter participation cost ($)");
                     participationCost = ValidateInput.posDouble();
+                } else {
+                    System.out.println("Enter goal amount ($)");
+                    goal = ValidateInput.posDouble();
                 }
 
                 TimeBlock d = ValidateInput.date();
@@ -241,8 +245,8 @@ public class CreateMenu {
                 }
 
                 Event newEvent = (eventType == 0)
-                        ? new Competition(fac, tb, host, prizeOrGoal, participationCost)
-                        : new Fundraiser(fac, tb, host, prizeOrGoal);
+                        ? new Competition(fac, tb, host, prize, participationCost)
+                        : new Fundraiser(fac, tb, host, goal);
 
                 main.CommunityCentreRunner.getEventManager().book(newEvent);
                 System.out.println(newEvent);

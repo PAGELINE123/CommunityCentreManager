@@ -217,4 +217,19 @@ public abstract class Event {
     public double hoursSinceEpoch() {
         return timeBlock.hoursSinceEpoch();
     }
+
+    // mutator for facility
+    public void setFacility(Facility facility) {
+        this.facility = facility;
+    }
+
+    // mutator for time block
+    public void setTimeBlock(TimeBlock timeBlock) {
+        this.timeBlock = timeBlock;
+    }
+
+    // mutator for host
+    public void setHost(Member host) {
+        this.host = host;
+    }
 }

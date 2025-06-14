@@ -10,21 +10,30 @@ package main.submenu;
 
 import java.util.Scanner;
 
+import event.Competition;
 import event.Event;
 import event.EventManager;
+import event.Fundraiser;
 import facility.Facility;
 import facility.FacilityManager;
+import facility.MeetingFacility;
+import facility.SportsFacility;
 import main.CommunityCentreRunner.MenuStatus;
 import main.ValidateInput;
 import main.submenu.modify.ModifyAdultMenu;
-import main.submenu.modify.ModifyEventMenu;
-import main.submenu.modify.ModifyFacilityMenu;
-import main.submenu.modify.ModifyStaffMenu;
+import main.submenu.modify.ModifyCompetitionMenu;
+import main.submenu.modify.ModifyFullTimeStaffMenu;
+import main.submenu.modify.ModifyFundraiserMenu;
+import main.submenu.modify.ModifyMeetingFacilityMenu;
+import main.submenu.modify.ModifyPartTimeStaffMenu;
+import main.submenu.modify.ModifySportsFacilityMenu;
 import main.submenu.modify.ModifyYouthMenu;
 import member.AdultMember;
 import member.Member;
 import member.MemberManager;
 import member.YouthMember;
+import staff.FullTimeStaff;
+import staff.PartTimeStaff;
 import staff.Staff;
 import staff.StaffManager;
 
@@ -91,15 +100,28 @@ public class ModifyMenu {
 
                 if (staff != null) {
                     System.out.println(staff);
+
                     main.CommunityCentreRunner.separate();
 
-                    MenuStatus status = ModifyStaffMenu.show(staff);
-                    switch (status) {
-                        case BACK -> {
-                            return show();
+                    if (staff instanceof PartTimeStaff pts) {
+                        MenuStatus status = ModifyPartTimeStaffMenu.show(pts);
+                        switch (status) {
+                            case BACK -> {
+                                return show();
+                            }
+                            default -> {
+                                return status;
+                            }
                         }
-                        default -> {
-                            return status;
+                    } else if (staff instanceof FullTimeStaff fts) {
+                        MenuStatus status = ModifyFullTimeStaffMenu.show(fts);
+                        switch (status) {
+                            case BACK -> {
+                                return show();
+                            }
+                            default -> {
+                                return status;
+                            }
                         }
                     }
                 } else {
@@ -113,15 +135,28 @@ public class ModifyMenu {
                 Facility facility = facilityManager.searchById(fid);
                 if (facility != null) {
                     System.out.println(facility);
+
                     main.CommunityCentreRunner.separate();
 
-                    MenuStatus status = ModifyFacilityMenu.show(facility);
-                    switch (status) {
-                        case BACK -> {
-                            return show();
+                    if (facility instanceof SportsFacility sf) {
+                        MenuStatus status = ModifySportsFacilityMenu.show(sf);
+                        switch (status) {
+                            case BACK -> {
+                                return show();
+                            }
+                            default -> {
+                                return status;
+                            }
                         }
-                        default -> {
-                            return status;
+                    } else if (facility instanceof MeetingFacility mf) {
+                        MenuStatus status = ModifyMeetingFacilityMenu.show(mf);
+                        switch (status) {
+                            case BACK -> {
+                                return show();
+                            }
+                            default -> {
+                                return status;
+                            }
                         }
                     }
                 } else
@@ -133,15 +168,28 @@ public class ModifyMenu {
                 Event event = eventManager.searchById(eid);
                 if (event != null) {
                     System.out.println(event);
+
                     main.CommunityCentreRunner.separate();
 
-                    MenuStatus status = ModifyEventMenu.show(event);
-                    switch (status) {
-                        case BACK -> {
-                            return show();
+                    if (event instanceof Competition c) {
+                        MenuStatus status = ModifyCompetitionMenu.show(c);
+                        switch (status) {
+                            case BACK -> {
+                                return show();
+                            }
+                            default -> {
+                                return status;
+                            }
                         }
-                        default -> {
-                            return status;
+                    } else if (event instanceof Fundraiser f) {
+                        MenuStatus status = ModifyFundraiserMenu.show(f);
+                        switch (status) {
+                            case BACK -> {
+                                return show();
+                            }
+                            default -> {
+                                return status;
+                            }
                         }
                     }
                 } else {
