@@ -393,20 +393,20 @@ public class EventManager {
      */
     public boolean cancelEvent(int id) {
         Event event = searchById(id);
-
-        if (event == null) {
+        if (event == null)
             return false;
-        }
 
         events.remove(event);
-        ArrayList<Member> participants = event.getRegistrants();
-        ArrayList<Staff> staffSupervising = event.getSupervising();
 
-        for (Member member : participants) {
-            member.getRegistrations().remove(event);
+        // ← copy into ArrayList
+        ArrayList<Member> participants = new ArrayList<>(event.getRegistrants());
+        ArrayList<Staff> staffSupervising = new ArrayList<>(event.getSupervising());
+
+        for (Member m : participants) {
+            m.getRegistrations().remove(event);
         }
-        for (Staff staff : staffSupervising) {
-            staff.getShifts().remove(event);
+        for (Staff s : staffSupervising) {
+            s.getShifts().remove(event);
         }
         return true;
     }

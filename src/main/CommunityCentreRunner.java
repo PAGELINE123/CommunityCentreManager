@@ -15,12 +15,12 @@ import java.util.Scanner;
 
 import event.EventManager;
 import facility.FacilityManager;
-import main.submenu.AdvanceMenu;
-import main.submenu.CreateMenu;
-import main.submenu.DeleteMenu;
-import main.submenu.ListMenu;
-import main.submenu.ModifyMenu;
-import main.submenu.SearchMenu;
+import main.subMenu.AdvanceMenu;
+import main.subMenu.CreateMenu;
+import main.subMenu.DeleteMenu;
+import main.subMenu.ListMenu;
+import main.subMenu.ModifyMenu;
+import main.subMenu.SearchMenu;
 import member.MemberManager;
 import staff.StaffManager;
 import time.TimeBlock;
@@ -28,11 +28,11 @@ import time.TimeManager;
 
 public class CommunityCentreRunner {
     // file paths
-    public static final String EVENTS_FILEPATH = "data/events.txt";
-    public static final String FACILITIES_FILEPATH = "data/facilities.txt";
-    public static final String MEMBERS_FILEPATH = "data/members.txt";
-    public static final String STAFFS_FILEPATH = "data/staffs.txt";
-    public static final String TIME_FILEPATH = "data/time.txt";
+    public static final String EVENTS_FILEPATH = "C:\\Users\\Bowen\\OneDrive\\Documents\\ICS\\CommunityCentreRunner\\CommunityCentreManager\\data\\events.txt";
+    public static final String FACILITIES_FILEPATH = "C:\\Users\\Bowen\\OneDrive\\Documents\\ICS\\CommunityCentreRunner\\CommunityCentreManager\\data\\facilities.txt";
+    public static final String MEMBERS_FILEPATH = "C:\\Users\\Bowen\\OneDrive\\Documents\\ICS\\CommunityCentreRunner\\CommunityCentreManager\\data\\members.txt";
+    public static final String STAFFS_FILEPATH = "C:\\Users\\Bowen\\OneDrive\\Documents\\ICS\\CommunityCentreRunner\\CommunityCentreManager\\data\\staffs.txt";
+    public static final String TIME_FILEPATH = "C:\\Users\\Bowen\\OneDrive\\Documents\\ICS\\CommunityCentreRunner\\CommunityCentreManager\\data\\time.txt";
 
     // initialize managers
     private static MemberManager memberManager = new MemberManager();
@@ -154,6 +154,8 @@ public class CommunityCentreRunner {
         return MenuStatus.CONTINUE;
 
     }
+
+    
 
     public static void main(String[] args) {
         // load data from files

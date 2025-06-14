@@ -7,8 +7,8 @@ BRIAN CAI
 parttime
 AADI SAPKOTA
 221.0
-16.55
-217
+20.0
+100
 2
 parttime
 ALEXANDER CHANG

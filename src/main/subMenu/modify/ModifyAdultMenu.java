@@ -6,23 +6,27 @@
  * @since June 12, 2025
  */
 
-package main.submenu.modify;
+package main.subMenu.modify;
 
 import java.util.Scanner;
 
+import main.CommunityCentreRunner;
 import main.CommunityCentreRunner.MenuStatus;
 import main.ValidateInput;
 import member.AdultMember;
 import member.Member;
-import member.Member.PlanType;
 import member.MemberManager;
 import member.YouthMember;
 
+/**
+ * AdultMenu
+ * contains the menu to modify an adult member object,
+ * including reassigning a youth to this guardian.
+ */
 public class ModifyAdultMenu {
-    // show the menu
     public static MenuStatus show(AdultMember adult) {
-        Scanner scan = main.CommunityCentreRunner.scan;
-        MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
+        Scanner scan = CommunityCentreRunner.scan;
+        MemberManager memberManager = CommunityCentreRunner.getMemberManager();
 
         System.out.println("What would you like to modify about this member?");
         System.out.println("(1) Modify Age");
@@ -30,84 +34,85 @@ public class ModifyAdultMenu {
         System.out.println("(3) Modify Plan Type");
         System.out.println("(4) Modify Contact Phone");
         System.out.println("(5) Modify Address");
-        System.out.println("(6) Add Child");
-        System.out.println("(7) Remove Child");
-        System.out.println("<0> Back");
+        System.out.println("(6) Reassign a Youth to This Guardian");
+        System.out.println("(0) Back");
 
-        int adultChoice = ValidateInput.menu(7);
-        main.CommunityCentreRunner.separate();
+        int choice = ValidateInput.menu(6);
+        CommunityCentreRunner.separate();
 
-        switch (adultChoice) {
-            case 1 -> {
+        switch (choice) {
+            case 1: {
                 System.out.println("Enter new age");
-                int age = ValidateInput.adultAge();
+                System.out.print(" > ");
+                int age = ValidateInput.posInt();
                 adult.setAge(age);
                 System.out.println("Age successfully updated.");
+                break;
             }
-            case 2 -> {
+            case 2: {
                 System.out.println("Enter new name");
-                System.out.print(" >  ");
+                System.out.print(" > ");
                 String name = scan.nextLine().trim().toUpperCase();
                 adult.setName(name);
                 System.out.println("Name successfully updated.");
+                break;
             }
-            case 3 -> {
+            case 3: {
                 System.out.println("Enter new plan type");
-                PlanType planType = ValidateInput.planType();
+                System.out.print(" > ");
+                var planType = ValidateInput.planType();
                 adult.setPlanType(planType);
                 System.out.println("Plan type successfully updated.");
-
+                break;
             }
-            case 4 -> {
+            case 4: {
                 System.out.println("Enter new contact phone");
-                System.out.print(" >  ");
+                System.out.print(" > ");
                 String contactPhone = scan.nextLine().trim();
                 adult.setContactPhone(contactPhone);
                 System.out.println("Contact phone successfully updated.");
-
+                break;
             }
-            case 5 -> {
+            case 5: {
                 System.out.println("Enter new address");
-                System.out.print(" >  ");
+                System.out.print(" > ");
                 String address = scan.nextLine().trim();
                 adult.setAddress(address);
                 System.out.println("Address successfully updated.");
+                break;
             }
-            case 6 -> {
-                System.out.println("Enter child name or ID to add");
-                System.out.print(" >  ");
-                String memberIdOrName = scan.nextLine().trim();
-                Member member = memberManager.searchByIdOrName(memberIdOrName);
+            case 6: {
+                System.out.println("Enter youth ID or name to reassign");
+                System.out.print(" > ");
+                String input = scan.nextLine().trim();
+                Member m;
+                try {
+                    m = memberManager.searchById(Integer.parseInt(input));
+                } catch (NumberFormatException e) {
+                    m = memberManager.searchByName(input);
+                }
 
-                if (member instanceof YouthMember youth) {
-                    if (adult.addChild(youth)) {
-                        System.out.println("Child with ID #" + youth.getId() + " successfully added.");
-                    } else {
-                        System.out.println("Youth member is already a child of this adult.");
+                if (m instanceof YouthMember youth) {
+                    AdultMember oldGuardian = youth.getGuardian();
+                    if (oldGuardian != null) {
+                        // unlink from old guardian without removing from system
+                        oldGuardian.getChildren().remove(youth);
                     }
+                    // assign to current adult
+                    youth.setGuardian(adult);
+                    adult.getChildren().add(youth);
+
+                    System.out.println("Youth #" + youth.getId()
+                        + " is now assigned to " + adult.getName() + ".");
                 } else {
                     System.out.println("Youth member not found.");
                 }
+                break;
             }
-            case 7 -> {
-                System.out.println("Enter child name or ID to remove");
-                System.out.print(" >  ");
-                String memberIdOrName = scan.nextLine().trim();
-                Member member = memberManager.searchByIdOrName(memberIdOrName);
-
-                if (member instanceof YouthMember youth) {
-                    if (adult.removeChild(youth)) {
-                        System.out.println("Child with ID #" + youth.getId() + " successfully removed.");
-                    } else {
-                        System.out.println("Youth member is not a child of this adult.");
-                    }
-                } else {
-                    System.out.println("Youth member not found.");
-                }
-            }
-            case 0 -> {
+            case 0:
                 return MenuStatus.BACK;
-            }
+            default:
+                System.out.println("Invalid choice.");
         }
 
         return MenuStatus.CONTINUE;

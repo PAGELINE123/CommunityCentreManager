@@ -6,7 +6,7 @@
  * @since June 13, 2025
  */
 
-package main.submenu.modify;
+package main.subMenu.modify;
 
 import java.util.Scanner;
 
@@ -24,14 +24,14 @@ public class ModifyPartTimeStaffMenu {
         System.out.println("(2) Modify Hours Worked this Month");
         System.out.println("(3) Modify Hourly Wage");
         System.out.println("(4) Modify Maximum Monthly Hours");
-        System.out.println("<0> Back");
+        System.out.println("(0) Back");
 
-        int fullTimeChoice = ValidateInput.menu(2);
+        // allow choices 0 through 4
+        int choice = ValidateInput.menu(4);
 
-        switch (fullTimeChoice) {
+        switch (choice) {
             case 1 -> {
                 System.out.println("Enter new name");
-                System.out.print(" >  ");
                 String name = scan.nextLine().trim().toUpperCase();
                 staff.setName(name);
                 System.out.println("Name successfully updated.");
@@ -39,17 +39,17 @@ public class ModifyPartTimeStaffMenu {
             case 2 -> {
                 System.out.println("Enter new number of hours worked this month");
                 double hoursWorked = ValidateInput.posDouble();
-                staff.setHoursWorked(hoursWorked);
+                staff.setHoursWorked((int)hoursWorked);
                 System.out.println("Hours worked successfully updated.");
             }
             case 3 -> {
                 System.out.println("Enter new hourly wage ($)");
                 double hourlyWage = ValidateInput.posDouble();
-                staff.setHoursWorked(hourlyWage);
+                staff.setHourlySalary(hourlyWage);
                 System.out.println("Hourly wage successfully updated.");
             }
             case 4 -> {
-                System.out.println("Enter new number of max monthly hours");
+                System.out.println("Enter new maximum monthly hours");
                 int maxMonthlyHours = ValidateInput.posInt();
                 staff.setMaxMonthlyHours(maxMonthlyHours);
                 System.out.println("Maximum monthly hours successfully updated.");

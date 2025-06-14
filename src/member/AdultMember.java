@@ -101,7 +101,7 @@ public class AdultMember extends Member {
             case ANNUAL -> ANNUAL_BASE;
         };
 
-        System.out.println("ADULTMEMBER BASE COST: "+base);
+        System.out.println("ADULTMEMBER BASE COST: " + base);
 
         for (Event event : registrations.getEventSchedule()) {
             if (event instanceof Competition c) {
@@ -112,7 +112,7 @@ public class AdultMember extends Member {
             }
         }
 
-        System.out.println("ADULTMEMBER participation/win new base: "+base);
+        System.out.println("ADULTMEMBER participation/win new base: " + base);
 
         if (!children.isEmpty()) {
             for (YouthMember child : children) {
@@ -120,7 +120,7 @@ public class AdultMember extends Member {
             }
         }
 
-        System.out.println("ADULTMEMBER children additional: "+base);
+        System.out.println("ADULTMEMBER children additional: " + base);
 
         return base;
     }
@@ -238,12 +238,22 @@ public class AdultMember extends Member {
     }
 
     /**
-     * Updates the contact phone number.
-     *
-     * @param contactPhone the new phone number
+     * Sets and formats the contact phone number.
+     * Strips out any non-digits, then requires exactly 10 digits.
+     * Formats as "XXX-XXX-XXXX". Throws if invalid.
      */
     public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
+        if (contactPhone == null) {
+            throw new IllegalArgumentException("Phone number cannot be null.");
+        }
+        String digits = contactPhone.replaceAll("\\D", "");
+        if (digits.length() != 10) {
+            throw new IllegalArgumentException(
+                    "Phone number must contain exactly 10 digits; got " + digits.length());
+        }
+        this.contactPhone = digits.replaceFirst(
+                "(\\d{3})(\\d{3})(\\d{4})",
+                "$1-$2-$3");
     }
 
     /**
