@@ -1,5 +1,6 @@
 package member;
 
+import event.Event;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import main.CommunityCentreRunner;
 import java.util.Map;
 
 /**
@@ -365,22 +367,46 @@ public class MemberManager {
      * ages all members by one year
      */
     public void ageMembers() {
-        for (Member member : members) {
-            if (member instanceof AdultMember) {
-                member.age++;
-            } else if (member instanceof YouthMember youth) {
-                if (++youth.age >= Member.ADULT_AGE) {
-                    System.out.println(member.getName() + " is now an adult member.");
+        // 1) snapshot so we can mutate members safely
+        List<Member> snapshot = new ArrayList<>(members);
 
-                    AdultMember guardian = youth.getGuardian();
-                    AdultMember adult = new AdultMember(youth.age, youth.name, youth.planType,
-                            guardian.getContactPhone(), guardian.getAddress());
-                    adult.setId(youth.getId());
-                    adult.addBillBase();
+        for (Member m : snapshot) {
+            if (m instanceof AdultMember adult) {
+                adult.setAge(adult.getAge() + 1);
 
+            } else if (m instanceof YouthMember youth) {
+                youth.setAge(youth.getAge() + 1);
+
+                if (youth.getAge() >= Member.ADULT_AGE) {
+                    System.out.println(youth.getName() + " is now an adult member.");
+
+                    // build new AdultMember
+                    AdultMember grown = new AdultMember(
+                            youth.getAge(),
+                            youth.getName(),
+                            youth.getPlanType(),
+                            youth.getGuardian().getContactPhone(),
+                            youth.getGuardian().getAddress());
+                    grown.setId(youth.getId());
+                    grown.addBillBase();
+
+                    // replace in members list
                     members.remove(youth);
-                    guardian.getChildren().remove(youth);
-                    members.add(adult);
+                    youth.getGuardian().getChildren().remove(youth);
+                    members.add(grown);
+
+                    // **now** also replace in every Event’s participant list
+                    List<Event> allEvents = CommunityCentreRunner
+                            .getEventManager()
+                            .getEvents();
+                    for (Event e : allEvents) {
+                        List<Member> parts = e.getParticipants();
+                        for (int i = 0; i < parts.size(); i++) {
+                            if (parts.get(i).getId() == youth.getId()) {
+                                parts.set(i, grown);
+                            }
+                        }
+                    }
                 }
             }
         }
