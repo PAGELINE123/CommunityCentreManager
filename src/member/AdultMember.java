@@ -104,7 +104,13 @@ public class AdultMember extends Member {
         for (Event event : registrations.getEventSchedule()) {
             if (event instanceof Competition c) {
                 base += c.getParticipationCost();
+                System.out.println("ADULTMEMBER THIS IS WINNER: "+c.getWinner());
+                if (c.getWinner()!=null) {
+                    System.out.println("ADULTMEMBER WINNER ID: "+c.getWinner().getId());
+                    System.out.println("ADULTMEMBER ID IS: "+this.getId());
+                }
                 if (this.equals(c.getWinner())) {
+                    System.out.println("ADULTMEMBER WINNER?? YES");
                     base -= c.getPrize();
                 }
             }
@@ -116,8 +122,8 @@ public class AdultMember extends Member {
             }
         }
 
-        System.out.println("ADULTMEMBER "+getName()+" BILL: "+base);
-        System.out.println("TOTAL BILL: "+totalBillAmount);
+        //System.out.println("ADULTMEMBER "+getName()+" BILL: "+base);
+        //System.out.println("TOTAL BILL: "+totalBillAmount);
 
         return base;
     }

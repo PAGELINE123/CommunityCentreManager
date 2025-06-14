@@ -45,10 +45,10 @@ public class SearchMenu {
         System.out.println("(7) Events within Time Range");
         System.out.println("-");
         // search members
-        System.out.println("(8) Member");
+        System.out.println("(8) Member using ID or name");
         System.out.println("-");
         // search staff
-        System.out.println("(9) Staff");
+        System.out.println("(9) Staff using ID or name");
         System.out.println("-");
         // back
         System.out.println("<0> Back");

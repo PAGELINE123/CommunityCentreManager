@@ -352,12 +352,12 @@ public class MemberManager {
     public void billMonthlyMembers() {
         for (Member m : members) {
             if (m.getPlanType() == Member.PlanType.MONTHLY && m instanceof AdultMember am) {
+                am.addBillBase();
                 System.out.printf("Member #" + am.getId() + " " + am.getName() + " was billed %.2f\n",
                         am.calculateBill());
-                if (am.getPaidBillAmount()<am.calculateBill()) {
+                if (am.getPaidBillAmount()<am.getTotalBillAmount()) {
                     am.payBill(m.calculateBill()); // they pay off their bill
                 }
-                am.addBillBase();
             }
         }
     }
@@ -370,12 +370,12 @@ public class MemberManager {
     public void billAnnualMembers() {
         for (Member m : members) {
             if (m.getPlanType() == Member.PlanType.ANNUAL && m instanceof AdultMember am) {
+                am.addBillBase();
                 System.out.printf("Member #" + am.getId() + " " + am.getName() + " was billed %.2f\n",
                         am.calculateBill());
-                if (am.getPaidBillAmount()<am.calculateBill()) {
+                if (am.getPaidBillAmount()<am.getTotalBillAmount()) {
                     am.payBill(m.calculateBill()); // they pay off their bill
                 }
-                am.addBillBase();
             }
         }
     }
@@ -404,21 +404,17 @@ public class MemberManager {
                             youth.getPlanType(),
                             youth.getGuardian().getContactPhone(),
                             youth.getGuardian().getAddress());
-                    grown.addBillBase();
+                    grown.setPaidBillAmount(youth.calculateBill());
+
+                    // now also replace in every Event’s participant list
+                    for (Event e : youth.getRegistrations().getEventSchedule()) {
+                        e.getParticipants().add(grown);
+                    }
 
                     // replace in members list
                     removeMember(youth.getId());
                     youth.getGuardian().getChildren().remove(youth);
                     addMember(grown);
-
-                    // now also replace in every Event’s participant list
-                    List<Event> allEvents = CommunityCentreRunner
-                            .getEventManager()
-                            .getEvents();
-                    for (Event e : allEvents) {
-                        List<Member> parts = e.getParticipants();
-                        parts.add(grown);
-                    }
                 }
             }
         }

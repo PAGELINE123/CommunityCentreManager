@@ -86,7 +86,7 @@ public class Competition extends Event {
             }
         }
 
-        winner = main.CommunityCentreRunner.getMemberManager().searchById(winner_id);
+        this.winner = main.CommunityCentreRunner.getMemberManager().searchById(winner_id);
         System.out.println("Member has been set as the winner:");
         System.out.println(winner);
         System.out.println(); // blank line
