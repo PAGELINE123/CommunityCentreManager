@@ -68,12 +68,16 @@ public class Competition extends Event {
         boolean valid_winner = false;
         int winner_id = 0;
 
+        System.out.println("Participating members");
+        System.out.println(registrants);
+        System.out.println(); // blank line
+
         while (!valid_winner) {
-            System.out.println("Participating members: " + registrants);
             System.out.println("Enter the winner's member ID");
             winner_id = ValidateInput.posInt();
 
             Member winnerInput = main.CommunityCentreRunner.getMemberManager().searchById(winner_id);
+
             if (main.CommunityCentreRunner.getMemberManager().searchById(winner_id) != null
                     && registrants.contains(winnerInput)) {
                 valid_winner = true;

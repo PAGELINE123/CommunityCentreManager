@@ -338,8 +338,8 @@ public class EventManager {
         for (Event event : events) {
             if (!event.isCompleted()) {
                 if (event.getTimeBlock().compareToEnd(newTime) > 0) {
+                    System.out.println("-------- Event has completed! --------");
                     System.out.println(event);
-                    System.out.println("Event has completed!");
                     System.out.println(); // blank line
                     event.setCompleted();
                 }

@@ -28,11 +28,11 @@ import time.TimeManager;
 
 public class CommunityCentreRunner {
     // file paths
-    public static final String EVENTS_FILEPATH = "C:\\Users\\Bowen\\OneDrive\\Documents\\ICS\\CommunityCentreRunner\\CommunityCentreManager\\data\\events.txt";
-    public static final String FACILITIES_FILEPATH = "C:\\Users\\Bowen\\OneDrive\\Documents\\ICS\\CommunityCentreRunner\\CommunityCentreManager\\data\\facilities.txt";
-    public static final String MEMBERS_FILEPATH = "C:\\Users\\Bowen\\OneDrive\\Documents\\ICS\\CommunityCentreRunner\\CommunityCentreManager\\data\\members.txt";
-    public static final String STAFFS_FILEPATH = "C:\\Users\\Bowen\\OneDrive\\Documents\\ICS\\CommunityCentreRunner\\CommunityCentreManager\\data\\staffs.txt";
-    public static final String TIME_FILEPATH = "C:\\Users\\Bowen\\OneDrive\\Documents\\ICS\\CommunityCentreRunner\\CommunityCentreManager\\data\\time.txt";
+    public static final String EVENTS_FILEPATH = "data/events.txt";
+    public static final String FACILITIES_FILEPATH = "data/facilities.txt";
+    public static final String MEMBERS_FILEPATH = "data/members.txt";
+    public static final String STAFFS_FILEPATH = "data/staffs.txt";
+    public static final String TIME_FILEPATH = "data/time.txt";
 
     // initialize managers
     private static MemberManager memberManager = new MemberManager();

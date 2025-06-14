@@ -189,6 +189,19 @@ public class MemberManager {
                 guardian.getChildren().remove(youth);
             }
         }
+
+        List<Event> allEvents = CommunityCentreRunner
+                .getEventManager()
+                .getEvents();
+        for (Event e : allEvents) {
+            List<Member> parts = e.getParticipants();
+            for (int i = 0; i < parts.size(); i++) {
+                if (parts.get(i).getId() == target.getId()) {
+                    parts.remove(target);
+                }
+            }
+        }
+
         return members.remove(target);
     }
 
@@ -367,7 +380,7 @@ public class MemberManager {
      * ages all members by one year
      */
     public void ageMembers() {
-        // 1) snapshot so we can mutate members safely
+        // snapshot so we can mutate members safely
         List<Member> snapshot = new ArrayList<>(members);
 
         for (Member m : snapshot) {
@@ -387,25 +400,20 @@ public class MemberManager {
                             youth.getPlanType(),
                             youth.getGuardian().getContactPhone(),
                             youth.getGuardian().getAddress());
-                    grown.setId(youth.getId());
                     grown.addBillBase();
 
                     // replace in members list
-                    members.remove(youth);
+                    removeMember(youth.getId());
                     youth.getGuardian().getChildren().remove(youth);
-                    members.add(grown);
+                    addMember(grown);
 
-                    // **now** also replace in every Event’s participant list
+                    // now also replace in every Event’s participant list
                     List<Event> allEvents = CommunityCentreRunner
                             .getEventManager()
                             .getEvents();
                     for (Event e : allEvents) {
                         List<Member> parts = e.getParticipants();
-                        for (int i = 0; i < parts.size(); i++) {
-                            if (parts.get(i).getId() == youth.getId()) {
-                                parts.set(i, grown);
-                            }
-                        }
+                        parts.add(grown);
                     }
                 }
             }

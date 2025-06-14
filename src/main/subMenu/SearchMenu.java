@@ -93,12 +93,17 @@ public class SearchMenu {
                 TimeBlock tb = ValidateInput.timeBlock();
 
                 if (searchChoice == 4) {
+                    System.out.println(); // blank line
+                    System.out.println("Facilities available:");
                     if (!facilityManager.printAvailableFacilities(tb)) {
                         System.out.println("No matching facilities found.");
                     }
                 } else {
                     System.out.println("Enter minimum capacity");
                     int minCap = ValidateInput.posInt();
+
+                    System.out.println(); // blank line
+                    System.out.println("Facilities available:");
                     if (!facilityManager.printAvailableFacilities(tb, minCap)) {
                         System.out.println("No matching facilities found.");
                     }

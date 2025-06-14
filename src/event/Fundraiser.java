@@ -52,15 +52,14 @@ public class Fundraiser extends Event {
      */
     @Override
     public void setCompleted() {
-        Scanner scan = new Scanner(System.in);
-
         completed = true;
         double amount = 0;
 
         System.out
                 .println("For each adult participant, enter the amount they raised (This does not affect their bill)");
         for (int i = 0; i < registrants.size(); i++) {
-            if (registrants.get(i) instanceof AdultMember) {
+            if (registrants.get(i) instanceof AdultMember am) {
+                System.out.print(am.getName()+":");
                 amount = ValidateInput.posDouble();
 
                 amountRaised += amount;
@@ -68,8 +67,8 @@ public class Fundraiser extends Event {
         }
         System.out.println(); // blank line
 
-        System.out.printf("Goal: $.2f\n", goal);
-        System.out.printf("Total Amount Raised: $.2f\n", amountRaised);
+        System.out.printf("Goal: $%.2f\n", goal);
+        System.out.printf("Total Amount Raised: $%.2f\n", amountRaised);
 
         if (amountRaised > goal) {
             System.out.println("Goal exceeded!");
@@ -78,8 +77,7 @@ public class Fundraiser extends Event {
         } else {
             System.out.println("Goal matched!");
         }
-
-        scan.close();
+        System.out.println(); // blank line
     }
 
     /*

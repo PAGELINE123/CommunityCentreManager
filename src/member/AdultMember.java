@@ -101,8 +101,6 @@ public class AdultMember extends Member {
             case ANNUAL -> ANNUAL_BASE;
         };
 
-        System.out.println("ADULTMEMBER BASE COST: " + base);
-
         for (Event event : registrations.getEventSchedule()) {
             if (event instanceof Competition c) {
                 base += c.getParticipationCost();
@@ -112,15 +110,11 @@ public class AdultMember extends Member {
             }
         }
 
-        System.out.println("ADULTMEMBER participation/win new base: " + base);
-
         if (!children.isEmpty()) {
             for (YouthMember child : children) {
                 base += child.calculateBill();
             }
         }
-
-        System.out.println("ADULTMEMBER children additional: " + base);
 
         return base;
     }
