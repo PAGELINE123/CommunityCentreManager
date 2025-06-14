@@ -92,7 +92,7 @@ public class TimeManager {
             newHour -= 24;
 
             if (prev_month != time.getMonth()) {
-                System.out.println("--------------------- NEW MONTH: "+time.getMonth()+" ---------------------");
+                System.out.println("NEW MONTH: " + time.getMonth());
                 // bill monthly members
                 main.CommunityCentreRunner.getMemberManager().billMonthlyMembers();
                 // pay part-time staff
@@ -100,7 +100,7 @@ public class TimeManager {
                 System.out.println(); // blank line
             }
             if (prev_year != time.getYear()) {
-                System.out.println("--------------------- NEW YEAR: "+time.getYear()+" ---------------------");
+                System.out.println("NEW YEAR: " + time.getYear());
                 // age members
                 main.CommunityCentreRunner.getMemberManager().ageMembers();
                 // bill yearly members

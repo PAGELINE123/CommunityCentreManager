@@ -20,7 +20,6 @@ import main.subMenu.CreateMenu;
 import main.subMenu.DeleteMenu;
 import main.subMenu.EventMenu;
 import main.subMenu.ListMenu;
-import main.subMenu.ModifyMenu;
 import main.subMenu.SearchMenu;
 import member.MemberManager;
 import staff.StaffManager;
@@ -119,13 +118,12 @@ public class CommunityCentreRunner {
         System.out.println("(1) List");
         System.out.println("(2) Search");
         System.out.println("(3) Create");
-        System.out.println("(4) Modify");
-        System.out.println("(5) Delete");
-        System.out.println("(6) Manage Event");
-        System.out.println("(7) Advance Time");
+        System.out.println("(4) Delete");
+        System.out.println("(5) Manage Event");
+        System.out.println("(6) Advance Time");
         System.out.println("<0> Quit");
 
-        int choice = ValidateInput.menu(7);
+        int choice = ValidateInput.menu(6);
         separate();
 
         // if valid input
@@ -140,15 +138,12 @@ public class CommunityCentreRunner {
                 return CreateMenu.show();
             }
             case 4 -> {
-                return ModifyMenu.show();
-            }
-            case 5 -> {
                 return DeleteMenu.show();
             }
-            case 6 -> {
+            case 5 -> {
                 return EventMenu.show();
             }
-            case 7 -> {
+            case 6 -> {
                 return AdvanceMenu.show();
             }
             case 0 -> {

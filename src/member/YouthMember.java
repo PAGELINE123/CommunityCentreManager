@@ -4,6 +4,9 @@
 
 package member;
 
+import event.Competition;
+import event.Event;
+
 /**
  * Represents a youth member who pays a discounted rate and is linked
  * to exactly one adult guardian. Automatically registers itself as a
@@ -49,19 +52,36 @@ public class YouthMember extends Member {
      */
     @Override
     public double calculateBill() {
-        double base;
-        switch (planType) {
-            case MONTHLY:
-                base = MONTHLY_BASE;
-                break;
-            case ANNUAL:
-                base = ANNUAL_BASE;
-                break;
-            default:
-                base = 0.00;
-                break;
+        double base = switch (planType) {
+            case MONTHLY -> MONTHLY_BASE;
+            case ANNUAL -> ANNUAL_BASE;
+        };
+
+        for (Event event : registrations.getEventSchedule()) {
+            if (event instanceof Competition c) {
+                base += c.getParticipationCost();
+                if (this.equals(c.getWinner())) {
+                    base -= c.getPrize();
+                }
+            }
         }
-        return base * (1 - DISCOUNT_RATE);
+
+        if (base > 0) {
+            base = base * (1 - DISCOUNT_RATE);
+        }
+
+        return base;
+    }
+
+    /**
+     * Returns the personal info attached
+     *
+     * @return the string representation
+     */
+    public String personalInfo() {
+        return "Personal Info (of guardian)" +
+                " | Contact Phone: " + guardian.getContactPhone() +
+                " | Address: " + guardian.getAddress();
     }
 
     /**

@@ -364,10 +364,13 @@ public class TimeBlock {
         int startMinute = (int) Math.round(startHour % 1 * 60);
         int endMinute = (int) Math.round(endHour % 1 * 60);
 
-        String s = String.format("%s %d, %d %02d:%02d", month, day, year, (int) startHour, startMinute);
+        String s = String.format("%s %d, %d", month, day, year);
 
-        if (duration() > 0) {
-            s += String.format(" - %02d:%02d", (int) endHour, endMinute);
+        if (duration() < 24) {
+            s += String.format(" %02d:%02d", (int) startHour, startMinute);
+            if (duration() > 0) {
+                s += String.format("-%02d:%02d", (int) endHour, endMinute);
+            }
         }
 
         return s;

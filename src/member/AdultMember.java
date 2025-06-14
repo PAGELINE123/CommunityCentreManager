@@ -82,7 +82,11 @@ public class AdultMember extends Member {
      */
     @Override
     public double calculateBill() {
-        return totalBillAmount - paidBillAmount;
+        totalBillAmount = calculateTotalBill();
+        double bill = totalBillAmount - paidBillAmount;
+        if (bill < 0)
+            bill = 0;
+        return bill;
     }
 
     /**
@@ -97,20 +101,26 @@ public class AdultMember extends Member {
             case ANNUAL -> ANNUAL_BASE;
         };
 
+        System.out.println("ADULTMEMBER BASE COST: "+base);
+
         for (Event event : registrations.getEventSchedule()) {
             if (event instanceof Competition c) {
                 base += c.getParticipationCost();
-                if (c.getWinner().equals(this)) {
+                if (this.equals(c.getWinner())) {
                     base -= c.getPrize();
                 }
             }
         }
+
+        System.out.println("ADULTMEMBER participation/win new base: "+base);
 
         if (!children.isEmpty()) {
             for (YouthMember child : children) {
                 base += child.calculateBill();
             }
         }
+
+        System.out.println("ADULTMEMBER children additional: "+base);
 
         return base;
     }
@@ -128,7 +138,18 @@ public class AdultMember extends Member {
      * Prints this member's billing details to standard output.
      */
     public void printBill() {
-        System.out.println(this + " | Total bill: " + totalBillAmount + " | Paid off: " + paidBillAmount);
+        System.out.println(this + " | Total bill: " + calculateTotalBill() + " | Paid off: " + paidBillAmount);
+    }
+
+    /**
+     * Returns the membership details string with personal info
+     *
+     * @return the toString representation
+     */
+    public String personalInfo() {
+        return "Personal Info" +
+                " | Contact Phone: " + getContactPhone() +
+                " | Address: " + getAddress();
     }
 
     /**
@@ -264,9 +285,9 @@ public class AdultMember extends Member {
     }
 
     /**
-     * Sets the additional bill amount.
+     * Sets the total bill amount.
      *
-     * @param totalBillAmount the new extra amount
+     * @param totalBillAmount the new amount
      */
     public void setTotalBillAmount(double totalBillAmount) {
         this.totalBillAmount = totalBillAmount;

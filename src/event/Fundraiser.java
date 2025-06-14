@@ -9,7 +9,6 @@
 
 package event;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import facility.Facility;
@@ -61,7 +60,7 @@ public class Fundraiser extends Event {
         System.out
                 .println("For each adult participant, enter the amount they raised (This does not affect their bill)");
         for (int i = 0; i < participants.size(); i++) {
-            if (participants.get(i) instanceof AdultMember adultMember) {
+            if (participants.get(i) instanceof AdultMember) {
                 amount = ValidateInput.posDouble();
 
                 amountRaised += amount;
@@ -87,7 +86,7 @@ public class Fundraiser extends Event {
      * toString
      */
     public String toString() {
-        String s = super.toString() + " | Goal: " + String.format("$%.2f", goal);
+        String s = "Fundraiser " + super.toString() + " | Goal: " + String.format("$%.2f", goal);
         if (isCompleted) {
             s += " | Total raised: " + String.format("$%.2f", amountRaised);
         }

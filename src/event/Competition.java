@@ -9,13 +9,12 @@
 
 package event;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 import facility.Facility;
-import member.Member;
-import time.TimeBlock;
 import main.ValidateInput;
+import member.Member;
+import staff.PartTimeStaff;
+import staff.Staff;
+import time.TimeBlock;
 
 public class Competition extends Event {
     // fields
@@ -70,13 +69,15 @@ public class Competition extends Event {
         int winner_id = 0;
 
         while (!valid_winner) {
+            System.out.println("Participating members: "+participants);
             System.out.println("Enter the winner's member ID");
             winner_id = ValidateInput.posInt();
-            
-            if (main.CommunityCentreRunner.getMemberManager().searchById(winner_id) != null) {
+
+            Member winnerInput = main.CommunityCentreRunner.getMemberManager().searchById(winner_id);
+            if (main.CommunityCentreRunner.getMemberManager().searchById(winner_id) != null && participants.contains(winnerInput)) {
                 valid_winner = true;
             } else {
-                System.out.println("Please enter a valid id.");
+                System.out.println("Please enter a valid registered member id.");
             }
         }
 
@@ -84,13 +85,28 @@ public class Competition extends Event {
         System.out.println("Member has been set as the winner:");
         System.out.println(winner);
         System.out.println(); // blank line
+
+        boolean partTimeStaffFound = false;
+
+        for (Staff staff : staffSupervising) {
+            if (staff instanceof PartTimeStaff pts) {
+                double duration = timeBlock.duration();
+                pts.setHoursWorked(pts.getHoursWorked() + duration);
+                System.out.println("Added " + duration + " to " + staff.getName() + "'s payroll.");
+                partTimeStaffFound = true;
+            }
+        }
+
+        if (partTimeStaffFound) {
+            System.out.println();
+        }
     }
 
     /*
      * toString
      */
     public String toString() {
-        String s = super.toString() +
+        String s = "Competition " + super.toString() +
                 " | Prize: " + prize +
                 " | Participation cost: " + String.format("$%.2f", participationCost);
         if (winner != null) {

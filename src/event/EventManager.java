@@ -99,7 +99,7 @@ public class EventManager {
 
                 facility.book(event);
 
-                events.add(event);
+                book(event);
             }
 
             reader.close();
@@ -151,11 +151,11 @@ public class EventManager {
                 // write staff and member ids
                 writer.write(event.getStaffSupervising().size() + "\n");
                 for (int j = 0; j < event.getStaffSupervising().size(); j++) {
-                    writer.write(event.getStaffSupervising().get(j) + "\n");
+                    writer.write(event.getStaffSupervising().get(j).getId() + "\n");
                 }
                 writer.write(event.getParticipants().size() + "\n");
                 for (int j = 0; j < event.getParticipants().size(); j++) {
-                    writer.write(event.getParticipants().get(j) + "\n");
+                    writer.write(event.getParticipants().get(j).getId() + "\n");
                 }
             }
 
@@ -324,7 +324,6 @@ public class EventManager {
      * @param newTime
      */
     public void advanceTime(TimeBlock newTime) {
-        main.CommunityCentreRunner.separate();
         System.out.println("Checking for event completion...");
         main.CommunityCentreRunner.separate();
 

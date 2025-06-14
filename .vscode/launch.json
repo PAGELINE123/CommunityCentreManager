@@ -5,29 +5,36 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "java",
-      "name": "Main",
-      "request": "launch",
-      "mainClass": "Main"
+        "type": "java",
+        "name": "CommunityCentreRunner",
+        "request": "launch",
+        "mainClass": "main.CommunityCentreRunner",
+        "projectName": "CommunityCentreManager_9150ff3f"
     },
     {
-      "type": "java",
-      "name": "CommunityCentreRunner",
-      "request": "launch",
-      "mainClass": "main.CommunityCentreRunner",
-      "projectName": "CommunityCentreManager_8845b37"
+        "type": "java",
+        "name": "Main",
+        "request": "launch",
+        "mainClass": "Main"
     },
     {
-      "type": "java",
-      "name": "CommunityCentreRunner",
-      "request": "launch",
-      "mainClass": "main.CommunityCentreRunner",
-      "projectName": "CommunityCentreManager_dc1e7325"
+        "type": "java",
+        "name": "CommunityCentreRunner",
+        "request": "launch",
+        "mainClass": "main.CommunityCentreRunner",
+        "projectName": "CommunityCentreManager_8845b37"
     },
     {
-      "type": "jdk",
-      "request": "launch",
-      "name": "Launch Java App"
+        "type": "java",
+        "name": "CommunityCentreRunner",
+        "request": "launch",
+        "mainClass": "main.CommunityCentreRunner",
+        "projectName": "CommunityCentreManager_dc1e7325"
+    },
+    {
+        "type": "jdk",
+        "request": "launch",
+        "name": "Launch Java App"
     }
-  ]
+]
 }

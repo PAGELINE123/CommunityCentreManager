@@ -26,7 +26,7 @@ public class ValidateInput {
 
         while (age < Member.ADULT_AGE) {
             // input
-            System.out.print(" > ");
+            System.out.print(" >  ");
             String userInput = scan.nextLine().trim();
             // validate the input to a choice
             try {
@@ -48,7 +48,7 @@ public class ValidateInput {
 
         while (age < 0 || age >= Member.ADULT_AGE) {
             // input
-            System.out.print(" > ");
+            System.out.print(" >  ");
             String userInput = scan.nextLine().trim();
             // validate the input to a choice
             try {
@@ -70,7 +70,7 @@ public class ValidateInput {
 
         while (choice < 0) {
             // input
-            System.out.print(" > ");
+            System.out.print(" >  ");
             String userInput = scan.nextLine().trim();
             // validate the input to a choice
             try {
@@ -91,7 +91,7 @@ public class ValidateInput {
         while (startHour < 0) {
             // input
             System.out.println("Enter start hour (e.g. 14.5)");
-            System.out.print(" > ");
+            System.out.print(" >  ");
             String userInput = scan.nextLine().trim();
             // validate the input to a choice
             try {
@@ -108,7 +108,7 @@ public class ValidateInput {
         while (duration < 0) {
             // input
             System.out.println("Enter duration (hours)");
-            System.out.print(" > ");
+            System.out.print(" >  ");
             String userInput = scan.nextLine().trim();
             // validate the input to a choice
             try {
@@ -131,7 +131,7 @@ public class ValidateInput {
 
         while (choice < 0) {
             // input
-            System.out.print(" > ");
+            System.out.print(" >  ");
             String userInput = scan.nextLine().trim();
             // validate the input to a choice
             try {
@@ -154,7 +154,7 @@ public class ValidateInput {
         while (planType == null) {
             // input
             System.out.println("Enter the plan type (MONTHLY/ANNUAL)");
-            System.out.print(" > ");
+            System.out.print(" >  ");
             String userInput = scan.nextLine().trim().toUpperCase();
             // validate the input to a plan type
             try {
@@ -176,7 +176,7 @@ public class ValidateInput {
         while (month == null) {
             // input
             System.out.println("Enter the month (3-letter abbreviation, e.g. JAN)");
-            System.out.print(" > ");
+            System.out.print(" >  ");
             String userInput = scan.nextLine().trim().toUpperCase();
             if (userInput.length() != 3) {
                 System.out.println("Must enter 3 characters");
@@ -193,7 +193,7 @@ public class ValidateInput {
         while (day < 1 || day > 31) {
             // input
             System.out.println("Enter the day (1-31)");
-            System.out.print(" > ");
+            System.out.print(" >  ");
             String userInput = scan.nextLine().trim();
             // validate the input to a choice
             try {
@@ -209,7 +209,7 @@ public class ValidateInput {
         while (year < 0) {
             // input
             System.out.println("Enter the year (YYYY)");
-            System.out.print(" > ");
+            System.out.print(" >  ");
             String userInput = scan.nextLine().trim();
             // validate the input to a choice
             try {
@@ -222,7 +222,7 @@ public class ValidateInput {
             }
         }
 
-        TimeBlock date = new TimeBlock(year, month, day, 0);
+        TimeBlock date = new TimeBlock(year, month, day);
         if (!date.isValid()) {
             System.out.println("Invalid date. Please try again.");
             System.out.println(); // blank line
@@ -247,7 +247,7 @@ public class ValidateInput {
 
         while (choice < 0) {
             // input
-            System.out.print(" > ");
+            System.out.print(" >  ");
             String userInput = scan.nextLine().trim();
             // validate the input to a choice
             try {

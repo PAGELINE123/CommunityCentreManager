@@ -67,13 +67,19 @@ public abstract class Member {
     public abstract double calculateBill();
 
     /**
-     * Returns the membership details string.
+     * Returns personal info
      *
+     * @return the string representation
+     */
+    public abstract String personalInfo();
+
+    /**
+     * Returns the membership details string
+     * 
      * @return the toString representation
      */
     @Override
     public String toString() {
-
         return "#" + id
                 + " | Age: " + age
                 + " | Name: " + name
@@ -145,7 +151,6 @@ public abstract class Member {
     public boolean equals(Member m) {
         if (m == null)
             return false;
-        return m.getId() == this.getId()
-                && m.getName().equals(this.getName());
+        return m.getId() == this.getId();
     }
 }
