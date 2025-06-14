@@ -16,13 +16,13 @@ import member.MemberManager;
 import staff.StaffManager;
 
 public class ListMenu {
-    public static MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
-    public static StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();
-    public static FacilityManager facilityManager = main.CommunityCentreRunner.getFacilityManager();
-    public static EventManager eventManager = main.CommunityCentreRunner.getEventManager();
-
     // show the menu
     public static MenuStatus show() {
+        MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
+        StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();
+        FacilityManager facilityManager = main.CommunityCentreRunner.getFacilityManager();
+        EventManager eventManager = main.CommunityCentreRunner.getEventManager();
+
         System.out.println("What would you like to view?");
         // all options for listing facilities
         System.out.println("(1) Facilities by ID");

@@ -22,14 +22,14 @@ import staff.Staff;
 import staff.StaffManager;
 
 public class DeleteMenu {
-    public static Scanner scan = main.CommunityCentreRunner.scan;
-    public static MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
-    public static StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();
-    public static FacilityManager facilityManager = main.CommunityCentreRunner.getFacilityManager();
-    public static EventManager eventManager = main.CommunityCentreRunner.getEventManager();
-
     // show the menu
     public static MenuStatus show() {
+        Scanner scan = main.CommunityCentreRunner.scan;
+        MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
+        StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();
+        FacilityManager facilityManager = main.CommunityCentreRunner.getFacilityManager();
+        EventManager eventManager = main.CommunityCentreRunner.getEventManager();
+
         System.out.println("What would you like to delete?");
         System.out.println("(1) Delete Member");
         System.out.println("(2) Delete Staff");

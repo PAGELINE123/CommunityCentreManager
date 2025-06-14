@@ -14,10 +14,10 @@ import time.TimeBlock;
 import time.TimeManager;
 
 public class AdvanceMenu {
-    public static TimeManager timeManager = main.CommunityCentreRunner.getTimeManager();
-
     // show the menu
     public static MenuStatus show() {
+        TimeManager timeManager = main.CommunityCentreRunner.getTimeManager();
+
         System.out.println("What time would you like to advance to?");
         // options to advance time
         System.out.println("(1) Advance by one hour");

@@ -27,17 +27,15 @@ import member.YouthMember;
 import staff.FullTimeStaff;
 import staff.PartTimeStaff;
 import staff.Staff;
-import staff.StaffManager;
 import time.TimeBlock;
 
 public class CreateMenu {
-    public static Scanner scan = main.CommunityCentreRunner.scan;
-    public static MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
-    public static StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();
-    public static FacilityManager facilityManager = main.CommunityCentreRunner.getFacilityManager();
-
     // show the menu
     public static MenuStatus show() {
+        Scanner scan = main.CommunityCentreRunner.scan;
+        MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
+        FacilityManager facilityManager = main.CommunityCentreRunner.getFacilityManager();
+
         System.out.println("What would you like to create?");
         System.out.println("(1) Create Member");
         System.out.println("(2) Create Staff");
@@ -183,10 +181,7 @@ public class CreateMenu {
                         double[] sd = ValidateInput.startDuration();
                         double startHour = sd[0];
                         double duration = sd[1];
-                        tb = new TimeBlock(
-                                d,
-                                startHour,
-                                duration);
+                        tb = new TimeBlock(d, startHour, duration);
                     }
                 }
 

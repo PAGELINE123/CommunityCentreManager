@@ -18,15 +18,16 @@ import member.MemberManager;
 import staff.StaffManager;
 
 public class ModifyEventMenu {
-    public static Scanner scan = main.CommunityCentreRunner.scan;
-    public static MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
-    public static StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();
-    public static FacilityManager facilityManager = main.CommunityCentreRunner.getFacilityManager();
-    public static EventManager eventManager = main.CommunityCentreRunner.getEventManager();
-
     // show the menu
     public static MenuStatus show(Event event) {
+        Scanner scan = main.CommunityCentreRunner.scan;
+        MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
+        StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();
+        FacilityManager facilityManager = main.CommunityCentreRunner.getFacilityManager();
+        EventManager eventManager = main.CommunityCentreRunner.getEventManager();
+
         // code goes here
+
         return MenuStatus.CONTINUE;
     }
 }

@@ -11,15 +11,21 @@ package main.submenu;
 import java.util.Scanner;
 
 import event.Event;
+import event.EventManager;
 import main.CommunityCentreRunner;
 import main.CommunityCentreRunner.MenuStatus;
 import main.ValidateInput;
 import member.Member;
+import member.MemberManager;
 import staff.Staff;
+import staff.StaffManager;
 
 public class EventMenu {
     public static MenuStatus show() {
-        Scanner scan = CommunityCentreRunner.scan;
+        Scanner scan = main.CommunityCentreRunner.scan;
+        MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
+        StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();
+        EventManager eventManager = main.CommunityCentreRunner.getEventManager();
 
         System.out.println("What would you like to do?");
         System.out.println("(1) Register member to an existing event");
@@ -33,7 +39,7 @@ public class EventMenu {
             case 1 -> {
                 System.out.println("Enter Event ID");
                 int eventId = ValidateInput.posInt();
-                Event event = CommunityCentreRunner.getEventManager().searchById(eventId);
+                Event event = eventManager.searchById(eventId);
                 if (event == null) {
                     System.out.println("Event with ID #" + eventId + " not found.");
                     break;
@@ -42,7 +48,7 @@ public class EventMenu {
                 System.out.println("Enter Member ID or Name");
                 System.out.print(" >  ");
                 String memberNameOrId = scan.nextLine();
-                Member member = CommunityCentreRunner.getMemberManager().searchByIdOrName(memberNameOrId);
+                Member member = memberManager.searchByIdOrName(memberNameOrId);
                 if (member == null) {
                     System.out.println("Member not found.");
                     break;
@@ -54,7 +60,7 @@ public class EventMenu {
             case 2 -> {
                 System.out.println("Enter Event ID");
                 int eventId2 = ValidateInput.posInt();
-                Event event2 = CommunityCentreRunner.getEventManager().searchById(eventId2);
+                Event event2 = eventManager.searchById(eventId2);
                 if (event2 == null) {
                     System.out.println("Event with ID #" + eventId2 + " not found.");
                     break;
@@ -63,7 +69,7 @@ public class EventMenu {
                 System.out.println("Enter Staff ID or Name");
                 System.out.print(" >  ");
                 String staffIdOrName = scan.nextLine();
-                Staff staff = CommunityCentreRunner.getStaffManager().searchByIdOrName(staffIdOrName);
+                Staff staff = staffManager.searchByIdOrName(staffIdOrName);
                 if (staff == null) {
                     System.out.println("Staff not found.");
                     break;

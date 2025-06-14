@@ -10,8 +10,6 @@ package main.submenu.modify;
 
 import java.util.Scanner;
 
-import event.EventManager;
-import facility.FacilityManager;
 import main.CommunityCentreRunner.MenuStatus;
 import main.ValidateInput;
 import member.AdultMember;
@@ -19,17 +17,13 @@ import member.Member;
 import member.Member.PlanType;
 import member.MemberManager;
 import member.YouthMember;
-import staff.StaffManager;
 
 public class ModifyYouthMenu {
-    public static Scanner scan = main.CommunityCentreRunner.scan;
-    public static MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
-    public static StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();
-    public static FacilityManager facilityManager = main.CommunityCentreRunner.getFacilityManager();
-    public static EventManager eventManager = main.CommunityCentreRunner.getEventManager();
-
     // show the menu
     public static MenuStatus show(YouthMember youth) {
+        Scanner scan = main.CommunityCentreRunner.scan;
+        MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
+
         System.out.println("What would you like to modify about this member?");
         System.out.println("(1) Modify Age");
         System.out.println("(2) Modify Name");

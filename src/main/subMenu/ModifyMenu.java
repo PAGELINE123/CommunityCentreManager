@@ -29,14 +29,14 @@ import staff.Staff;
 import staff.StaffManager;
 
 public class ModifyMenu {
-    public static Scanner scan = main.CommunityCentreRunner.scan;
-    public static MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
-    public static StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();
-    public static FacilityManager facilityManager = main.CommunityCentreRunner.getFacilityManager();
-    public static EventManager eventManager = main.CommunityCentreRunner.getEventManager();
-
     // show the menu
     public static MenuStatus show() {
+        Scanner scan = main.CommunityCentreRunner.scan;
+        MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
+        StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();
+        FacilityManager facilityManager = main.CommunityCentreRunner.getFacilityManager();
+        EventManager eventManager = main.CommunityCentreRunner.getEventManager();
+
         System.out.println("What would you like to modify?");
         System.out.println("(1) Modify Member");
         System.out.println("(2) Modify Staff");
@@ -50,7 +50,7 @@ public class ModifyMenu {
         switch (modifyChoice) {
             case 1 -> {
                 System.out.println("Member ID or name to modify");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String memberIdOrName = scan.nextLine().trim().toUpperCase();
                 Member member = memberManager.searchByIdOrName(memberIdOrName);
                 if (member != null) {
@@ -85,7 +85,7 @@ public class ModifyMenu {
             }
             case 2 -> {
                 System.out.println("Staff ID or name to modify");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String staffIdOrName = scan.nextLine().trim().toUpperCase();
                 Staff staff = staffManager.searchByIdOrName(staffIdOrName);
 
