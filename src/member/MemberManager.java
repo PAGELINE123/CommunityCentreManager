@@ -409,6 +409,7 @@ public class MemberManager {
                     // now also replace in every Event’s participant list
                     for (Event e : youth.getRegistrations().getEventSchedule()) {
                         e.getParticipants().add(grown);
+                        grown.registerFor(e);
                     }
 
                     // replace in members list
