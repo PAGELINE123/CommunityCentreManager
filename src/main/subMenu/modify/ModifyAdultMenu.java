@@ -1,6 +1,6 @@
 /**
  * AdultMenu
- * contains the menu to modify a adult member object
+ * contains the menu to modify an adult member object
  *
  * @author Sean Yang
  * @since June 12, 2025
