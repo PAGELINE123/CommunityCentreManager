@@ -85,12 +85,13 @@ public class ValidateInput {
 
     // validates input for start hour and duration
     public static double[] startDuration() {
+        System.out.println("Enter start hour (e.g. 14.5)");
+
         double startHour = -1;
         double duration = -1;
 
         while (startHour < 0) {
             // input
-            System.out.println("Enter start hour (e.g. 14.5)");
             System.out.print(" >  ");
             String userInput = scan.nextLine().trim();
             // validate the input to a choice
@@ -157,11 +158,12 @@ public class ValidateInput {
 
     // validates input for a rating /10
     public static double rating() {
+        System.out.println("Enter a rating /10");
+
         double choice = -1;
 
         while (choice < 0 || choice > 10) {
             // input
-            System.out.println("Enter a rating /10");
             System.out.print(" >  ");
             String userInput = scan.nextLine().trim();
             // validate the input to a choice
@@ -182,11 +184,12 @@ public class ValidateInput {
 
     // validates input for plan types
     public static PlanType planType() {
+        System.out.println("Enter the plan type (MONTHLY/ANNUAL)");
+
         PlanType planType = null;
 
         while (planType == null) {
             // input
-            System.out.println("Enter the plan type (MONTHLY/ANNUAL)");
             System.out.print(" >  ");
             String userInput = scan.nextLine().trim().toUpperCase();
             // validate the input to a plan type
@@ -202,13 +205,14 @@ public class ValidateInput {
 
     // validates input for dates, also disallows dates in the past
     public static TimeBlock date() {
+        System.out.println("Enter the month (3-letter abbreviation, e.g. JAN)");
+
         int year = -1;
         Month month = null;
         int day = 0;
 
         while (month == null) {
             // input
-            System.out.println("Enter the month (3-letter abbreviation, e.g. JAN)");
             System.out.print(" >  ");
             String userInput = scan.nextLine().trim().toUpperCase();
             if (userInput.length() != 3) {

@@ -110,7 +110,7 @@ public class CreateMenu {
                 } else {
                     System.out.println("Hours worked");
                     double hours = ValidateInput.posDouble();
-                    System.out.println("Hourly rate ($)");
+                    System.out.println("Hourly wage ($)");
                     double rate = ValidateInput.posDouble();
                     System.out.println("Max weekly hours");
                     int maxH = ValidateInput.posInt();
@@ -184,11 +184,11 @@ public class CreateMenu {
                 boolean validFacility = false;
                 while (!validFacility) {
                     System.out.println("Enter facility room num.");
-                    int facId = ValidateInput.posInt();
-                    fac = facilityManager.searchByRoomNum(facId);
+                    int roomNum = ValidateInput.posInt();
+                    fac = facilityManager.searchByRoomNum(roomNum);
 
                     if (fac == null) {
-                        System.out.println("Facility with ID " + facId + " not found.");
+                        System.out.println("Facility with room num. " + roomNum + " not found.");
                     } else {
                         switch (eventType) {
                             case 0 -> { // Competition

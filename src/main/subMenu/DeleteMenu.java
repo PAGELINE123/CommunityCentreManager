@@ -71,13 +71,13 @@ public class DeleteMenu {
                 }
             }
             case 3 -> {
-                System.out.print("Enter the facility ID to delete: ");
-                int facilityId = ValidateInput.posInt();
-                boolean removedFacility = facilityManager.removeFacility(facilityId);
+                System.out.print("Enter the facility room num. to delete: ");
+                int roomNum = ValidateInput.posInt();
+                boolean removedFacility = facilityManager.removeFacility(roomNum);
                 if (removedFacility) {
-                    System.out.println("Facility with ID #" + facilityId + " has been deleted.");
+                    System.out.println("Facility with room num. " + roomNum + " has been deleted.");
                 } else {
-                    System.out.println("Facility with ID #" + facilityId + " not found.");
+                    System.out.println("Facility with room num. " + roomNum + " not found.");
                 }
             }
             case 4 -> {

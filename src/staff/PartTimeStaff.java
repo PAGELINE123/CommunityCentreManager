@@ -58,13 +58,12 @@ public class PartTimeStaff extends Staff {
     }
 
     /**
-     * Prints this staff member's payroll information to stdout.
+     * Returns payroll details as a string
      */
-    @Override
-    public void printPayroll() {
-        System.out.println(name +
+    public String toPayrollString() {
+        return name +
                 "'s pay is: " + calculatePay() +
-                " | Hours worked: " + hoursWorked);
+                " | Hours worked: " + hoursWorked;
     }
 
     /**

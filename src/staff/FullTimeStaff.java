@@ -52,13 +52,13 @@ public class FullTimeStaff extends Staff {
     }
 
     /**
-     * Prints the payroll details to standard output.
+     * Returns a payroll string
      */
     @Override
-    public void printPayroll() {
-        System.out.println(name +
+    public String toPayrollString() {
+        return name +
                 "'s monthly pay is: " + calculatePay() +
-                " | Years worked: " + yearsWorked);
+                " | Years worked: " + yearsWorked;
     }
 
     /**

@@ -87,7 +87,7 @@ public class CommunityCentreRunner {
     /**
      * contains the main menu
      * 
-     * @return the status of this loop of the menu (CONTINUE, EXIT, BACK)
+     * @return the status of this loop of the menu (CONTINUE, QUIT, BACK)
      */
     public static MenuStatus menuLoop() {
         TimeBlock currentTime = timeManager.getCurrentTime(); // update current time
@@ -99,7 +99,7 @@ public class CommunityCentreRunner {
         System.out.println(); // blank line
 
         // show events occurring soon
-        System.out.println("Events occurring within this month:");
+        System.out.println("Events occurring in " + currentTime.getMonth() + " " + currentTime.getYear() + ":");
         TimeBlock next_month = new TimeBlock(currentTime.getYear(), TimeBlock.nextMonth(currentTime.getMonth()),
                 currentTime.getDay());
         if (!eventManager.printFutureEventsBefore(next_month)) {
@@ -156,12 +156,12 @@ public class CommunityCentreRunner {
     }
 
     public static void main(String[] args) {
-        // load data from files=
-        memberManager = new MemberManager(MEMBERS_FILEPATH);
+        // load data from files
+        timeManager = new TimeManager(TIME_FILEPATH);
         facilityManager = new FacilityManager(FACILITIES_FILEPATH);
+        memberManager = new MemberManager(MEMBERS_FILEPATH);
         staffManager = new StaffManager(STAFFS_FILEPATH);
         eventManager = new EventManager(EVENTS_FILEPATH);
-        timeManager = new TimeManager(TIME_FILEPATH);
 
         boolean quit = false;
 

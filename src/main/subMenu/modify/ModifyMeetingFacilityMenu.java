@@ -1,9 +1,9 @@
 /**
  * ModifyMeetingFacilityMenu
- * contains the menu to modify a meeting room object
+ * contains the menu to modify a meeting facility object
  *
- * @author
- * @since
+ * @author Sean Yang
+ * @since June 13, 2025
  */
 
 package main.submenu.modify;

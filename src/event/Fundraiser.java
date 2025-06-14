@@ -54,13 +54,13 @@ public class Fundraiser extends Event {
     public void setCompleted() {
         Scanner scan = new Scanner(System.in);
 
-        isCompleted = true;
+        completed = true;
         double amount = 0;
 
         System.out
                 .println("For each adult participant, enter the amount they raised (This does not affect their bill)");
-        for (int i = 0; i < participants.size(); i++) {
-            if (participants.get(i) instanceof AdultMember) {
+        for (int i = 0; i < registrants.size(); i++) {
+            if (registrants.get(i) instanceof AdultMember) {
                 amount = ValidateInput.posDouble();
 
                 amountRaised += amount;
@@ -87,7 +87,7 @@ public class Fundraiser extends Event {
      */
     public String toString() {
         String s = "Fundraiser " + super.toString() + " | Goal: " + String.format("$%.2f", goal);
-        if (isCompleted) {
+        if (completed) {
             s += " | Total raised: " + String.format("$%.2f", amountRaised);
         }
 

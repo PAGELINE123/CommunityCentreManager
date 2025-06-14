@@ -2,31 +2,48 @@
  * ModifyFullTimeStaffMenu
  * contains the menu to modify a full time staff member object
  *
- * @author
- * @since
+ * @author Sean Yang
+ * @since June 13, 2025
  */
 
 package main.submenu.modify;
 
 import java.util.Scanner;
 
-import event.EventManager;
-import facility.FacilityManager;
 import main.CommunityCentreRunner.MenuStatus;
-import member.MemberManager;
+import main.ValidateInput;
 import staff.FullTimeStaff;
-import staff.StaffManager;
 
 public class ModifyFullTimeStaffMenu {
     // show the menu
     public static MenuStatus show(FullTimeStaff staff) {
         Scanner scan = main.CommunityCentreRunner.scan;
-        MemberManager memberManager = main.CommunityCentreRunner.getMemberManager();
-        StaffManager staffManager = main.CommunityCentreRunner.getStaffManager();
-        FacilityManager facilityManager = main.CommunityCentreRunner.getFacilityManager();
-        EventManager eventManager = main.CommunityCentreRunner.getEventManager();
 
-        // code goes here
+        System.out.println("What would you like to modify about this employee?");
+        System.out.println("(1) Modify Name");
+        System.out.println("(2) Modify Years Worked");
+        System.out.println("<0> Back");
+
+        int fullTimeChoice = ValidateInput.menu(2);
+
+        switch (fullTimeChoice) {
+            case 1 -> {
+                System.out.println("Enter new name");
+                System.out.print(" >  ");
+                String name = scan.nextLine().trim().toUpperCase();
+                staff.setName(name);
+                System.out.println("Name successfully updated.");
+            }
+            case 2 -> {
+                System.out.println("Enter new number of years worked");
+                int yearsWorked = ValidateInput.posInt();
+                staff.setYearsWorked(yearsWorked);
+                System.out.println("Years worked successfully updated.");
+            }
+            case 0 -> {
+                return MenuStatus.BACK;
+            }
+        }
 
         return MenuStatus.CONTINUE;
     }

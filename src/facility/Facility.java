@@ -7,6 +7,9 @@
 
 package facility;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+
 import event.Event;
 import time.Schedule;
 import time.TimeBlock;
@@ -25,16 +28,6 @@ public abstract class Facility {
         this.roomNum = roomNum;
         this.maxCapacity = maxCapacity;
         bookings = new Schedule();
-    }
-
-    /**
-     * adds an event to the facility bookings
-     * 
-     * @param event
-     * @return whether the addition succeeded
-     */
-    public boolean book(Event event) {
-        return bookings.add(event);
     }
 
     /**
@@ -101,7 +94,7 @@ public abstract class Facility {
         int max = 0;
 
         for (Event event : bookings.getEventSchedule()) {
-            max = Math.max(max, event.getParticipants().size());
+            max = Math.max(max, event.getRegistrants().size());
         }
 
         return max;
@@ -120,5 +113,32 @@ public abstract class Facility {
     // #<id>, rm<rm#>, capacity: <capacity>
     public String toString() {
         return String.format(" #%d | Room number: %d | Capacity: %d", id, roomNum, maxCapacity);
+    }
+
+    /**
+     * returns a string containing events that this facility is booked for
+     * 
+     * @return
+     */
+    public String toBookingsString() {
+        String s = "";
+        if (!bookings.getEventSchedule().isEmpty()) {
+            ArrayList<Event> events = new ArrayList<>();
+
+            for (Event event : bookings.getEventSchedule()) {
+                if (!event.isCompleted()) {
+                    events.add(event);
+                }
+            }
+
+            events.sort(Comparator.comparingDouble(Event::hoursSinceEpoch));
+
+            s += "\nBooked Events (Ongoing/Future):";
+
+            for (Event event : events) {
+                s += "\n - " + event;
+            }
+        }
+        return s;
     }
 }

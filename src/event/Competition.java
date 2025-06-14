@@ -64,18 +64,18 @@ public class Competition extends Event {
      */
     @Override
     public void setCompleted() {
-        isCompleted = true;
+        completed = true;
         boolean valid_winner = false;
         int winner_id = 0;
 
         while (!valid_winner) {
-            System.out.println("Participating members: " + participants);
+            System.out.println("Participating members: " + registrants);
             System.out.println("Enter the winner's member ID");
             winner_id = ValidateInput.posInt();
 
             Member winnerInput = main.CommunityCentreRunner.getMemberManager().searchById(winner_id);
             if (main.CommunityCentreRunner.getMemberManager().searchById(winner_id) != null
-                    && participants.contains(winnerInput)) {
+                    && registrants.contains(winnerInput)) {
                 valid_winner = true;
             } else {
                 System.out.println("Please enter a valid registered member id.");
@@ -89,7 +89,7 @@ public class Competition extends Event {
 
         boolean partTimeStaffFound = false;
 
-        for (Staff staff : staffSupervising) {
+        for (Staff staff : supervising) {
             if (staff instanceof PartTimeStaff pts) {
                 double duration = timeBlock.duration();
                 pts.setHoursWorked(pts.getHoursWorked() + duration);

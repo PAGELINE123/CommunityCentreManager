@@ -130,9 +130,9 @@ public class ModifyMenu {
             }
             case 3 -> {
                 System.out.println("Enter facility room num.");
-                int fid = ValidateInput.posInt();
+                int roomNum = ValidateInput.posInt();
 
-                Facility facility = facilityManager.searchByRoomNum(fid);
+                Facility facility = facilityManager.searchByRoomNum(roomNum);
                 if (facility != null) {
                     System.out.println(facility);
 
@@ -160,7 +160,7 @@ public class ModifyMenu {
                         }
                     }
                 } else
-                    System.out.println("Facility with ID " + fid + " not found.");
+                    System.out.println("Facility with room num. " + roomNum + " not found.");
             }
             case 4 -> {
                 System.out.println("Enter event ID");

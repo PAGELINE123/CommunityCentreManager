@@ -173,7 +173,7 @@ public class Schedule {
      * @param event
      * @return whether it was successfully cancelled
      */
-    public boolean cancelEvent(Event event) {
+    public boolean remove(Event event) {
         if (eventSchedule.get(binarySearch(event.getTimeBlock())) == event) {
             eventSchedule.remove(event);
             return true;

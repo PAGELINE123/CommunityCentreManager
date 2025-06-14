@@ -2,8 +2,8 @@
  * ModifySportsFacilityMenu
  * contains the menu to modify a sports facility object
  *
- * @author
- * @since
+ * @author Sean Yang
+ * @since June 13, 2025
  */
 
 package main.submenu.modify;

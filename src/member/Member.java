@@ -4,6 +4,9 @@
 
 package member;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+
 import event.Event;
 import time.Schedule;
 
@@ -86,6 +89,33 @@ public abstract class Member {
                 + " | Plan: " + planType
                 + " | Gross bill: "
                 + String.format("$%.2f", calculateBill());
+    }
+
+    /**
+     * returns a string containing events that this member is registered for
+     * 
+     * @return
+     */
+    public String toRegistrationString() {
+        String s = "";
+        if (!registrations.getEventSchedule().isEmpty()) {
+            ArrayList<Event> events = new ArrayList<>();
+
+            for (Event event : registrations.getEventSchedule()) {
+                if (!event.isCompleted()) {
+                    events.add(event);
+                }
+            }
+
+            events.sort(Comparator.comparingDouble(Event::hoursSinceEpoch));
+
+            s += "\nRegistered Events (Ongoing/Future):";
+
+            for (Event event : events) {
+                s += "\n - " + event;
+            }
+        }
+        return s;
     }
 
     /**

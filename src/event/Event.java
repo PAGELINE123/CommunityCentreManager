@@ -21,10 +21,10 @@ public abstract class Event {
     protected Facility facility;
     protected TimeBlock timeBlock;
     protected Member host;
-    protected ArrayList<Staff> staffSupervising = new ArrayList<>();
-    protected ArrayList<Member> participants = new ArrayList<>();
+    protected ArrayList<Staff> supervising = new ArrayList<>();
+    protected ArrayList<Member> registrants = new ArrayList<>();
     protected int id;
-    protected boolean isCompleted;
+    protected boolean completed;
 
     /**
      * Constructor for Event;
@@ -40,7 +40,12 @@ public abstract class Event {
         this.timeBlock = timeBlock;
         this.host = host;
 
-        this.isCompleted = false;
+        facility.getBookings().add(this);
+        if (host != null) {
+            host.getRegistrations().add(this);
+        }
+
+        this.completed = false;
         // id is set within eventManager, which will generate a unique ID for the event.
     }
 
@@ -49,20 +54,20 @@ public abstract class Event {
         return this.id;
     }
 
-    public boolean hasCompleted() {
-        return this.isCompleted;
+    public boolean isCompleted() {
+        return this.completed;
     }
 
     public TimeBlock getTimeBlock() {
         return this.timeBlock;
     }
 
-    public ArrayList<Staff> getStaffSupervising() {
-        return this.staffSupervising;
+    public ArrayList<Staff> getSupervising() {
+        return this.supervising;
     }
 
-    public ArrayList<Member> getParticipants() {
-        return this.participants;
+    public ArrayList<Member> getRegistrants() {
+        return this.registrants;
     }
 
     public Facility getFacility() {
@@ -97,7 +102,7 @@ public abstract class Event {
      * @return whether the event is full
      */
     public boolean isFull() {
-        return (participants.size() >= this.facility.getMaxCapacity());
+        return (registrants.size() >= this.facility.getMaxCapacity());
     }
 
     /**
@@ -108,7 +113,7 @@ public abstract class Event {
      * @return
      */
     public boolean occursBefore(TimeBlock time) {
-        return (!hasCompleted() && time.compareToStart(getTimeBlock()) < 0
+        return (!isCompleted() && time.compareToStart(getTimeBlock()) < 0
                 && !main.CommunityCentreRunner.getTimeManager().isOngoing(getTimeBlock()));
     }
 
@@ -125,7 +130,7 @@ public abstract class Event {
             return false;
         }
 
-        if (participants.contains(member)) {
+        if (registrants.contains(member)) {
             return false; // already registered for this event
         }
 
@@ -138,8 +143,8 @@ public abstract class Event {
         }
 
         // all conditions are valid for member to be added now
-        participants.add(member);
-        member.registerFor(this);
+        registrants.add(member);
+        member.getRegistrations().add(this);
 
         return true;
     }
@@ -157,7 +162,7 @@ public abstract class Event {
             return false;
         }
 
-        if (staffSupervising.contains(staff)) {
+        if (supervising.contains(staff)) {
             return false; // already supervising this event
         }
 
@@ -166,7 +171,8 @@ public abstract class Event {
         }
 
         // all conditions are valid for the staff member to be added now
-        staffSupervising.add(staff);
+        supervising.add(staff);
+        staff.getShifts().add(this);
 
         return true;
     }
@@ -176,6 +182,13 @@ public abstract class Event {
      * description
      */
     abstract public void setCompleted();
+
+    /**
+     * mutator method for completed
+     */
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
 
     /*
      * toString
@@ -187,26 +200,26 @@ public abstract class Event {
         if (host != null) {
             s += " | Host: " + host.getName();
         }
-        if (isCompleted) {
+        if (completed) {
             s += " | Completed";
         }
 
         return s;
     }
 
-    public String supervisingAndParticipating() {
+    public String toSupervisingAndParticipatingString() {
         String s = "";
-        if (!staffSupervising.isEmpty()) {
+        if (!supervising.isEmpty()) {
             s += "\nStaff Supervising:";
 
-            for (Staff staff : staffSupervising) {
+            for (Staff staff : supervising) {
                 s += "\n - " + staff.getName();
             }
         }
-        if (!participants.isEmpty()) {
+        if (!registrants.isEmpty()) {
             s += "\nRegistered Participants:";
 
-            for (Member member : participants) {
+            for (Member member : registrants) {
                 s += "\n - " + member.getName();
             }
         }
@@ -219,17 +232,50 @@ public abstract class Event {
     }
 
     // mutator for facility
-    public void setFacility(Facility facility) {
-        this.facility = facility;
+    public boolean setFacility(Facility facility) {
+        if (facility.getBookings().isBlockFree(timeBlock)) {
+            this.facility.getBookings().remove(this);
+            this.facility = facility;
+            this.facility.getBookings().add(this);
+            return true;
+        }
+
+        return false;
     }
 
     // mutator for time block
-    public void setTimeBlock(TimeBlock timeBlock) {
+    public boolean setTimeBlock(TimeBlock timeBlock) {
+        if (!facility.getBookings().isBlockFree(timeBlock)) {
+            return false;
+        }
+        if (!host.getRegistrations().isBlockFree(timeBlock)) {
+            return false;
+        }
+        for (Staff staff : supervising) {
+            if (!staff.getShifts().isBlockFree(timeBlock)) {
+                return false;
+            }
+        }
+        for (Member member : registrants) {
+            if (!member.getRegistrations().isBlockFree(timeBlock)) {
+                return false;
+            }
+        }
+
         this.timeBlock = timeBlock;
+
+        return true;
     }
 
     // mutator for host
-    public void setHost(Member host) {
-        this.host = host;
+    public boolean setHost(Member host) {
+        if (host.getRegistrations().isBlockFree(timeBlock)) {
+            this.host.getRegistrations().remove(this);
+            this.host = host;
+            this.host.getRegistrations().add(this);
+            return true;
+        }
+
+        return false;
     }
 }

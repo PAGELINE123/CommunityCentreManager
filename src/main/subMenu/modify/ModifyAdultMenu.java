@@ -46,11 +46,10 @@ public class ModifyAdultMenu {
             }
             case 2 -> {
                 System.out.println("Enter new name");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String name = scan.nextLine().trim().toUpperCase();
                 adult.setName(name);
                 System.out.println("Name successfully updated.");
-
             }
             case 3 -> {
                 System.out.println("Enter new plan type");
@@ -61,7 +60,7 @@ public class ModifyAdultMenu {
             }
             case 4 -> {
                 System.out.println("Enter new contact phone");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String contactPhone = scan.nextLine().trim();
                 adult.setContactPhone(contactPhone);
                 System.out.println("Contact phone successfully updated.");
@@ -69,14 +68,14 @@ public class ModifyAdultMenu {
             }
             case 5 -> {
                 System.out.println("Enter new address");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String address = scan.nextLine().trim();
                 adult.setAddress(address);
                 System.out.println("Address successfully updated.");
             }
             case 6 -> {
                 System.out.println("Enter child name or ID to add");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String memberIdOrName = scan.nextLine().trim();
                 Member member = memberManager.searchByIdOrName(memberIdOrName);
 
@@ -92,7 +91,7 @@ public class ModifyAdultMenu {
             }
             case 7 -> {
                 System.out.println("Enter child name or ID to remove");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String memberIdOrName = scan.nextLine().trim();
                 Member member = memberManager.searchByIdOrName(memberIdOrName);
 

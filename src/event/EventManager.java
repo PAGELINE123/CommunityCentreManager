@@ -82,6 +82,16 @@ public class EventManager {
                     event = new Fundraiser(facility, timeBlock, host, prizeOrGoal);
                 }
 
+                facility.getBookings().add(event);
+
+                if (host != null)
+                    host.getRegistrations().add(event);
+
+                // check if the event has been completed
+                if (timeBlock.compareToEnd(main.CommunityCentreRunner.getTimeManager().getCurrentTime()) > 0) {
+                    event.setCompleted(true);
+                }
+
                 // read staff and member information registered to the event
                 int numStaffSupervising = Integer.parseInt(reader.readLine().trim());
                 for (int j = 0; j < numStaffSupervising; j++) {
@@ -96,8 +106,6 @@ public class EventManager {
                             .searchById(Integer.parseInt(reader.readLine().trim()));
                     event.registerParticipant(member);
                 }
-
-                facility.book(event);
 
                 book(event);
             }
@@ -149,13 +157,13 @@ public class EventManager {
                 }
 
                 // write staff and member ids
-                writer.write(event.getStaffSupervising().size() + "\n");
-                for (int j = 0; j < event.getStaffSupervising().size(); j++) {
-                    writer.write(event.getStaffSupervising().get(j).getId() + "\n");
+                writer.write(event.getSupervising().size() + "\n");
+                for (int j = 0; j < event.getSupervising().size(); j++) {
+                    writer.write(event.getSupervising().get(j).getId() + "\n");
                 }
-                writer.write(event.getParticipants().size() + "\n");
-                for (int j = 0; j < event.getParticipants().size(); j++) {
-                    writer.write(event.getParticipants().get(j).getId() + "\n");
+                writer.write(event.getRegistrants().size() + "\n");
+                for (int j = 0; j < event.getRegistrants().size(); j++) {
+                    writer.write(event.getRegistrants().get(j).getId() + "\n");
                 }
             }
 
@@ -225,7 +233,7 @@ public class EventManager {
         boolean found = false;
 
         for (Event event : events) {
-            if (event.hasCompleted()) {
+            if (event.isCompleted()) {
                 found = true;
                 System.out.println(event);
             }
@@ -244,7 +252,7 @@ public class EventManager {
         boolean found = false;
 
         for (Event event : events) {
-            if (!event.hasCompleted()) {
+            if (!event.isCompleted()) {
                 if (!main.CommunityCentreRunner.getTimeManager().isOngoing(event.getTimeBlock())) {
                     found = true;
                     System.out.println(event);
@@ -287,7 +295,7 @@ public class EventManager {
         boolean found = false;
 
         for (Event event : events) {
-            if (!event.hasCompleted() && main.CommunityCentreRunner.getTimeManager().isOngoing(event.getTimeBlock())) {
+            if (!event.isCompleted() && main.CommunityCentreRunner.getTimeManager().isOngoing(event.getTimeBlock())) {
                 found = true;
                 System.out.println(event);
             }
@@ -328,7 +336,7 @@ public class EventManager {
         main.CommunityCentreRunner.separate();
 
         for (Event event : events) {
-            if (!event.hasCompleted()) {
+            if (!event.isCompleted()) {
                 if (event.getTimeBlock().compareToEnd(newTime) > 0) {
                     System.out.println(event);
                     System.out.println("Event has completed!");
@@ -391,14 +399,14 @@ public class EventManager {
         }
 
         events.remove(event);
-        ArrayList<Member> participants = event.getParticipants();
-        ArrayList<Staff> staffSupervising = event.getStaffSupervising();
+        ArrayList<Member> participants = event.getRegistrants();
+        ArrayList<Staff> staffSupervising = event.getSupervising();
 
         for (Member member : participants) {
-            member.getRegistrations().cancelEvent(event);
+            member.getRegistrations().remove(event);
         }
         for (Staff staff : staffSupervising) {
-            staff.getShifts().cancelEvent(event);
+            staff.getShifts().remove(event);
         }
         return true;
     }

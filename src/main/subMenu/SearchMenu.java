@@ -62,10 +62,15 @@ public class SearchMenu {
                 int fid = ValidateInput.posInt();
                 Facility fac = facilityManager.searchById(fid);
 
-                if (fac != null)
+                if (fac != null) {
                     System.out.println(fac);
-                else
+                    String bookings = fac.toBookingsString();
+                    if (bookings != null) {
+                        System.out.println(bookings);
+                    }
+                } else {
                     System.out.println("Facility with ID #" + fid + " not found.");
+                }
             }
             case 2 -> {
                 System.out.println("Room number");
@@ -75,7 +80,7 @@ public class SearchMenu {
                 if (found != null)
                     System.out.println(found);
                 else
-                    System.out.println("Facility with room number " + roomNum + " not found.");
+                    System.out.println("Facility with room num. " + roomNum + " not found.");
             }
             case 3 -> {
                 System.out.println("Enter minimum capacity");
@@ -105,7 +110,7 @@ public class SearchMenu {
                 Event ev = eventManager.searchById(eid);
                 if (ev != null) {
                     System.out.println(ev);
-                    String details = ev.supervisingAndParticipating();
+                    String details = ev.toSupervisingAndParticipatingString();
                     if (!details.isBlank()) {
                         System.out.println(details);
                     }
@@ -126,6 +131,10 @@ public class SearchMenu {
                 if (member != null) {
                     System.out.println(member);
                     System.out.println(member.personalInfo());
+                    String registrations = member.toRegistrationString();
+                    if (!registrations.isEmpty()) {
+                        System.out.println(registrations);
+                    }
                 } else
                     System.out.println("Member not found.");
             }
@@ -135,10 +144,15 @@ public class SearchMenu {
                 String staffIdOrName = scan.nextLine().trim().toUpperCase();
                 Staff staff = staffManager.searchByIdOrName(staffIdOrName);
 
-                if (staff != null)
+                if (staff != null) {
                     System.out.println(staff);
-                else
-                    System.out.println("Member not found.");
+                    String shifts = staff.toShiftString();
+                    if (!shifts.isBlank()) {
+                        System.out.println(shifts);
+                    }
+                } else {
+                    System.out.println("Staff not found.");
+                }
             }
             case 0 -> {
                 return MenuStatus.BACK;

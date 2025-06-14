@@ -97,6 +97,8 @@ public class TimeManager {
                 main.CommunityCentreRunner.getMemberManager().billMonthlyMembers();
                 // pay part-time staff
                 main.CommunityCentreRunner.getStaffManager().payPartTimeStaff();
+                // reset part-time staff huors
+                main.CommunityCentreRunner.getStaffManager().resetPartTimeStaffHours();
                 System.out.println(); // blank line
             }
             if (prev_year != time.getYear()) {

@@ -45,24 +45,27 @@ public class ModifyCompetitionMenu {
 
         switch (competitionChoice) {
             case 1 -> {
-                System.out.println("Enter new facility room num.");
+                System.out.println("Enter new sports facility room num.");
                 int facilityId = ValidateInput.posInt();
                 Facility facility = facilityManager.searchByRoomNum(facilityId);
                 if (facility == null || !(facility instanceof SportsFacility)) {
-                    System.out.println("Sports facility with ID #" + facilityId + " not found.");
-                } else if (!facility.book(event)) {
-                    System.out.println("This facility has already been booked for this time slot.");
+                    System.out.println("Sports facility with room num. " + facilityId + " not found.");
+                } else if (event.setFacility(facility)) {
+                    System.out.println("Facility successfully updated to room num. " + facility.getRoomNum() +
+                            " for event #" + event.getId());
                 } else {
-                    event.getFacility().getBookings().cancelEvent(event);
-                    System.out.println(facility);
-                    System.out.println("Facility successfully updated.");
+                    System.out.println("Unable to update facility to room num. " + facility.getRoomNum() +
+                            " for event #" + event.getId());
                 }
             }
             case 2 -> {
                 TimeBlock tb = ValidateInput.timeBlock();
                 System.out.println(tb);
-                event.setTimeBlock(tb);
-                System.out.println("Time block successfully updated.");
+                if (event.setTimeBlock(tb)) {
+                    System.out.println("Time block successfully updated.");
+                } else {
+                    System.out.println("Unable to update time block due to conflicts.");
+                }
             }
             case 3 -> {
                 System.out.println("Enter new member host ID or name");
@@ -72,11 +75,13 @@ public class ModifyCompetitionMenu {
                 if (host == null) {
                     System.out.println("Host not found.");
                     break;
+                } else if (event.setHost(host)) {
+                    System.out.println("Host successfully updated to " + host.getName() +
+                            " for event #" + event.getId());
+                } else {
+                    System.out.println("Unable to update host to " + host.getName() +
+                            " for event #" + event.getId());
                 }
-
-                System.out.println(host);
-                event.setHost(host);
-                System.out.println("Host successfully updated.");
             }
             case 4 -> {
                 System.out.println("Enter new participant ID or name");
@@ -85,10 +90,7 @@ public class ModifyCompetitionMenu {
                 Member member = memberManager.searchByIdOrName(memberNameOrId);
                 if (member == null) {
                     System.out.println("Member not found.");
-                    break;
-                }
-
-                if (event.registerParticipant(member)) {
+                } else if (event.registerParticipant(member)) {
                     System.out.println("Member " + member.getName() +
                             " signed up for event #" + event.getId() + ".");
                 } else {
@@ -104,11 +106,13 @@ public class ModifyCompetitionMenu {
                 if (staff == null) {
                     System.out.println("Staff not found.");
                     break;
+                } else if (event.assignStaff(staff)) {
+                    System.out.println("Staff " + staff.getName() +
+                            " assigned to event #" + event.getId() + ".");
+                } else {
+                    System.out.println("Staff " + staff.getName() +
+                            " could not be assigned to event #" + event.getId() + ".");
                 }
-
-                event.assignStaff(staff);
-                System.out.println("Staff " + staff.getName() +
-                        " assigned to event #" + event.getId() + ".");
             }
             case 6 -> {
                 System.out.println("Enter new prize amount ($)");

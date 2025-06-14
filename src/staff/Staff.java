@@ -4,6 +4,9 @@
 
 package staff;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+
 import event.Event;
 import time.Schedule;
 import time.TimeBlock;
@@ -63,10 +66,37 @@ public abstract class Staff {
     }
 
     /**
-     * Print payroll information to standard output.
+     * Returns payroll string
      * Implementation depends on the concrete staff type.
      */
-    public abstract void printPayroll();
+    public abstract String toPayrollString();
+
+    /**
+     * returns a string containing shifts that this staff is supervising
+     * 
+     * @return
+     */
+    public String toShiftString() {
+        String s = "";
+        if (!shifts.getEventSchedule().isEmpty()) {
+            ArrayList<Event> events = new ArrayList<>();
+
+            for (Event event : shifts.getEventSchedule()) {
+                if (!event.isCompleted()) {
+                    events.add(event);
+                }
+            }
+
+            events.sort(Comparator.comparingDouble(Event::hoursSinceEpoch));
+
+            s += "\nEvents Supervising (Ongoing/Future):";
+
+            for (Event event : events) {
+                s += "\n - " + event;
+            }
+        }
+        return s;
+    }
 
     /**
      * Checks if the staff is available during the given time block.

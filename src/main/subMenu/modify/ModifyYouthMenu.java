@@ -43,7 +43,7 @@ public class ModifyYouthMenu {
             }
             case 2 -> {
                 System.out.println("Enter new name");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String name = scan.nextLine().trim().toUpperCase();
                 youth.setName(name);
                 System.out.println("Name successfully updated.");
@@ -58,7 +58,7 @@ public class ModifyYouthMenu {
             }
             case 7 -> {
                 System.out.println("Enter new guardian name or ID");
-                System.out.print(" > ");
+                System.out.print(" >  ");
                 String memberIdOrName = scan.nextLine().trim();
                 Member member = memberManager.searchByIdOrName(memberIdOrName);
 
