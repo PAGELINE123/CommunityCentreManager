@@ -192,9 +192,9 @@ public class CreateMenu {
                 Facility fac = null;
                 boolean validFacility = false;
                 while (!validFacility) {
-                    System.out.println("Enter facility ID");
+                    System.out.println("Enter facility room num.");
                     int facId = ValidateInput.posInt();
-                    fac = facilityManager.searchById(facId);
+                    fac = facilityManager.searchByRoomNum(facId);
 
                     if (fac == null) {
                         System.out.println("Facility with ID " + facId + " not found.");

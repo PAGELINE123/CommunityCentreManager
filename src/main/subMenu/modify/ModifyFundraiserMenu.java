@@ -13,6 +13,7 @@ import java.util.Scanner;
 import event.Fundraiser;
 import facility.Facility;
 import facility.FacilityManager;
+import facility.MeetingFacility;
 import main.CommunityCentreRunner.MenuStatus;
 import main.ValidateInput;
 import member.Member;
@@ -43,22 +44,27 @@ public class ModifyFundraiserMenu {
 
         switch (fundraiserChoice) {
             case 1 -> {
-                System.out.println("Enter Facility ID");
+                System.out.println("Enter facility room num.");
                 int facilityId = ValidateInput.posInt();
-                Facility facility = facilityManager.searchById(facilityId);
-                if (facility == null) {
-                    System.out.println("Facility with ID #" + facilityId + " not found.");
-                    break;
+                Facility facility = facilityManager.searchByRoomNum(facilityId);
+                if (facility == null || !(facility instanceof MeetingFacility)) {
+                    System.out.println("Meeting facility with ID #" + facilityId + " not found.");
+                } else if (!facility.book(event)) {
+                    System.out.println("This facility has already been booked for this time slot.");
+                } else {
+                    event.getFacility().getBookings().cancelEvent(event);
+                    System.out.println(facility);
+                    System.out.println("Facility successfully modified.");
                 }
-
-                event.setFacility(facility);
             }
             case 2 -> {
                 TimeBlock tb = ValidateInput.timeBlock();
+                System.out.println(tb);
                 event.setTimeBlock(tb);
+                System.out.println("Time block successfully updated.");
             }
             case 3 -> {
-                System.out.println("Enter Member Host ID or Name");
+                System.out.println("Enter member host ID or name");
                 System.out.print(" >  ");
                 String hostIdOrName = scan.nextLine();
                 Member host = memberManager.searchByIdOrName(hostIdOrName);
@@ -67,10 +73,12 @@ public class ModifyFundraiserMenu {
                     break;
                 }
 
+                System.out.println(host);
                 event.setHost(host);
+                System.out.println("Host successfully updated.");
             }
             case 4 -> {
-                System.out.println("Enter Member ID or Name");
+                System.out.println("Enter member ID or name");
                 System.out.print(" >  ");
                 String memberNameOrId = scan.nextLine();
                 Member member = memberManager.searchByIdOrName(memberNameOrId);
@@ -81,10 +89,10 @@ public class ModifyFundraiserMenu {
 
                 event.registerParticipant(member);
                 System.out.println("Member " + member.getName() +
-                        " signed up for event " + event.getId() + ".");
+                        " signed up for event #" + event.getId() + ".");
             }
             case 5 -> {
-                System.out.println("Enter Staff ID or Name");
+                System.out.println("Enter staff ID or name");
                 System.out.print(" >  ");
                 String staffIdOrName = scan.nextLine();
                 Staff staff = staffManager.searchByIdOrName(staffIdOrName);
@@ -95,7 +103,7 @@ public class ModifyFundraiserMenu {
 
                 event.assignStaff(staff);
                 System.out.println("Staff " + staff.getName() +
-                        " assigned to event " + event.getId() + ".");
+                        " assigned to event #" + event.getId() + ".");
             }
             case 6 -> {
                 System.out.println("Enter new goal amount ($)");

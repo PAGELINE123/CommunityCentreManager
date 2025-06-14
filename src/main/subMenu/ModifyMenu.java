@@ -129,10 +129,10 @@ public class ModifyMenu {
                 }
             }
             case 3 -> {
-                System.out.println("Enter facility ID");
+                System.out.println("Enter facility room num.");
                 int fid = ValidateInput.posInt();
 
-                Facility facility = facilityManager.searchById(fid);
+                Facility facility = facilityManager.searchByRoomNum(fid);
                 if (facility != null) {
                     System.out.println(facility);
 
