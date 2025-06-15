@@ -66,11 +66,19 @@ public class ModifyAdultMenu {
                 break;
             }
             case 4: {
-                System.out.println("Enter new contact phone");
-                System.out.print(" > ");
-                String contactPhone = scan.nextLine().trim();
-                adult.setContactPhone(contactPhone);
-                System.out.println("Contact phone successfully updated.");
+                boolean valid = false;
+                do {
+                    System.out.println("Enter new contact phone");
+                    System.out.print(" > ");
+                    String contactPhone = scan.nextLine().trim();
+                    try {
+                        adult.setContactPhone(contactPhone);
+                        valid = true;
+                        System.out.println("Contact phone successfully updated.");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                } while (!valid);
                 break;
             }
             case 5: {

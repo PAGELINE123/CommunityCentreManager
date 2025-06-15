@@ -1,40 +1,28 @@
-/**
- * Yubo
- */
-
 package staff;
 
 /**
- * Represents a part-time staff member who is paid by the hour.
- * Calculates monthly pay up to a maximum number of hours.
+ * represents a part-time staff member paid by the hour.
+ * calculates monthly pay up to a maximum number of hours.
  *
  * @author Yubo-Zhao
  * @version 1.0
  * @since 2025-06-03
  */
 public class PartTimeStaff extends Staff {
-    /**
-     * The number of hours this staff has worked in the month.
-     */
+    /** hours worked this month */
     private double hoursWorked;
-
-    /**
-     * The hourly wage for this staff.
-     */
+    /** hourly wage */
     private double hourlySalary;
-
-    /**
-     * The maximum number of hours this staff is allowed to work per month.
-     */
+    /** max allowed hours per month */
     private int maxMonthlyHours;
 
     /**
-     * Constructs a new PartTimeStaff with the given name and pay parameters.
+     * create part-time staff with initial hours, wage, and max hours
      *
-     * @param name            the staff member's name
-     * @param hoursWorked     the initial hours worked
-     * @param hourlySalary    the wage per hour
-     * @param maxMonthlyHours the cap on hours per month
+     * @param name            staff member's name
+     * @param hoursWorked     initial hours worked
+     * @param hourlySalary    wage per hour
+     * @param maxMonthlyHours cap on hours per month
      */
     public PartTimeStaff(String name, double hoursWorked, double hourlySalary, int maxMonthlyHours) {
         super(name);
@@ -44,10 +32,9 @@ public class PartTimeStaff extends Staff {
     }
 
     /**
-     * Calculates the monthly pay. If hoursWorked exceeds maxMonthlyHours,
-     * it is capped before calculating pay.
+     * calculate monthly pay (capped at maxMonthlyHours)
      *
-     * @return the total pay for this month
+     * @return total pay for this month
      */
     @Override
     public double calculatePay() {
@@ -57,77 +44,46 @@ public class PartTimeStaff extends Staff {
         return hoursWorked * hourlySalary;
     }
 
-    /**
-     * Returns payroll details as a string
-     */
+    /** return payroll details */
     public String toPayrollString() {
-        return name +
-                "'s pay is: " + calculatePay() +
-                " | Hours worked: " + hoursWorked;
+        return name + "'s pay is: " + calculatePay() + " | Hours worked: " + hoursWorked;
     }
 
-    /**
-     * Returns a string representation of this PartTimeStaff.
-     *
-     * @return a string containing ID, name, salary info, and max hours
-     */
+    /** return staff details */
+    @Override
     public String toString() {
-        return "Staff #" + id +
-                " | Name: " + name +
-                " | Hourly salary: " + hourlySalary +
-                " | Max monthly hours: " + maxMonthlyHours;
+        return "Staff #" + id
+             + " | Name: " + name
+             + " | Hourly salary: " + hourlySalary
+             + " | Max monthly hours: " + maxMonthlyHours;
     }
 
-    /**
-     * Gets the number of hours worked.
-     *
-     * @return hours worked this month
-     */
+    /** get hours worked */
     public double getHoursWorked() {
         return hoursWorked;
     }
 
-    /**
-     * Sets the number of hours worked.
-     *
-     * @param hoursWorked the new hours worked value
-     */
+    /** set hours worked */
     public void setHoursWorked(double hoursWorked) {
         this.hoursWorked = hoursWorked;
     }
 
-    /**
-     * Gets the hourly wage.
-     *
-     * @return the hourly salary
-     */
+    /** get hourly wage */
     public double getHourlySalary() {
         return hourlySalary;
     }
 
-    /**
-     * Sets the hourly wage.
-     *
-     * @param hourlySalary the new hourly salary
-     */
+    /** set hourly wage */
     public void setHourlySalary(double hourlySalary) {
         this.hourlySalary = hourlySalary;
     }
 
-    /**
-     * Gets the maximum monthly hours allowed.
-     *
-     * @return the max monthly hours
-     */
+    /** get max monthly hours */
     public int getMaxMonthlyHours() {
         return maxMonthlyHours;
     }
 
-    /**
-     * Sets the maximum monthly hours allowed.
-     *
-     * @param maxMonthlyHours the new max monthly hours
-     */
+    /** set max monthly hours */
     public void setMaxMonthlyHours(int maxMonthlyHours) {
         this.maxMonthlyHours = maxMonthlyHours;
     }

@@ -1,11 +1,6 @@
-/**
- * Yubo
- */
-
 package staff;
 
 import static java.util.Collections.*;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -13,52 +8,37 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
-
 import time.TimeBlock;
 
 /**
- * Manages a collection of Staff members: loading from file, adding new staff,
- * searching by ID, printing payrolls, finding available staff for a timeslot,
- * and printing names alphabetically.
+ * manages staff collection: load from file, add/remove, search, print payrolls,
+ * find available staff, and list names alphabetically.
+ * file format: numStaff, id, type (fulltime/parttime), name,
+ * then yearsWorked for fulltime or hoursWorked, hourlySalary, maxWeeklyHours for parttime.
  *
  * @author Yubo-Zhao
  * @version 1.0
  * @since 2025-06-09
  */
 public class StaffManager {
-    /**
-     * The list of all staff members managed by this class.
-     */
+    /** list of all staff members */
     private ArrayList<Staff> staffs;
 
-    /**
-     * Default constructor for StaffManager.
-     */
+    /** create empty staff manager */
     public StaffManager() {
         staffs = new ArrayList<>();
     }
 
     /**
-     * Constructs a StaffManager and loads staff data from a text file.
-     * The file format is:
-     * <num staff>
-     * <id>
-     * <type> // "fulltime" or "parttime"
-     * <name>
-     * [fulltime only] <yearsWorked>
-     * [parttime only] <hoursWorked>
-     * <hourlySalary>
-     * <maxWeeklyHours>
+     * create manager from file and load staff data
      *
-     * @param filename the path to the staff data file
+     * @param filename staff data file path
      */
-
     public StaffManager(String filename) {
         staffs = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             int numStaff = Integer.parseInt(br.readLine().trim());
-
             for (int i = 0; i < numStaff; i++) {
                 int id = Integer.parseInt(br.readLine().trim());
                 String type = br.readLine().trim().toLowerCase();
@@ -69,7 +49,6 @@ public class StaffManager {
                     FullTimeStaff full = new FullTimeStaff(name, yearsWorked);
                     full.setId(id);
                     staffs.add(full);
-
                 } else if (type.equals("parttime")) {
                     double hoursWorked = Double.parseDouble(br.readLine().trim());
                     double hourlyRate = Double.parseDouble(br.readLine().trim());
@@ -79,7 +58,6 @@ public class StaffManager {
                     staffs.add(part);
                 }
             }
-
             br.close();
         } catch (IOException iox) {
             System.out.println("Error reading staff file: " + iox.getMessage());
@@ -87,14 +65,13 @@ public class StaffManager {
     }
 
     /**
-     * saves staff to file
-     * 
-     * @param filepath
+     * save staff to file
+     *
+     * @param filepath output file path
      */
     public void save(String filepath) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
             bw.write(staffs.size() + "\n");
-
             for (Staff staff : staffs) {
                 bw.write(staff.id + "\n");
                 if (staff instanceof FullTimeStaff) {
@@ -103,7 +80,6 @@ public class StaffManager {
                     bw.write("parttime\n");
                 }
                 bw.write(staff.name + "\n");
-
                 if (staff instanceof FullTimeStaff fts) {
                     bw.write(fts.getYearsWorked() + "\n");
                 } else if (staff instanceof PartTimeStaff pts) {
@@ -112,7 +88,6 @@ public class StaffManager {
                     bw.write(pts.getMaxMonthlyHours() + "\n");
                 }
             }
-
             bw.close();
         } catch (IOException iox) {
             System.out.println("Error writing to staff file: " + iox.getMessage());
@@ -120,84 +95,72 @@ public class StaffManager {
     }
 
     /**
-     * Adds a new staff member, assigning them a unique ID.
+     * add staff with unique id
      *
-     * @param staff the Staff object to add
+     * @param staff staff object to add
      */
     public void addStaff(Staff staff) {
         staff.setId(generateId());
         staffs.add(staff);
     }
 
-    /**
-     * Generates the next unique staff ID by taking the last assigned ID + 1.
-     *
-     * @return a new unique ID
-     */
+    /** generate next unique id */
     public int generateId() {
         int maxId = -1;
-
-        for (int i = 0; i < staffs.size(); i++) {
-            if (staffs.get(i).getId() > maxId) {
-                maxId = staffs.get(i).getId();
+        for (Staff s : staffs) {
+            if (s.getId() > maxId) {
+                maxId = s.getId();
             }
         }
         return maxId + 1;
     }
 
     /**
-     * Searches for a staff member by their ID using binary search.
-     * Assumes the list is sorted by ID.
+     * search by id with binary search
      *
-     * @param id the staff ID to search for
-     * @return the Staff with the matching ID, or null if not found
+     * @param id staff id
+     * @return matching staff or null
      */
     public Staff searchById(int id) {
         return searchByIdRecursive(id, 0, staffs.size() - 1);
     }
 
     /**
-     * Searches for a staff member by their name
+     * search by name
      *
-     * @param name the name to search for
-     * @return the Staff with the matching name, or null if not found
+     * @param name full name
+     * @return matching staff or null
      */
     public Staff searchByName(String name) {
-        for (Staff staff : staffs) {
-            if (staff.name.equalsIgnoreCase(name)) {
-                return staff;
+        for (Staff s : staffs) {
+            if (s.name.equalsIgnoreCase(name)) {
+                return s;
             }
         }
-
         return null;
     }
 
     /**
-     * searches for staff member by their name or id, whichever is valid
-     * 
-     * @param idOrName
-     * @return the staff with the matching name or id
+     * search by id or name
+     *
+     * @param idOrName id string or full name
+     * @return matching staff or null
      */
     public Staff searchByIdOrName(String idOrName) {
-        Staff staff = null;
-
         try {
-            int id = Integer.parseInt(idOrName);
-            staff = searchById(id);
+            return searchById(Integer.parseInt(idOrName));
         } catch (NumberFormatException ignored) {
-            staff = searchByName(idOrName);
+            return searchByName(idOrName);
         }
-
-        return staff;
     }
 
     /**
-     * Recursive helper for binary search by ID.
+     * recursive helper for binary search by id
      *
-     * @param id   the target ID
-     * @param low  the lower index
-     * @param high the upper index
-     * @return the matching Staff, or null if not present
+     * @param id   target id
+     * @param low  lower index
+     * @param high upper index
+     * @return matching staff or null
      */
     private Staff searchByIdRecursive(int id, int low, int high) {
         if (low > high) {
@@ -205,7 +168,6 @@ public class StaffManager {
         }
         int mid = (low + high) / 2;
         int midId = staffs.get(mid).getId();
-
         if (midId == id) {
             return staffs.get(mid);
         } else if (midId > id) {
@@ -216,44 +178,40 @@ public class StaffManager {
     }
 
     /**
-     * Prints all staff
-     * 
-     * @return whether anything was printed
+     * print all staff
+     *
+     * @return whether printed
      */
     public boolean printAllStaff() {
         if (staffs.isEmpty()) {
             return false;
         }
-
         for (Staff s : staffs) {
             System.out.println(s);
         }
-
         return true;
     }
 
     /**
-     * Prints the payroll information for all staff to standard output.
-     * 
-     * @return whether anything was printed
+     * print all payrolls
+     *
+     * @return whether printed
      */
     public boolean printAllPayrolls() {
         if (staffs.isEmpty()) {
             return false;
         }
-
         for (Staff s : staffs) {
             System.out.println(s.toPayrollString());
         }
-
         return true;
     }
 
     /**
-     * Finds all staff members available during the given time block.
+     * find available staff for a time block
      *
-     * @param block the time block to check availability against
-     * @return a list of Staff who are available
+     * @param block time block to check
+     * @return list of available staff
      */
     public ArrayList<Staff> availableStaff(TimeBlock block) {
         ArrayList<Staff> available = new ArrayList<>();
@@ -266,15 +224,14 @@ public class StaffManager {
     }
 
     /**
-     * Prints all staff names in alphabetical order.
-     * 
-     * @return whether anything was printed
+     * print staff names alphabetically
+     *
+     * @return whether printed
      */
     public boolean printAlphabetical() {
         if (staffs.isEmpty()) {
             return false;
         }
-
         ArrayList<String> sortedNames = new ArrayList<>();
         for (Staff s : staffs) {
             sortedNames.add(s.getName());
@@ -283,36 +240,30 @@ public class StaffManager {
         for (String name : sortedNames) {
             System.out.println(name);
         }
-
         return true;
     }
 
-    /**
-     * Pays all full-time staff
-     */
+    /** pay all full-time staff */
     public void payFullTimeStaff() {
         for (Staff s : staffs) {
             if (s instanceof FullTimeStaff fs) {
-                System.out.printf("Staff #" + fs.getId() + " " + fs.getName() + " was paid %.2f\n",
-                        fs.calculatePay() * 12);
+                System.out.printf("Staff #%d %s was paid %.2f\n",
+                                  fs.getId(), fs.getName(), fs.calculatePay() * 12);
             }
         }
     }
 
-    /**
-     * Pays all part-time staff
-     */
+    /** pay all part-time staff */
     public void payPartTimeStaff() {
         for (Staff s : staffs) {
             if (s instanceof PartTimeStaff ps) {
-                System.out.printf("Staff #" + ps.getId() + " " + ps.getName() + " was paid %.2f\n", ps.calculatePay());
+                System.out.printf("Staff #%d %s was paid %.2f\n",
+                                  ps.getId(), ps.getName(), ps.calculatePay());
             }
         }
     }
 
-    /**
-     * Resets part time staff hours
-     */
+    /** reset hours for all part-time staff */
     public void resetPartTimeStaffHours() {
         for (Staff s : staffs) {
             if (s instanceof PartTimeStaff ps) {
@@ -322,9 +273,7 @@ public class StaffManager {
         System.out.println("Hours reset for part-time staff.");
     }
 
-    /**
-     * Increases the years worked of all full-time staff by 1
-     */
+    /** increase years worked for all full-time staff */
     public void increaseYearsWorked() {
         for (Staff s : staffs) {
             if (s instanceof FullTimeStaff fs) {
@@ -334,24 +283,32 @@ public class StaffManager {
         }
     }
 
-    /**
-     * Sorts the staff list by descending pay, then by ascending name.
-     */
+    /** sort by descending pay then by name */
     public void sortByPayThenName() {
-        sort(staffs, Comparator.comparingDouble(Staff::calculatePay).reversed().thenComparing(Staff::getName,
-                String.CASE_INSENSITIVE_ORDER));
+        sort(staffs, Comparator.comparingDouble(Staff::calculatePay)
+                             .reversed()
+                             .thenComparing(Staff::getName, String.CASE_INSENSITIVE_ORDER));
     }
 
+    /** get staff list */
     public ArrayList<Staff> getStaffs() {
         return staffs;
     }
 
+    /**
+     * set staff list
+     *
+     * @param staffs new staff list
+     */
     public void setStaffs(ArrayList<Staff> staffs) {
         this.staffs = staffs;
     }
 
     /**
-     * Removes a staff member by ID.
+     * remove staff by id
+     *
+     * @param id staff id
+     * @return true if removed
      */
     public boolean removeStaff(int id) {
         for (int i = 0; i < staffs.size(); i++) {
@@ -362,5 +319,4 @@ public class StaffManager {
         }
         return false;
     }
-
 }
