@@ -6,7 +6,7 @@
  * @since June 13, 2025
  */
 
-package main.subMenu.modify;
+package main.submenu.modify;
 
 import java.util.Scanner;
 
@@ -39,7 +39,7 @@ public class ModifyPartTimeStaffMenu {
             case 2 -> {
                 System.out.println("Enter new number of hours worked this month");
                 double hoursWorked = ValidateInput.posDouble();
-                staff.setHoursWorked((int)hoursWorked);
+                staff.setHoursWorked((int) hoursWorked);
                 System.out.println("Hours worked successfully updated.");
             }
             case 3 -> {
