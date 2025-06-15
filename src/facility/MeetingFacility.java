@@ -12,7 +12,7 @@ import time.TimeBlock;
 public class MeetingFacility extends Facility {
     private double size;
 
-    public static final double COST_PER_SQFT = 0.05;
+    public static final double COST_PER_SQFT = 0.07;
 
     /**
      * MeetingFacility constructor
@@ -51,7 +51,8 @@ public class MeetingFacility extends Facility {
     // converts object to string
     @Override
     public String toString() {
-        return "Meeting Facility" + super.toString() + String.format(" | Size: %.0fsqft", size);
+        return "Meeting Facility" + super.toString()
+                + String.format(" | Size: %.0fsqft | Cost to Rent (1hr): $%.2f", size, calcCostOneHour());
     }
 
     // accessor for size

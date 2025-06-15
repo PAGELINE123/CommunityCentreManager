@@ -1,4 +1,4 @@
-3
+8
 0
 fulltime
 BRIAN CAI
@@ -15,3 +15,29 @@ ALEXANDER CHANG
 0.0
 20.0
 10
+3
+parttime
+LISA MARTIN
+0.0
+27.5
+90
+4
+parttime
+DAVID NGUYEN
+0.0
+22.0
+110
+5
+fulltime
+EMMA THOMAS
+5
+6
+fulltime
+OLIVIA ROBERTS
+15
+7
+parttime
+JAMES ANDERSON
+0.0
+19.75
+100

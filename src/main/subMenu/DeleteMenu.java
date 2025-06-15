@@ -71,7 +71,7 @@ public class DeleteMenu {
                 }
             }
             case 3 -> {
-                System.out.print("Enter the facility room num. to delete: ");
+                System.out.println("Enter the facility room num. to delete");
                 int roomNum = ValidateInput.posInt();
                 boolean removedFacility = facilityManager.removeFacility(roomNum);
                 if (removedFacility) {
@@ -81,7 +81,7 @@ public class DeleteMenu {
                 }
             }
             case 4 -> {
-                System.out.print("Enter the event ID to delete: ");
+                System.out.println("Enter the event ID to delete");
                 int eventId = ValidateInput.posInt();
                 boolean cancelled = eventManager.cancelEvent(eventId); // uses cancelEvent to clean up
                 // registrations

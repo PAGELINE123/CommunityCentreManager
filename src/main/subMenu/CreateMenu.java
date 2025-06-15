@@ -71,26 +71,25 @@ public class CreateMenu {
                     System.out.println(newMember);
                     System.out.println("Adult member created successfully.");
                 } else {
-                    System.out.println("Guardian ID or name");
-                    System.out.print(" >  ");
-                    String guardianIdOrName = scan.nextLine().trim().toUpperCase();
-                    Member guardian;
-                    try {
-                        int id = Integer.parseInt(guardianIdOrName);
-                        guardian = memberManager.searchById(id);
-                    } catch (NumberFormatException nfe) {
-                        guardian = memberManager.searchByName(guardianIdOrName);
+                    Member guardian = null;
+                    while (!(guardian instanceof AdultMember)) {
+                        System.out.println("Guardian ID or name");
+                        System.out.print(" >  ");
+                        String guardianIdOrName = scan.nextLine().trim().toUpperCase();
+                        guardian = memberManager.searchByIdOrName(guardianIdOrName);
+
+                        if (guardian == null) {
+                            System.out.println("Member not found.");
+                        } else if (guardian instanceof YouthMember) {
+                            System.out.println("Guardian must be an adult member.");
+                        }
                     }
 
-                    if (guardian instanceof AdultMember adult) {
-                        newMember = new YouthMember(age, name, planType, adult);
+                    newMember = new YouthMember(age, name, planType, (AdultMember) guardian);
 
-                        main.CommunityCentreRunner.getMemberManager().addMember(newMember);
-                        System.out.println(newMember);
-                        System.out.println("Youth member created successfully.");
-                    } else {
-                        System.out.println("No matching adult.");
-                    }
+                    main.CommunityCentreRunner.getMemberManager().addMember(newMember);
+                    System.out.println(newMember);
+                    System.out.println("Youth member created successfully.");
                 }
             }
             case 2 -> {
@@ -222,12 +221,15 @@ public class CreateMenu {
                 Member host = null;
                 switch (hostingChoice) {
                     case 0 -> {
-                        while (host == null) {
+                        while (!(host instanceof AdultMember)) {
                             System.out.println("Enter host (member) ID");
                             int hid = ValidateInput.posInt();
                             host = memberManager.searchById(hid);
-                            if (host == null)
+                            if (host == null) {
                                 System.out.println("Member with ID " + host + " not found.");
+                            } else if (host instanceof YouthMember) {
+                                System.out.println("Host cannot be a youth member.");
+                            }
                         }
                     }
                     case 1 -> {
