@@ -6,7 +6,7 @@
  * @since June 13, 2025
  */
 
-package main.subMenu.modify;
+package main.submenu.modify;
 
 import facility.SportsFacility;
 import main.CommunityCentreRunner.MenuStatus;

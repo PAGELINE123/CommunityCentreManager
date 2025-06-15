@@ -6,7 +6,7 @@
  * @since June 12, 2025
  */
 
-package main.subMenu.modify;
+package main.submenu.modify;
 
 import java.util.Scanner;
 
