@@ -37,6 +37,8 @@ public abstract class Member {
     protected Schedule registrations;
     /** Billing plan type for this member */
     protected PlanType planType;
+    /**Amount of billing cycles the member has been through */
+    protected int billingCycles;
 
     /**
      * Enumeration of available billing plans.
@@ -59,7 +61,25 @@ public abstract class Member {
         this.name = name;
         this.planType = planType;
         this.registrations = new Schedule();
+        this.billingCycles = 0;
     }
+
+    /**
+     * Constructs a Member with the given age, name, and plan.
+     * Initializes an empty registration schedule.
+     *
+     * @param age      the member's age
+     * @param name     the member's full name
+     * @param planType the billing plan for this member
+     */
+    public Member(int age, String name, PlanType planType, int billingCycles) {
+        this.age = age;
+        this.name = name;
+        this.planType = planType;
+        this.registrations = new Schedule();
+        this.billingCycles = billingCycles;
+    }
+
 
     /**
      * Calculates this member's total bill based on their plan and any
@@ -75,6 +95,30 @@ public abstract class Member {
      * @return the string representation
      */
     public abstract String personalInfo();
+
+    /**
+     * Sets the amount of billing cycles of the member
+     * 
+     * @param billingCycles
+     */
+    public void setBillingCycles(int billingCycles) {
+        this.billingCycles = billingCycles;
+    }
+
+    /**
+     * returns the billing cycles of the member
+     * @return the billing cycles of the member
+     */
+    public int getBillingCycles() {
+        return this.billingCycles;
+    }
+
+    /**
+     * increments the amount of billing cycles of the member by one
+     */
+    public void incrementBillingCycles() {
+        this.billingCycles++;
+    }
 
     /**
      * Returns the membership details string

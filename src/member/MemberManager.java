@@ -76,6 +76,7 @@ public class MemberManager {
                 int age = Integer.parseInt(br.readLine().trim());
                 String name = br.readLine().trim();
                 Member.PlanType pType = Member.PlanType.valueOf(br.readLine().trim().toUpperCase());
+                int billingCycles = Integer.parseInt(br.readLine());
 
                 if (age >= Member.ADULT_AGE) {
                     String phone = br.readLine().trim();
@@ -89,13 +90,13 @@ public class MemberManager {
                         childIds.add(Integer.parseInt(br.readLine().trim()));
                     }
 
-                    AdultMember adult = new AdultMember(age, name, pType, phone, address, totalAmount, paidAmount);
+                    AdultMember adult = new AdultMember(age, name, pType, phone, address, totalAmount, paidAmount, billingCycles);
                     adult.setId(id);
                     members.add(adult);
                     // you can still wire children if you stored their IDs elsewhere
                 } else { // youth
                     int guardianId = Integer.parseInt(br.readLine().trim());
-                    YouthMember youth = new YouthMember(age, name, pType, null);
+                    YouthMember youth = new YouthMember(age, name, pType, null, billingCycles);
                     youth.setId(id);
                     members.add(youth);
                     youthGuardian.put(id, guardianId);
@@ -130,6 +131,7 @@ public class MemberManager {
                 bw.write(member.age + "\n");
                 bw.write(member.name + "\n");
                 bw.write(member.planType + "\n");
+                bw.write(member.billingCycles + "\n");
 
                 if (member instanceof AdultMember adult) {
                     bw.write(adult.getContactPhone() + "\n");
@@ -352,13 +354,9 @@ public class MemberManager {
     public void billMonthlyMembers() {
         for (Member m : members) {
             if (m.getPlanType() == Member.PlanType.MONTHLY && m instanceof AdultMember am) {
-                am.addBillBase();
-                System.out.printf("Member #" + am.getId() + " " + am.getName() + " was billed %.2f\n",
-                        am.calculateBill());
-                if (am.getPaidBillAmount()<am.getTotalBillAmount()) {
-                    am.payBill(m.calculateBill()); // they pay off their bill
-                }
+                System.out.printf("Member #" + am.getId() + " " + am.getName() + " was billed %.2f\n", am.calculateBill());
             }
+            m.incrementBillingCycles();
         }
     }
 
@@ -370,13 +368,9 @@ public class MemberManager {
     public void billAnnualMembers() {
         for (Member m : members) {
             if (m.getPlanType() == Member.PlanType.ANNUAL && m instanceof AdultMember am) {
-                am.addBillBase();
-                System.out.printf("Member #" + am.getId() + " " + am.getName() + " was billed %.2f\n",
-                        am.calculateBill());
-                if (am.getPaidBillAmount()<am.getTotalBillAmount()) {
-                    am.payBill(m.calculateBill()); // they pay off their bill
-                }
+                System.out.printf("Member #" + am.getId() + " " + am.getName() + " was billed %.2f\n", am.calculateBill());
             }
+            m.incrementBillingCycles();
         }
     }
 
@@ -405,6 +399,7 @@ public class MemberManager {
                             youth.getGuardian().getContactPhone(),
                             youth.getGuardian().getAddress());
                     //grown.setPaidBillAmount(youth.calculateBill());
+                    grown.setBillingCycles(youth.getBillingCycles());
 
                     // now also replace in every Event’s participant list
                     for (Event e : youth.getRegistrations().getEventSchedule()) {

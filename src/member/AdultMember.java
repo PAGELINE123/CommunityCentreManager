@@ -46,11 +46,12 @@ public class AdultMember extends Member {
      * @param address      residential address
      */
     public AdultMember(int age, String name, PlanType planType, String contactPhone, String address) {
-        super(age, name, planType);
+        super(age, name, planType); 
         this.contactPhone = contactPhone;
         this.address = address;
         this.totalBillAmount = 0;
         this.paidBillAmount = 0;
+        this.billingCycles = 0;
     }
 
     /**
@@ -68,6 +69,25 @@ public class AdultMember extends Member {
             String contactPhone, String address,
             double totalBillAmount, double paidBillAmount) {
         super(age, name, planType);
+        this.contactPhone = contactPhone;
+        this.address = address;
+        this.totalBillAmount = totalBillAmount;
+        this.paidBillAmount = paidBillAmount;
+    }
+
+    /**
+     * Constructs an AdultMember with the specified details.
+     * @param age
+     * @param name
+     * @param planType
+     * @param contactPhone
+     * @param address
+     * @param billingCycles
+     */
+    public AdultMember(int age, String name, PlanType planType,
+            String contactPhone, String address,
+            double totalBillAmount, double paidBillAmount, int billingCycles) {
+        super(age, name, planType, billingCycles); 
         this.contactPhone = contactPhone;
         this.address = address;
         this.totalBillAmount = totalBillAmount;
@@ -100,6 +120,8 @@ public class AdultMember extends Member {
             case MONTHLY -> MONTHLY_BASE;
             case ANNUAL -> ANNUAL_BASE;
         };
+
+        base = base + billingCycles*base;
 
         for (Event event : registrations.getEventSchedule()) {
             //System.out.println(registrations.getEventSchedule());
@@ -281,7 +303,7 @@ public class AdultMember extends Member {
     /**
      * Adds the base to the total bill
      */
-    public void addBillBase() {
+    public void BillBase() {
         double base = switch (planType) {
             case MONTHLY -> MONTHLY_BASE;
             case ANNUAL -> ANNUAL_BASE;
