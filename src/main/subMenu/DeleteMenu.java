@@ -11,6 +11,7 @@ package main.submenu;
 import java.util.Scanner;
 
 import event.EventManager;
+import facility.Facility;
 import facility.FacilityManager;
 import main.CommunityCentreRunner.MenuStatus;
 import main.ValidateInput;
@@ -47,12 +48,12 @@ public class DeleteMenu {
                 String memberIdOrName = scan.nextLine().trim().toUpperCase();
                 Member member = memberManager.searchByIdOrName(memberIdOrName);
 
-                memberManager.removeMember(member.getId());
+                boolean removed = member != null && memberManager.removeMember(member.getId());
 
-                if (member instanceof AdultMember) {
+                if (removed && member instanceof AdultMember) {
                     System.out.println(
                             "Adult member " + member.getName() + " and their children have been deleted.");
-                } else if (member instanceof YouthMember) {
+                } else if (removed && member instanceof YouthMember) {
                     System.out.println("Youth member " + member.getName() + " has been deleted.");
                 } else {
                     System.out.println("Member not found.");
@@ -64,7 +65,7 @@ public class DeleteMenu {
                 String staffIdOrName = scan.nextLine().trim().toUpperCase();
                 Staff staff = staffManager.searchByIdOrName(staffIdOrName);
 
-                if (staff != null) {
+                if (staff != null && staffManager.removeStaff(staff.getId())) {
                     System.out.println("Staff " + staff.getName() + " has been deleted.");
                 } else {
                     System.out.println("Staff not found.");
@@ -73,8 +74,9 @@ public class DeleteMenu {
             case 3 -> {
                 System.out.println("Enter the facility room num. to delete");
                 int roomNum = ValidateInput.posInt();
-                boolean removedFacility = facilityManager.removeFacility(roomNum);
-                if (removedFacility) {
+                Facility facility = facilityManager.searchByRoomNum(roomNum);
+
+                if (facility != null && facilityManager.removeFacility(facility.getId())) {
                     System.out.println("Facility with room num. " + roomNum + " has been deleted.");
                 } else {
                     System.out.println("Facility with room num. " + roomNum + " not found.");
@@ -83,6 +85,7 @@ public class DeleteMenu {
             case 4 -> {
                 System.out.println("Enter the event ID to delete");
                 int eventId = ValidateInput.posInt();
+
                 boolean cancelled = eventManager.cancelEvent(eventId); // uses cancelEvent to clean up
                 // registrations
                 if (cancelled) {

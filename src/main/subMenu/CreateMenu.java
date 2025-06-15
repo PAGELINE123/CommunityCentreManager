@@ -161,21 +161,34 @@ public class CreateMenu {
                     goal = ValidateInput.posDouble();
                 }
 
-                TimeBlock d = ValidateInput.date();
+                TimeBlock tb = null;
 
-                System.out.println("Enter duration type   (0) Set duration   (1) All-day");
-                int durationChoice = ValidateInput.menu(1);
+                boolean anyFacilities = eventType == 0 ? facilityManager.areAnySportsFacilitiesAvailable(tb)
+                        : facilityManager.areAnyMeetingFacilitiesAvailable(tb);
 
-                TimeBlock tb = new TimeBlock();
-                switch (durationChoice) {
-                    case 1 -> {
-                        tb = d;
+                while (!anyFacilities) {
+                    TimeBlock d = ValidateInput.date();
+
+                    System.out.println("Enter duration type   (0) Set duration   (1) All-day");
+                    int durationChoice = ValidateInput.menu(1);
+
+                    switch (durationChoice) {
+                        case 1 -> {
+                            tb = d;
+                        }
+                        case 0 -> {
+                            double[] sd = ValidateInput.startDuration();
+                            double startHour = sd[0];
+                            double duration = sd[1];
+                            tb = new TimeBlock(d, startHour, duration);
+                        }
                     }
-                    case 0 -> {
-                        double[] sd = ValidateInput.startDuration();
-                        double startHour = sd[0];
-                        double duration = sd[1];
-                        tb = new TimeBlock(d, startHour, duration);
+
+                    anyFacilities = eventType == 0 ? facilityManager.areAnySportsFacilitiesAvailable(tb)
+                            : facilityManager.areAnyMeetingFacilitiesAvailable(tb);
+
+                    if (!anyFacilities) {
+                        System.out.println("There are no matching facilities available for this time block.");
                     }
                 }
 

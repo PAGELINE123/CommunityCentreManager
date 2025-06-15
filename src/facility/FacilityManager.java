@@ -178,6 +178,49 @@ public class FacilityManager {
     }
 
     /**
+     * checks if there are any available sports facilities within a given time block
+     * 
+     * @param timeBlock the time block to search
+     * @return whether there are available facilities
+     */
+    public boolean areAnySportsFacilitiesAvailable(TimeBlock timeBlock) {
+        if (timeBlock == null) {
+            return false;
+        }
+
+        for (Facility facility : facilities) {
+            if (facility instanceof SportsFacility &&
+                    facility.getBookings().isBlockFree(timeBlock)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * checks if there are any available meeting facilities within a given time
+     * block
+     * 
+     * @param timeBlock the time block to search
+     * @return whether there are available facilities
+     */
+    public boolean areAnyMeetingFacilitiesAvailable(TimeBlock timeBlock) {
+        if (timeBlock == null) {
+            return false;
+        }
+
+        for (Facility facility : facilities) {
+            if (facility instanceof MeetingFacility &&
+                    facility.getBookings().isBlockFree(timeBlock)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * prints all facilities that are available during a given time block and
      * minimum
      * cap
