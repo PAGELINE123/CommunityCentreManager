@@ -357,8 +357,12 @@ public class MemberManager {
         for (Member m : members) {
             if (m.getPlanType() == Member.PlanType.MONTHLY && m instanceof AdultMember am) {
                 System.out.printf("Member #" + am.getId() + " " + am.getName() + " was billed %.2f\n", am.calculateBill());
+                am.incrementBillingCycles();
+            
+                if (am.getPaidBillAmount() < am.getTotalBillAmount()) {
+                    am.payBill(am.calculateBill());
+                }
             }
-            m.incrementBillingCycles();
         }
     }
 
@@ -371,8 +375,12 @@ public class MemberManager {
         for (Member m : members) {
             if (m.getPlanType() == Member.PlanType.ANNUAL && m instanceof AdultMember am) {
                 System.out.printf("Member #" + am.getId() + " " + am.getName() + " was billed %.2f\n", am.calculateBill());
+                am.incrementBillingCycles();
+            
+                if (am.getPaidBillAmount() < am.getTotalBillAmount()) {
+                    am.payBill(am.calculateBill());
+                }
             }
-            m.incrementBillingCycles();
         }
     }
 
@@ -405,9 +413,8 @@ public class MemberManager {
 
                     // now also replace in every Event’s participant list
                     for (Event e : youth.getRegistrations().getEventSchedule()) {
-                        System.out.println(e + " youth replaced with grown");
                         e.registerParticipant(grown);
-                        if (e instanceof Competition c) {
+                        if (e instanceof Competition c && c.isCompleted()) {
                             if (c.getWinner().equals(grown)) {
                                 c.setWinner(grown);
                             }

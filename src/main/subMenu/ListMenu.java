@@ -6,7 +6,7 @@
  * @since June 11, 2025
  */
 
-package main.submenu;
+package main.subMenu;
 
 import event.EventManager;
 import facility.FacilityManager;

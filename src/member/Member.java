@@ -114,13 +114,6 @@ public abstract class Member {
     }
 
     /**
-     * increments the amount of billing cycles of the member by one
-     */
-    public void incrementBillingCycles() {
-        this.billingCycles++;
-    }
-
-    /**
      * Returns the membership details string
      * 
      * @return the toString representation

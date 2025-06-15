@@ -110,6 +110,16 @@ public class AdultMember extends Member {
     }
 
     /**
+     * increments the amount of billing cycles of the member and their children by one
+     */
+    public void incrementBillingCycles() {
+        this.billingCycles++;
+        for (Member child : children) {
+            child.setBillingCycles(child.getBillingCycles()+1);
+        }
+    }
+
+    /**
      * Calculates this member's total bill by adding the plan base fee
      * to any additional charges.
      * 

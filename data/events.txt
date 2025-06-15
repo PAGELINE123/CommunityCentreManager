@@ -18,7 +18,7 @@ JUN
 competition
 4000.0
 10.0
-0
+-1
 3
 JUL
 2

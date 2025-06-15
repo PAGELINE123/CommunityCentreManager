@@ -6,7 +6,7 @@
  * @since June 13, 2025
  */
 
-package main.submenu.modify;
+package main.subMenu.modify;
 
 import java.util.Scanner;
 
@@ -25,7 +25,7 @@ import time.TimeBlock;
 
 public class ModifyCompetitionMenu {
     /**
-     * Show the “modify competition” submenu for a given Competition.
+     * Show the “modify competition” subMenu for a given Competition.
      * 
      * @param event the Competition to modify
      * @return BACK to return to the parent menu, CONTINUE to stay
