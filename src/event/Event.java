@@ -1,13 +1,3 @@
-package event;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import facility.Facility;
-import member.Member;
-import staff.Staff;
-import time.TimeBlock;
-
 /**
  * This class represents a scheduled event.
  * It contains all the functions that an event needs.
@@ -16,13 +6,23 @@ import time.TimeBlock;
  * @version 1.0
  * @since 2025-05-30
  */
+
+package event;
+
+import java.util.ArrayList;
+
+import facility.Facility;
+import member.Member;
+import staff.Staff;
+import time.TimeBlock;
+
 public abstract class Event {
     // fields
     protected Facility facility;
     protected TimeBlock timeBlock;
     protected Member host;
     protected ArrayList<Staff> supervising = new ArrayList<>();
-    protected ArrayList<Member> registrants = new ArrayList<>();
+    protected ArrayList<Member> participants = new ArrayList<>();
     protected int id;
     protected boolean completed;
 
@@ -30,7 +30,7 @@ public abstract class Event {
      * Constructor for Event;
      * creates an event given information.
      * Host can be null to represent no host.
-     *
+     * 
      * @param facility
      * @param timeBlock
      * @param host
@@ -46,6 +46,7 @@ public abstract class Event {
         }
 
         this.completed = false;
+        // id is set within eventManager, which will generate a unique ID for the event.
     }
 
     // accessors
@@ -61,17 +62,12 @@ public abstract class Event {
         return this.timeBlock;
     }
 
-    public List<Staff> getSupervising() {
+    public ArrayList<Staff> getSupervising() {
         return this.supervising;
     }
 
-    public List<Member> getRegistrants() {
-        return this.registrants;
-    }
-
-    /** Alias for getRegistrants(), so code using getParticipants() will compile. */
-    public List<Member> getParticipants() {
-        return this.registrants;
+    public ArrayList<Member> getParticipants() {
+        return this.participants;
     }
 
     public Facility getFacility() {
@@ -86,134 +82,9 @@ public abstract class Event {
     public void setId(int id) {
         this.id = id;
     }
-
-    /**
-     * equals
-     * determines if two events are identical
-     *
-     * @param other
-     * @return whether the events are identical
-     */
-    public boolean equals(Event other) {
-        return other != null
-            && this.id == other.id
-            && this.timeBlock.equals(other.timeBlock)
-            && ((this.host == null && other.host == null)
-                || (this.host != null && this.host.equals(other.host)));
-    }
-
-    /**
-     * isFull
-     * determines if the event's facility has reached maximum capacity.
-     *
-     * @return whether the event is full
-     */
-    public boolean isFull() {
-        return registrants.size() >= this.facility.getMaxCapacity();
-    }
-
-    /**
-     * occursBefore
-     * determines if the event will occur before the given time and is not ongoing.
-     *
-     * @param time
-     * @return
-     */
-    public boolean occursBefore(TimeBlock time) {
-        return (!isCompleted()
-            && time.compareToStart(getTimeBlock()) < 0
-            && !main.CommunityCentreRunner.getTimeManager().isOngoing(getTimeBlock()));
-    }
-
-    /**
-     * registerParticipant
-     * registers a member to the event.
-     *
-     * @param member
-     * @return whether the member was successfully added
-     */
-    public boolean registerParticipant(Member member) {
-        if (member == null) return false;
-        if (registrants.contains(member)) return false;
-        if (isFull()) return false;
-        if (!member.getRegistrations().isBlockFree(timeBlock)) return false;
-
-        registrants.add(member);
-        member.getRegistrations().add(this);
-        return true;
-    }
-
-    /**
-     * assignStaff
-     * assigns a staff member to supervise the event.
-     *
-     * @param staff
-     * @return whether or not the staff member was successfully added
-     */
-    public boolean assignStaff(Staff staff) {
-        if (staff == null) return false;
-        if (supervising.contains(staff)) return false;
-        if (!staff.getShifts().isBlockFree(timeBlock)) return false;
-
-        supervising.add(staff);
-        staff.getShifts().add(this);
-        return true;
-    }
-
-    /**
-     * setCompleted
-     * abstract: implement in subclasses to do any cleanup
-     */
-    abstract public void setCompleted();
-
-    /**
-     * mutator method for completed
-     */
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
-
-    @Override
-    public String toString() {
-        String s = "#" + id
-            + " | Room number: " + facility.getRoomNum()
-            + " | Time: " + timeBlock;
-        if (host != null) {
-            s += " | Host: " + host.getName();
-        }
-        if (completed) {
-            s += " | Completed";
-        }
-        return s;
-    }
-
-    public String toSupervisingAndParticipatingString() {
-        String s = "";
-        if (!supervising.isEmpty()) {
-            s += "\nStaff Supervising:";
-            for (Staff st : supervising) {
-                s += "\n - " + st.getName();
-            }
-        }
-        if (!registrants.isEmpty()) {
-            s += "\nRegistered Participants:";
-            for (Member m : registrants) {
-                s += "\n - " + m.getName();
-            }
-        }
-        return s;
-    }
-
-    /**
-     * accessor for hours since epoch
-     */
-    public double hoursSinceEpoch() {
-        return timeBlock.hoursSinceEpoch();
-    }
-
-    /**
-     * mutator for facility
-     */
     public boolean setFacility(Facility facility) {
         if (facility.getBookings().isBlockFree(timeBlock)) {
             this.facility.getBookings().remove(this);
@@ -221,40 +92,180 @@ public abstract class Event {
             this.facility.getBookings().add(this);
             return true;
         }
+
+        return false;
+    }
+    public boolean setTimeBlock(TimeBlock timeBlock) {
+        if (!facility.getBookings().isBlockFree(timeBlock)) {
+            return false;
+        }
+        if (!host.getRegistrations().isBlockFree(timeBlock)) {
+            return false;
+        }
+        for (Staff staff : supervising) {
+            if (!staff.getShifts().isBlockFree(timeBlock)) {
+                return false;
+            }
+        }
+        for (Member member : participants) {
+            if (!member.getRegistrations().isBlockFree(timeBlock)) {
+                return false;
+            }
+        }
+
+        this.timeBlock = timeBlock;
+
+        return true;
+    }
+    public boolean setHost(Member host) {
+        if (host.getRegistrations().isBlockFree(timeBlock)) {
+            this.host.getRegistrations().remove(this);
+            this.host = host;
+            this.host.getRegistrations().add(this);
+            return true;
+        }
+
         return false;
     }
 
     /**
-     * mutator for time block
+     * equals
+     * determines if two events are identical
+     * 
+     * @param other
+     * @return whether the events are identical
      */
-    public boolean setTimeBlock(TimeBlock newBlock) {
-        if (!facility.getBookings().isBlockFree(newBlock)) return false;
-        if (host != null && !host.getRegistrations().isBlockFree(newBlock)) return false;
-        for (Staff st : supervising) {
-            if (!st.getShifts().isBlockFree(newBlock)) return false;
+    public boolean equals(Event other) {
+        return other != null && this.id == other.id && this.timeBlock.equals(other.timeBlock)
+                && this.host.equals(other.host);
+    }
+
+    /**
+     * isFull
+     * determines if the event's facility has reached maximum capacity.
+     * 
+     * @return whether the event is full
+     */
+    public boolean isFull() {
+        return (participants.size() >= this.facility.getMaxCapacity());
+    }
+
+    /**
+     * occursBefore
+     * determines if the event will occur before the given time and is not ongoing.
+     * 
+     * @param time
+     * @return
+     */
+    public boolean occursBefore(TimeBlock time) {
+        return (!isCompleted() && time.compareToStart(getTimeBlock()) < 0
+                && !main.CommunityCentreRunner.getTimeManager().isOngoing(getTimeBlock()));
+    }
+
+    /**
+     * registerParticipant
+     * registers a member to the event.
+     * 
+     * @param member
+     * @return whether the member was successfully added
+     */
+    public boolean registerParticipant(Member member) {
+        // guard clauses
+        if (member == null) {
+            return false;
         }
-        for (Member m : registrants) {
-            if (!m.getRegistrations().isBlockFree(newBlock)) return false;
+
+        if (participants.contains(member)) {
+            return false; // already registered for this event
         }
-        this.timeBlock = newBlock;
+
+        if (isFull()) {
+            return false; // event is full
+        }
+
+        if (!member.getRegistrations().isBlockFree(timeBlock)) {
+            return false; // member has a conflicting time block
+        }
+
+        // all conditions are valid for member to be added now
+        participants.add(member);
+        member.getRegistrations().add(this);
+
         return true;
     }
 
     /**
-     * mutator for host
+     * assignStaff
+     * assigns a staff member to supervise the event.
+     * 
+     * @param staff
+     * @return whether or not the staff member was successfully added
      */
-    public boolean setHost(Member newHost) {
-        if (newHost != null && !newHost.getRegistrations().isBlockFree(timeBlock)) {
+    public boolean assignStaff(Staff staff) {
+        // guard clauses
+        if (staff == null) {
             return false;
         }
-        if (host != null) {
-            host.getRegistrations().remove(this);
+
+        if (supervising.contains(staff)) {
+            return false; // already supervising this event
         }
-        host = newHost;
-        if (host != null) {
-            host.getRegistrations().add(this);
+
+        if (!staff.getShifts().isBlockFree(timeBlock)) {
+            return false; // the staff has a conflicting time block
         }
+
+        // all conditions are valid for the staff member to be added now
+        supervising.add(staff);
+        staff.getShifts().add(this);
+
         return true;
     }
-}
 
+    /**
+     * setCompleted
+     * sets the event to completed and does any necessary functions
+     */
+    abstract public void setCompleted();
+    
+    /*
+     * toString
+     */
+    public String toString() {
+        String s = "#" + id +
+                " | Room number: " + facility.getRoomNum() +
+                " | Time: " + timeBlock;
+        if (host != null) {
+            s += " | Host: " + host.getName();
+        }
+        if (completed) {
+            s += " | Completed";
+        }
+
+        return s;
+    }
+
+    public String toSupervisingAndParticipatingString() {
+        String s = "";
+        if (!supervising.isEmpty()) {
+            s += "\nStaff Supervising:";
+
+            for (Staff staff : supervising) {
+                s += "\n - " + staff.getName();
+            }
+        }
+        if (!participants.isEmpty()) {
+            s += "\nRegistered Participants:";
+
+            for (Member member : participants) {
+                s += "\n - " + member.getName();
+            }
+        }
+        return s;
+    }
+
+    // accessor for start hour
+    public double hoursSinceEpoch() {
+        return timeBlock.hoursSinceEpoch();
+    }
+}

@@ -94,7 +94,7 @@ public abstract class Facility {
         int max = 0;
 
         for (Event event : bookings.getEventSchedule()) {
-            max = Math.max(max, event.getRegistrants().size());
+            max = Math.max(max, event.getParticipants().size());
         }
 
         return max;

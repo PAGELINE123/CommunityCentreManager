@@ -8,9 +8,6 @@
  */
 
 package event;
-
-import java.util.Scanner;
-
 import facility.Facility;
 import main.ValidateInput;
 import member.AdultMember;
@@ -38,6 +35,24 @@ public class Fundraiser extends Event {
         this.goal = goal;
     }
 
+    /**
+     * Constructor for Fundraiser;
+     * creates a fundraiser given information.
+     * Host can be null to represent no host.
+     * 
+     * @param facility
+     * @param timeBlock
+     * @param host
+     * @param goal
+     * @param completed
+     */
+    public Fundraiser(Facility facility, TimeBlock timeBlock, Member host, double goal, boolean completed) {
+        super(facility, timeBlock, host);
+
+        this.goal = goal;
+        this.completed = completed;
+    }
+
     // accessors
     public double getGoal() {
         return this.goal;
@@ -55,10 +70,11 @@ public class Fundraiser extends Event {
         completed = true;
         double amount = 0;
 
-        System.out
-                .println("For each adult participant, enter the amount they raised (This does not affect their bill)");
-        for (int i = 0; i < registrants.size(); i++) {
-            if (registrants.get(i) instanceof AdultMember am) {
+        System.out.println("For each adult participant, enter the amount they raised (This does not affect their bill)");
+        System.out.println(participants);
+
+        for (int i = 0; i < participants.size(); i++) {
+            if (participants.get(i) instanceof AdultMember am) {
                 System.out.print(am.getName()+":");
                 amount = ValidateInput.posDouble();
 

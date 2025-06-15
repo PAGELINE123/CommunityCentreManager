@@ -53,10 +53,19 @@ public class EventManager {
             for (int i = 0; i < numEvents; i++) {
                 String eventType = reader.readLine().trim().toLowerCase();
 
-                double prizeOrGoal = Double.parseDouble(reader.readLine().trim());
+                double prize = 0;
+                double goal = 0;
                 double participationCost = 0;
+                double isCompleted = Integer.parseInt(reader.readLine().trim());
+                boolean completed = isCompleted==1;
+                int winnerId = 0;
+
                 if (eventType.equals("competition")) {
+                    prize = Double.parseDouble(reader.readLine().trim());
                     participationCost = Double.parseDouble(reader.readLine().trim());
+                    winnerId = Integer.parseInt(reader.readLine());
+                } else if (eventType.equals("fundraiser")) {
+                    goal = Double.parseDouble(reader.readLine().trim());
                 }
 
                 int facilityId = Integer.parseInt(reader.readLine().trim());
@@ -75,11 +84,14 @@ public class EventManager {
                 }
 
                 Member host = main.CommunityCentreRunner.getMemberManager().searchById(host_id);
+
+                // event object creation
                 Event event;
                 if (eventType.equals("competition")) {
-                    event = new Competition(facility, timeBlock, host, prizeOrGoal, participationCost);
+                    Member winner = main.CommunityCentreRunner.getMemberManager().searchById(winnerId);
+                    event = new Competition(facility, timeBlock, host, prize, participationCost, completed, winner);
                 } else {
-                    event = new Fundraiser(facility, timeBlock, host, prizeOrGoal);
+                    event = new Fundraiser(facility, timeBlock, host, goal, completed);
                 }
 
                 facility.getBookings().add(event);
@@ -136,10 +148,17 @@ public class EventManager {
             for (Event event : events) {
                 if (event instanceof Competition c) {
                     writer.write("competition\n");
+                    writer.write(c.isCompleted() + "\n");
                     writer.write(c.getPrize() + "\n");
                     writer.write(c.getParticipationCost() + "\n");
+                    if (c.getWinner() != null) {
+                        writer.write(c.getWinner().getId()+"\n");
+                    } else {
+                        writer.write("-1\n");
+                    }
                 } else if (event instanceof Fundraiser f) {
                     writer.write("fundraiser\n");
+                    writer.write(""+f.isCompleted());
                     writer.write(f.getGoal() + "\n");
                 }
 
@@ -161,9 +180,9 @@ public class EventManager {
                 for (int j = 0; j < event.getSupervising().size(); j++) {
                     writer.write(event.getSupervising().get(j).getId() + "\n");
                 }
-                writer.write(event.getRegistrants().size() + "\n");
-                for (int j = 0; j < event.getRegistrants().size(); j++) {
-                    writer.write(event.getRegistrants().get(j).getId() + "\n");
+                writer.write(event.getParticipants().size() + "\n");
+                for (int j = 0; j < event.getParticipants().size(); j++) {
+                    writer.write(event.getParticipants().get(j).getId() + "\n");
                 }
             }
 
@@ -399,7 +418,7 @@ public class EventManager {
         events.remove(event);
 
         // ← copy into ArrayList
-        ArrayList<Member> participants = new ArrayList<>(event.getRegistrants());
+        ArrayList<Member> participants = new ArrayList<>(event.getParticipants());
         ArrayList<Staff> staffSupervising = new ArrayList<>(event.getSupervising());
 
         for (Member m : participants) {

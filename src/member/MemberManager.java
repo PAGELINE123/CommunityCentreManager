@@ -1,6 +1,5 @@
 package member;
 
-import event.Event;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -12,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import main.CommunityCentreRunner;
 import java.util.Map;
+import event.*;
 
 /**
  * Manages a collection of Member objects: loading from file,
@@ -404,12 +404,17 @@ public class MemberManager {
                             youth.getPlanType(),
                             youth.getGuardian().getContactPhone(),
                             youth.getGuardian().getAddress());
-                    grown.setPaidBillAmount(youth.calculateBill());
+                    //grown.setPaidBillAmount(youth.calculateBill());
 
                     // now also replace in every Event’s participant list
                     for (Event e : youth.getRegistrations().getEventSchedule()) {
-                        e.getParticipants().add(grown);
-                        grown.registerFor(e);
+                        System.out.println(e+" youth replaced with grown");
+                        e.registerParticipant(grown);
+                        if (e instanceof Competition c) {
+                            if (c.getWinner().equals(grown)) {
+                                c.setWinner(grown);
+                            }
+                        }
                     }
 
                     // replace in members list
