@@ -56,8 +56,6 @@ public class EventManager {
                 double prize = 0;
                 double goal = 0;
                 double participationCost = 0;
-                double isCompleted = Integer.parseInt(reader.readLine().trim());
-                boolean completed = isCompleted==1;
                 int winnerId = 0;
 
                 if (eventType.equals("competition")) {
@@ -89,9 +87,9 @@ public class EventManager {
                 Event event;
                 if (eventType.equals("competition")) {
                     Member winner = main.CommunityCentreRunner.getMemberManager().searchById(winnerId);
-                    event = new Competition(facility, timeBlock, host, prize, participationCost, completed, winner);
+                    event = new Competition(facility, timeBlock, host, prize, participationCost, winner);
                 } else {
-                    event = new Fundraiser(facility, timeBlock, host, goal, completed);
+                    event = new Fundraiser(facility, timeBlock, host, goal);
                 }
 
                 facility.getBookings().add(event);
@@ -148,17 +146,15 @@ public class EventManager {
             for (Event event : events) {
                 if (event instanceof Competition c) {
                     writer.write("competition\n");
-                    writer.write(c.isCompleted() + "\n");
                     writer.write(c.getPrize() + "\n");
                     writer.write(c.getParticipationCost() + "\n");
                     if (c.getWinner() != null) {
-                        writer.write(c.getWinner().getId()+"\n");
+                        writer.write(c.getWinner().getId() + "\n");
                     } else {
                         writer.write("-1\n");
                     }
                 } else if (event instanceof Fundraiser f) {
                     writer.write("fundraiser\n");
-                    writer.write(""+f.isCompleted());
                     writer.write(f.getGoal() + "\n");
                 }
 

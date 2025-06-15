@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import main.CommunityCentreRunner;
 import java.util.Map;
-import event.*;
+
+import event.Competition;
+import event.Event;
+import main.CommunityCentreRunner;
 
 /**
  * Manages a collection of Member objects: loading from file,
@@ -403,7 +405,7 @@ public class MemberManager {
 
                     // now also replace in every Event’s participant list
                     for (Event e : youth.getRegistrations().getEventSchedule()) {
-                        System.out.println(e+" youth replaced with grown");
+                        System.out.println(e + " youth replaced with grown");
                         e.registerParticipant(grown);
                         if (e instanceof Competition c) {
                             if (c.getWinner().equals(grown)) {

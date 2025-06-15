@@ -54,12 +54,12 @@ public class Competition extends Event {
      * @param completed
      * @param winner
      */
-    public Competition(Facility facility, TimeBlock timeBlock, Member host, double prize, double participationCost, boolean completed, Member winner) {
+    public Competition(Facility facility, TimeBlock timeBlock, Member host, double prize, double participationCost,
+            Member winner) {
         super(facility, timeBlock, host);
 
         this.prize = prize;
         this.participationCost = participationCost;
-        this.completed = completed;
         this.winner = winner;
     }
 
@@ -88,6 +88,7 @@ public class Competition extends Event {
     public void setWinner(Member member) {
         this.winner = member;
     }
+
     /**
      * setCompleted
      * will ask the user for the winner, affecting their balance in calculateBill

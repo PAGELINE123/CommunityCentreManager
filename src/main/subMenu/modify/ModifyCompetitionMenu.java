@@ -6,7 +6,7 @@
  * @since June 13, 2025
  */
 
-package main.subMenu.modify;
+package main.submenu.modify;
 
 import java.util.Scanner;
 
@@ -26,13 +26,14 @@ import time.TimeBlock;
 public class ModifyCompetitionMenu {
     /**
      * Show the “modify competition” submenu for a given Competition.
+     * 
      * @param event the Competition to modify
      * @return BACK to return to the parent menu, CONTINUE to stay
      */
     public static MenuStatus show(Competition event) {
         Scanner scan = CommunityCentreRunner.scan;
-        MemberManager   memberManager   = CommunityCentreRunner.getMemberManager();
-        StaffManager    staffManager    = CommunityCentreRunner.getStaffManager();
+        MemberManager memberManager = CommunityCentreRunner.getMemberManager();
+        StaffManager staffManager = CommunityCentreRunner.getStaffManager();
         FacilityManager facilityManager = CommunityCentreRunner.getFacilityManager();
 
         System.out.println("What would you like to modify about this event?");
@@ -58,7 +59,7 @@ public class ModifyCompetitionMenu {
                     System.out.println("Sports facility with room num. " + roomNum + " not found.");
                 } else if (event.setFacility(fac)) {
                     System.out.println("Facility updated to room " + roomNum +
-                                       " for event #" + event.getId());
+                            " for event #" + event.getId());
                 } else {
                     System.out.println("Unable to update facility due to booking conflict.");
                 }
@@ -68,11 +69,10 @@ public class ModifyCompetitionMenu {
                 TimeBlock datePart = ValidateInput.date();
                 double[] sd = ValidateInput.startDuration();
                 TimeBlock tb = new TimeBlock(
-                    datePart.getYear(),
-                    datePart.getMonth(),
-                    datePart.getDay(),
-                    sd[0], sd[1]
-                );
+                        datePart.getYear(),
+                        datePart.getMonth(),
+                        datePart.getDay(),
+                        sd[0], sd[1]);
                 if (event.setTimeBlock(tb)) {
                     System.out.println("Time block successfully updated to " + tb + ".");
                 } else {
@@ -93,7 +93,7 @@ public class ModifyCompetitionMenu {
                     System.out.println("Host not found.");
                 } else if (event.setHost(host)) {
                     System.out.println("Host updated to " + host.getName() +
-                                       " for event #" + event.getId());
+                            " for event #" + event.getId());
                 } else {
                     System.out.println("Unable to update host due to scheduling conflict.");
                 }
@@ -112,10 +112,10 @@ public class ModifyCompetitionMenu {
                     System.out.println("Member not found.");
                 } else if (event.registerParticipant(m)) {
                     System.out.println("Member " + m.getName() +
-                                       " registered for event #" + event.getId());
+                            " registered for event #" + event.getId());
                 } else {
                     System.out.println("Unable to register " + m.getName() +
-                                       " (full, conflict, or already registered).");
+                            " (full, conflict, or already registered).");
                 }
             }
             case 5 -> {
@@ -132,10 +132,10 @@ public class ModifyCompetitionMenu {
                     System.out.println("Staff not found.");
                 } else if (event.assignStaff(s)) {
                     System.out.println("Staff " + s.getName() +
-                                       " assigned to event #" + event.getId());
+                            " assigned to event #" + event.getId());
                 } else {
                     System.out.println("Unable to assign " + s.getName() +
-                                       " (conflict or already assigned).");
+                            " (conflict or already assigned).");
                 }
             }
             case 6 -> {
@@ -163,4 +163,3 @@ public class ModifyCompetitionMenu {
         return MenuStatus.CONTINUE;
     }
 }
-

@@ -6,7 +6,7 @@
  * @since June 12, 2025
  */
 
-package main.subMenu.modify;
+package main.submenu.modify;
 
 import java.util.Scanner;
 
@@ -103,7 +103,7 @@ public class ModifyAdultMenu {
                     adult.getChildren().add(youth);
 
                     System.out.println("Youth #" + youth.getId()
-                        + " is now assigned to " + adult.getName() + ".");
+                            + " is now assigned to " + adult.getName() + ".");
                 } else {
                     System.out.println("Youth member not found.");
                 }

@@ -6,7 +6,7 @@
  * @since June 12, 2025
  */
 
-package main.subMenu;
+package main.submenu;
 
 import java.util.Scanner;
 
@@ -20,14 +20,14 @@ import facility.MeetingFacility;
 import facility.SportsFacility;
 import main.CommunityCentreRunner.MenuStatus;
 import main.ValidateInput;
-import main.subMenu.modify.ModifyAdultMenu;
-import main.subMenu.modify.ModifyCompetitionMenu;
-import main.subMenu.modify.ModifyFullTimeStaffMenu;
-import main.subMenu.modify.ModifyFundraiserMenu;
-import main.subMenu.modify.ModifyMeetingFacilityMenu;
-import main.subMenu.modify.ModifyPartTimeStaffMenu;
-import main.subMenu.modify.ModifySportsFacilityMenu;
-import main.subMenu.modify.ModifyYouthMenu;
+import main.submenu.modify.ModifyAdultMenu;
+import main.submenu.modify.ModifyCompetitionMenu;
+import main.submenu.modify.ModifyFullTimeStaffMenu;
+import main.submenu.modify.ModifyFundraiserMenu;
+import main.submenu.modify.ModifyMeetingFacilityMenu;
+import main.submenu.modify.ModifyPartTimeStaffMenu;
+import main.submenu.modify.ModifySportsFacilityMenu;
+import main.submenu.modify.ModifyYouthMenu;
 import member.AdultMember;
 import member.Member;
 import member.MemberManager;
