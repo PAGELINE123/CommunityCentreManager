@@ -51,9 +51,9 @@ public class DeleteMenu {
 
                 if (member instanceof AdultMember) {
                     System.out.println(
-                            "Adult member with ID #" + member.getId() + " and their children have been deleted.");
+                            "Adult member " + member.getName() + " and their children have been deleted.");
                 } else if (member instanceof YouthMember) {
-                    System.out.println("Youth member with ID #" + member.getId() + " has been deleted.");
+                    System.out.println("Youth member " + member.getName() + " has been deleted.");
                 } else {
                     System.out.println("Member not found.");
                 }
@@ -65,7 +65,7 @@ public class DeleteMenu {
                 Staff staff = staffManager.searchByIdOrName(staffIdOrName);
 
                 if (staff != null) {
-                    System.out.println("Staff with ID #" + staff.getId() + " has been deleted.");
+                    System.out.println("Staff " + staff.getName() + " has been deleted.");
                 } else {
                     System.out.println("Staff not found.");
                 }
