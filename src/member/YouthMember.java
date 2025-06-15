@@ -55,19 +55,16 @@ public class YouthMember extends Member {
         double base = switch (planType) {
             case MONTHLY -> MONTHLY_BASE;
             case ANNUAL -> ANNUAL_BASE;
-        };
+        } * (1 - DISCOUNT_RATE);
 
         for (Event event : registrations.getEventSchedule()) {
             if (event instanceof Competition c) {
-                base += c.getParticipationCost();
+                base += c.getParticipationCost() * (1 - DISCOUNT_RATE);
                 if (this.equals(c.getWinner())) {
+                    // prize shouldnt be discounted
                     base -= c.getPrize();
                 }
             }
-        }
-
-        if (base > 0) {
-            base = base * (1 - DISCOUNT_RATE);
         }
 
         return base;
