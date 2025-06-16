@@ -60,7 +60,7 @@ public class YouthMember extends Member {
     public double calculateBill() {
         double base = switch (planType) {
             case MONTHLY -> MONTHLY_BASE;
-            case ANNUAL  -> ANNUAL_BASE;
+            case ANNUAL -> ANNUAL_BASE;
         } * (1 - DISCOUNT_RATE);
 
         base = base + billingCycles * base;
@@ -80,7 +80,8 @@ public class YouthMember extends Member {
 
     /** returns guardian contact info and address */
     public String personalInfo() {
-        return "Personal Info (of guardian)"  + " | Contact Phone: " + guardian.getContactPhone()     + " | Address: " + guardian.getAddress();
+        return "Personal Info (of guardian)" + " | Contact Phone: " + guardian.getContactPhone() + " | Address: "
+                + guardian.getAddress();
     }
 
     /** returns member details with guardian name */

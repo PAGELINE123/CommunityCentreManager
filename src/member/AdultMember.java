@@ -2,12 +2,15 @@ package member;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import event.Competition;
 import event.Event;
 
 /**
- * represents an adult member with contact info, billing details, and a list of dependent youth members.
- * provides methods to calculate and pay bills, register for events, and manage children.
+ * represents an adult member with contact info, billing details, and a list of
+ * dependent youth members.
+ * provides methods to calculate and pay bills, register for events, and manage
+ * children.
  *
  * @author Yubo Zhao
  * @version 1.0
@@ -32,7 +35,7 @@ public class AdultMember extends Member {
 
     /** create adult member with initial bill amounts */
     public AdultMember(int age, String name, PlanType planType, String contactPhone, String address,
-                       double totalBillAmount, double paidBillAmount) {
+            double totalBillAmount, double paidBillAmount) {
         super(age, name, planType);
         this.contactPhone = contactPhone;
         this.address = address;
@@ -42,7 +45,7 @@ public class AdultMember extends Member {
 
     /** create adult member with billing cycles and bill amounts */
     public AdultMember(int age, String name, PlanType planType, String contactPhone, String address,
-                       double totalBillAmount, double paidBillAmount, int billingCycles) {
+            double totalBillAmount, double paidBillAmount, int billingCycles) {
         super(age, name, planType, billingCycles);
         this.contactPhone = contactPhone;
         this.address = address;
@@ -55,7 +58,8 @@ public class AdultMember extends Member {
     public double calculateBill() {
         totalBillAmount = calculateTotalBill();
         double bill = totalBillAmount - paidBillAmount;
-        if (bill < 0) bill = 0;
+        if (bill < 0)
+            bill = 0;
         return bill;
     }
 
@@ -71,7 +75,7 @@ public class AdultMember extends Member {
     public double calculateTotalBill() {
         double base = switch (planType) {
             case MONTHLY -> MONTHLY_BASE;
-            case ANNUAL  -> ANNUAL_BASE;
+            case ANNUAL -> ANNUAL_BASE;
         };
         base = base + billingCycles * base;
         for (Event event : registrations.getEventSchedule()) {
@@ -90,7 +94,9 @@ public class AdultMember extends Member {
         return base;
     }
 
-    /** apply payment toward bill
+    /**
+     * apply payment toward bill
+     * 
      * @param amount payment amount
      */
     public void payBill(double amount) {
@@ -114,21 +120,26 @@ public class AdultMember extends Member {
         if (!children.isEmpty()) {
             s += children.size() > 1 ? " | Children: " : " | Child: ";
             for (int i = 0; i < children.size(); i++) {
-                if (i > 0) s += ", ";
+                if (i > 0)
+                    s += ", ";
                 s += children.get(i).getName();
             }
         }
         return s;
     }
 
-    /** register as host for event
+    /**
+     * register as host for event
+     * 
      * @param event event to host
      */
     public void addHosting(Event event) {
         registerFor(event);
     }
 
-    /** add a dependent youth member
+    /**
+     * add a dependent youth member
+     * 
      * @param child youth member
      * @return true if added
      */
@@ -140,7 +151,9 @@ public class AdultMember extends Member {
         return false;
     }
 
-    /** remove a dependent youth member
+    /**
+     * remove a dependent youth member
+     * 
      * @param child youth member
      * @return true if removed
      */
@@ -163,7 +176,9 @@ public class AdultMember extends Member {
         return contactPhone;
     }
 
-    /** set contact phone (format XXX-XXX-XXXX)
+    /**
+     * set contact phone (format XXX-XXX-XXXX)
+     * 
      * @param contactPhone phone string
      */
     public void setContactPhone(String contactPhone) {
@@ -174,7 +189,7 @@ public class AdultMember extends Member {
         if (digits.length() != 10) {
             throw new IllegalArgumentException("Phone number must contain exactly 10 digits; got " + digits.length());
         }
-        this.contactPhone = digits.replaceFirst("(\\d{3})(\\d{3})(\\d{4})","$1-$2-$3");
+        this.contactPhone = digits.replaceFirst("(\\d{3})(\\d{3})(\\d{4})", "$1-$2-$3");
     }
 
     /** get residential address */
@@ -182,7 +197,9 @@ public class AdultMember extends Member {
         return address;
     }
 
-    /** set residential address
+    /**
+     * set residential address
+     * 
      * @param address new address
      */
     public void setAddress(String address) {
@@ -193,7 +210,7 @@ public class AdultMember extends Member {
     public void BillBase() {
         double base = switch (planType) {
             case MONTHLY -> MONTHLY_BASE;
-            case ANNUAL  -> ANNUAL_BASE;
+            case ANNUAL -> ANNUAL_BASE;
         };
         this.totalBillAmount += base;
     }
@@ -203,7 +220,9 @@ public class AdultMember extends Member {
         return totalBillAmount;
     }
 
-    /** set additional bill amount
+    /**
+     * set additional bill amount
+     * 
      * @param totalBillAmount new amount
      */
     public void setTotalBillAmount(double totalBillAmount) {
@@ -215,7 +234,9 @@ public class AdultMember extends Member {
         return paidBillAmount;
     }
 
-    /** set amount already paid
+    /**
+     * set amount already paid
+     * 
      * @param paidBillAmount updated amount
      */
     public void setPaidBillAmount(double paidBillAmount) {

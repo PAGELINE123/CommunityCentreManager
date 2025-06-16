@@ -53,9 +53,9 @@ public class PartTimeStaff extends Staff {
     @Override
     public String toString() {
         return "Staff #" + id
-             + " | Name: " + name
-             + " | Hourly salary: " + hourlySalary
-             + " | Max monthly hours: " + maxMonthlyHours;
+                + " | Name: " + name
+                + " | Hourly salary: " + hourlySalary
+                + " | Max monthly hours: " + maxMonthlyHours;
     }
 
     /** get hours worked */

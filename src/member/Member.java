@@ -37,14 +37,16 @@ public abstract class Member {
     protected int billingCycles;
 
     /** available billing plans */
-    public enum PlanType { MONTHLY, ANNUAL }
+    public enum PlanType {
+        MONTHLY, ANNUAL
+    }
 
     /**
      * create member with age, name, plan (starts at 0 billing cycles)
      *
-     * @param age       member age
-     * @param name      full name
-     * @param planType  billing plan
+     * @param age      member age
+     * @param name     full name
+     * @param planType billing plan
      */
     public Member(int age, String name, PlanType planType) {
         this.age = age;
@@ -57,10 +59,10 @@ public abstract class Member {
     /**
      * create member with age, name, plan, and billing cycles
      *
-     * @param age            member age
-     * @param name           full name
-     * @param planType       billing plan
-     * @param billingCycles  starting billing cycles
+     * @param age           member age
+     * @param name          full name
+     * @param planType      billing plan
+     * @param billingCycles starting billing cycles
      */
     public Member(int age, String name, PlanType planType, int billingCycles) {
         this.age = age;
@@ -90,10 +92,10 @@ public abstract class Member {
     @Override
     public String toString() {
         return "#" + id
-             + " | Age: " + age
-             + " | Name: " + name
-             + " | Plan: " + planType
-             + " | Gross bill: " + String.format("$%.2f", calculateBill());
+                + " | Age: " + age
+                + " | Name: " + name
+                + " | Plan: " + planType
+                + " | Gross bill: " + String.format("$%.2f", calculateBill());
     }
 
     /** list upcoming/ongoing events */
@@ -102,7 +104,8 @@ public abstract class Member {
         if (!registrations.getEventSchedule().isEmpty()) {
             ArrayList<Event> events = new ArrayList<>();
             for (Event event : registrations.getEventSchedule()) {
-                if (!event.isCompleted()) events.add(event);
+                if (!event.isCompleted())
+                    events.add(event);
             }
             events.sort(Comparator.comparingDouble(Event::hoursSinceEpoch));
             s += "\nregistered events (ongoing/future):";
@@ -170,7 +173,8 @@ public abstract class Member {
      * @return true if same id
      */
     public boolean equals(Member m) {
-        if (m == null) return false;
+        if (m == null)
+            return false;
         return m.getId() == this.id;
     }
 }

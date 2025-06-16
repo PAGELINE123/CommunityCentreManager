@@ -82,9 +82,11 @@ public abstract class Event {
     public void setId(int id) {
         this.id = id;
     }
+
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+
     public boolean setFacility(Facility facility) {
         if (facility.getBookings().isBlockFree(timeBlock)) {
             this.facility.getBookings().remove(this);
@@ -95,6 +97,7 @@ public abstract class Event {
 
         return false;
     }
+
     public boolean setTimeBlock(TimeBlock timeBlock) {
         if (!facility.getBookings().isBlockFree(timeBlock)) {
             return false;
@@ -117,6 +120,7 @@ public abstract class Event {
 
         return true;
     }
+
     public boolean setHost(Member host) {
         if (host.getRegistrations().isBlockFree(timeBlock)) {
             this.host.getRegistrations().remove(this);
@@ -227,7 +231,7 @@ public abstract class Event {
      * sets the event to completed and does any necessary functions
      */
     abstract public void setCompleted();
-    
+
     /*
      * toString
      */

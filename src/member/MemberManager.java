@@ -16,8 +16,11 @@ import event.Event;
 import main.CommunityCentreRunner;
 
 /**
- * manages member collection: load from file, add/remove, search, print bills, list names.
- * file format: numMembers, id, age, name, planType, billingCycles, then for adults phone,address,totalAmount,paidAmount,numChildren,childIds; for youth guardianId.
+ * manages member collection: load from file, add/remove, search, print bills,
+ * list names.
+ * file format: numMembers, id, age, name, planType, billingCycles, then for
+ * adults phone,address,totalAmount,paidAmount,numChildren,childIds; for youth
+ * guardianId.
  *
  * @author Yubo-Zhao
  * @version 1.0
@@ -32,7 +35,9 @@ public class MemberManager {
         members = new ArrayList<>();
     }
 
-    /** create manager from file and link guardians
+    /**
+     * create manager from file and link guardians
+     * 
      * @param filename member data file path
      */
     public MemberManager(String filename) {
@@ -57,7 +62,8 @@ public class MemberManager {
                     for (int j = 0; j < numChildren; j++) {
                         childIds.add(Integer.parseInt(br.readLine().trim()));
                     }
-                    AdultMember adult = new AdultMember(age, name, pType, phone, address, totalAmount, paidAmount, billingCycles);
+                    AdultMember adult = new AdultMember(age, name, pType, phone, address, totalAmount, paidAmount,
+                            billingCycles);
                     adult.setId(id);
                     members.add(adult);
                 } else {
@@ -80,7 +86,9 @@ public class MemberManager {
         }
     }
 
-    /** save members to file
+    /**
+     * save members to file
+     * 
      * @param filepath output file path
      */
     public void save(String filepath) {
@@ -111,7 +119,9 @@ public class MemberManager {
         }
     }
 
-    /** add member with unique id
+    /**
+     * add member with unique id
+     * 
      * @param member member to add
      */
     public void addMember(Member member) {
@@ -119,13 +129,16 @@ public class MemberManager {
         members.add(member);
     }
 
-    /** remove member by id, clean up relations and events
+    /**
+     * remove member by id, clean up relations and events
+     * 
      * @param id member id
      * @return true if removed
      */
     public boolean removeMember(int id) {
         Member target = searchById(id);
-        if (target == null) return false;
+        if (target == null)
+            return false;
         if (target instanceof AdultMember adult) {
             for (YouthMember child : adult.getChildren()) {
                 child.setGuardian(null);
@@ -133,7 +146,8 @@ public class MemberManager {
             }
         } else if (target instanceof YouthMember youth) {
             AdultMember guardian = youth.getGuardian();
-            if (guardian != null) guardian.getChildren().remove(youth);
+            if (guardian != null)
+                guardian.getChildren().remove(youth);
         }
         List<Event> allEvents = CommunityCentreRunner.getEventManager().getEvents();
         for (Event e : allEvents) {
@@ -142,16 +156,22 @@ public class MemberManager {
         return members.remove(target);
     }
 
-    /** generate next unique id
+    /**
+     * generate next unique id
+     * 
      * @return new id
      */
     public int generateId() {
         int maxId = -1;
-        for (Member m : members) if (m.getId() > maxId) maxId = m.getId();
+        for (Member m : members)
+            if (m.getId() > maxId)
+                maxId = m.getId();
         return maxId + 1;
     }
 
-    /** search by id with binary search
+    /**
+     * search by id with binary search
+     * 
      * @param id member id
      * @return member or null
      */
@@ -161,15 +181,21 @@ public class MemberManager {
 
     /** recursive helper for searchById */
     private Member searchByIdRecursive(int id, int low, int high) {
-        if (low > high) return null;
+        if (low > high)
+            return null;
         int mid = (low + high) / 2;
         int midId = members.get(mid).getId();
-        if (midId == id) return members.get(mid);
-        else if (midId > id) return searchByIdRecursive(id, low, mid - 1);
-        else return searchByIdRecursive(id, mid + 1, high);
+        if (midId == id)
+            return members.get(mid);
+        else if (midId > id)
+            return searchByIdRecursive(id, low, mid - 1);
+        else
+            return searchByIdRecursive(id, mid + 1, high);
     }
 
-    /** search by id or name
+    /**
+     * search by id or name
+     * 
      * @param idOrName id string or full name
      * @return member or null
      */
@@ -181,42 +207,60 @@ public class MemberManager {
         }
     }
 
-    /** print bills for adult members
+    /**
+     * print bills for adult members
+     * 
      * @return whether any printed
      */
     public boolean printAllBills() {
-        if (members.isEmpty()) return false;
-        for (Member m : members) if (m instanceof AdultMember adult) adult.printBill();
+        if (members.isEmpty())
+            return false;
+        for (Member m : members)
+            if (m instanceof AdultMember adult)
+                adult.printBill();
         return true;
     }
 
-    /** print member names alphabetically
+    /**
+     * print member names alphabetically
+     * 
      * @return whether printed
      */
     public boolean printAlphabetical() {
-        if (members.isEmpty()) return false;
+        if (members.isEmpty())
+            return false;
         ArrayList<String> sorted = new ArrayList<>();
-        for (Member m : members) sorted.add(m.getName());
+        for (Member m : members)
+            sorted.add(m.getName());
         Collections.sort(sorted);
-        for (String name : sorted) System.out.println(name);
+        for (String name : sorted)
+            System.out.println(name);
         return true;
     }
 
-    /** print all members
+    /**
+     * print all members
+     * 
      * @return whether printed
      */
     public boolean printAllMembers() {
-        if (members.isEmpty()) return false;
-        for (Member m : members) System.out.println(m);
+        if (members.isEmpty())
+            return false;
+        for (Member m : members)
+            System.out.println(m);
         return true;
     }
 
-    /** search by full name
+    /**
+     * search by full name
+     * 
      * @param name full name
      * @return member or null
      */
     public Member searchByName(String name) {
-        for (Member m : members) if (m.name.equalsIgnoreCase(name)) return m;
+        for (Member m : members)
+            if (m.name.equalsIgnoreCase(name))
+                return m;
         return null;
     }
 
@@ -257,8 +301,8 @@ public class MemberManager {
                 if (youth.getAge() >= Member.ADULT_AGE) {
                     System.out.println(youth.getName() + " is now an adult member.");
                     AdultMember grown = new AdultMember(
-                        youth.getAge(), youth.getName(), youth.getPlanType(),
-                        youth.getGuardian().getContactPhone(), youth.getGuardian().getAddress());
+                            youth.getAge(), youth.getName(), youth.getPlanType(),
+                            youth.getGuardian().getContactPhone(), youth.getGuardian().getAddress());
                     grown.setBillingCycles(youth.getBillingCycles());
                     for (Event e : youth.getRegistrations().getEventSchedule()) {
                         e.registerParticipant(grown);
